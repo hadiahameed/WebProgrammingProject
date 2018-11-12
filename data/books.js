@@ -15,15 +15,15 @@ const exportedMethods = {
 		if (!book) throw "Book not found!";
 		return book;
 	},
-	async addBook(title, author, image, rating, tags) {
+	async addBook(title, author, image, rating, tags, review) {
 		if (!title) throw "Title missing."
 		if (typeof title !== "string") throw "Title is not a string";
 		if (!author) throw "Author missing."
 		if (typeof author !== "string") throw "Author name is not a string";
         if (!image) image = null;
         if (!rating) rating = null;
-		if (!tags) tages = null;
-		const reviews = await booksCollection.findOne({ _id: id });
+		if (!tags) tags = null;
+		if (!review) review = null;
 		
 		const booksCollection = await books();
 
@@ -33,6 +33,7 @@ const exportedMethods = {
 			image: image,
 			rating: rating,
 			tags: tags,
+			review: review,
 			_id: uuid.v4()
 		};
 
