@@ -4,7 +4,7 @@ module.exports = async () => {
     let Book = await Model('book', {
         name: String,
         author: String,
-        reviews: Array
+        review: String
     })
 
     Book.getAllBooks = Book.getAll.bind({

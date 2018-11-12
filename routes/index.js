@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const bookModel = require('../model/book')
+const reviewModel = require('../model/review')
 
 
 /* GET home page. */
@@ -18,12 +19,15 @@ router.get('/books', async (req, res, next) => {
 
 router.post('/books', async (req, res, next) => {
   let Books = await bookModel()
+  let Reviews = await reviewModel();
   let name = req.body.name
   let author = req.body.author
-  let reviews = req.body.reviews
+  let reviews = req.body.review
   try {
-    let book = new Books({ name, author, reviews })
+    let book = new Books({ name, author, review })
     await book.save()
+    let bookId = book.props._id;
+    let review = new Reviews({ bookId, review })
     res.send(book.props)
   } catch (e) {
     res.send(e.message)
