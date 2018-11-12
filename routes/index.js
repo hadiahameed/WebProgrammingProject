@@ -7,7 +7,8 @@ const reviewModel = require('../model/review')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render("books/book", { title: 'Express' });
+  res.render("pages/index", { title: 'Log in' });
+  // if logged in: "pages.home"
 });
 
 router.get('/books', async (req, res, next) => {
