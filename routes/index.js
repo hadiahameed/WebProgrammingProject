@@ -6,7 +6,7 @@ const bookModel = require('../model/book')()
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render("book/index", { title: 'Express' });
+  res.render("books/book", { title: 'Express' });
 });
 
 router.get('/books', async (req, res, next) => {
@@ -32,3 +32,4 @@ router.post('/books', async (req, res, next) => {
 })
 
 module.exports = router;
+
