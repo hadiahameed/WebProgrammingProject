@@ -1,9 +1,11 @@
 const Model = require('./model')
 
 module.exports = async () => {
-    const model = await Model('books', {
+    const model = await Model('book', {
             // _id: String,
             name: String,
+            author: String,
+            reviews: Array
         }
     )
     return class extends model {
