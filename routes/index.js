@@ -3,6 +3,7 @@ var router = express.Router();
 
 const bookModel = require('../model/book')
 const reviewModel = require('../model/review')
+const userModel = reuqire('../model/user')
 
 
 /* GET home page. */
@@ -20,6 +21,15 @@ router.get('/reviews', async (req, res, next) => {
   let Reviews = await reviewModel()
   res.send(await Reviews.getAll())
 })
+
+router.get("/users/:id", async (req, res) => {
+  try {
+    let User = await userModel()
+    res.send(await User.getById(req.params.id))
+  } catch (e) {
+    res.status(404).json({ error: "User not found" });
+  }
+});
 
 router.post('/books', async (req, res, next) => {
   let Books = await bookModel()
