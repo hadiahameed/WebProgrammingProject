@@ -50,5 +50,10 @@ router.post('/books/new', async (req, res, next) => {
   }
 })
 
+router.post('/users', async (req, res, next) => {
+  console.log(req.body)
+  res.send('user created')
+})
+
 module.exports = router;
 

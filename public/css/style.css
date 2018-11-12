@@ -35,3 +35,13 @@ header nav label button:hover {
     background-color: rgb(176, 210, 255);
     color: white;
 }
+
+/* NEW USER */
+form#newuser label {
+    display: block;
+}
+
+form#newuser span {
+    display: inline-block;
+    width: 80px;
+}
