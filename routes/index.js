@@ -3,7 +3,7 @@ var router = express.Router();
 
 const bookModel = require('../model/book')
 const reviewModel = require('../model/review')
-const userModel = reuqire('../model/user')
+const userModel = require('../model/user')
 
 
 /* GET home page. */
@@ -48,6 +48,11 @@ router.post('/books/new', async (req, res, next) => {
     res.send(e.message)
     return 
   }
+})
+
+router.post('/users', async (req, res, next) => {
+  console.log(req.body)
+  res.send('user created')
 })
 
 module.exports = router;
