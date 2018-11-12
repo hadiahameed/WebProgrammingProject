@@ -7,82 +7,84 @@ const exportedMethods = {
 		const booksCollection = await books();
 		return await booksCollection.find({}).toArray();
 	},
-	async getRecipeById(id) {
+	async getBookById(id) {
 		const booksCollection = await books();
 		const book = await booksCollection.findOne({ _id: id });
 
-		if (!book) throw "Recipe not found!";
+		if (!book) throw "Book not found!";
 		return book;
 	},
-	async addRecipe(title, ingredients, steps) {
+	async addBook(title, author, image, rating, tags) {
 		if (!title) throw "Title missing."
 		if (typeof title !== "string") throw "Title is not a string";
-		if (!ingredients) throw "Ingredients missing."
-		if (!Array.isArray(ingredients)) throw "Ingredient list is not an array.";
-		if (!steps) throw "Steps missing."
-		if (!Array.isArray(steps)) throw "Steps are not passed as an array.";
+		if (!author) throw "Author missing."
+		if (typeof author !== "string") throw "Author name is not a string";
+        if (!image) image = null;
+        if (!rating) rating = null;
+        if (!tags) tages = null;
+
 
 		const booksCollection = await books();
 
-		const newRecipe = {
+		const newBook = {
 			title: title,
-			ingredients: ingredients,
+			author: author,
 			steps: steps,
 			_id: uuid.v4()
 		};
 
-		const newInsertedInfo = await booksCollection.insertOne(newRecipe);
+		const newInsertedInfo = await booksCollection.insertOne(newBook);
 		const newId = newInsertedInfo.insertedId;
-		return await this.getRecipeById(newId);
+		return await this.getBookById(newId);
 	},
-	async removeRecipe(id) {
+	async removeBook(id) {
 		const booksCollection = await books();
 		const deletionInfo = await booksCollection.removeOne({ _id: id });
 		if (deletionInfo.deletedCount === 0) {
 			throw `Could not delete book with id: ${id}`;
 		}
 	},
-	async replaceRecipe(id, replacingRecipe) {
+	async replaceBook(id, replacingBook) {
 		const booksCollection = await books();
 
 		let updateCommand = {
-			$set: replacingRecipe
+			$set: replacingBook
 		};
 		const query = {
 			_id: id
 		};
 		await booksCollection.updateOne(query,updateCommand);
 
-		return await this.getRecipeById(id);
+		return await this.getBookById(id);
 	},
-	async updateRecipe(id,updatedRecipe){
+	async updateBook(id,updatedBook){
 		const booksCollection = await books();
 
-		updatedRecipeData = {};
-		if (!updatedRecipe.title&&!updatedRecipe.ingredients&&!updatedRecipe.steps) throw 'No data provided.'
-		if (updatedRecipe.title) {
-			if (typeof updatedRecipe.title !== "string") throw "Title is not a string";
-			updatedRecipeData.title = updatedRecipe.title;
+		updatedBookData = {};
+		if (!updatedBook.title&&!updatedBook.author&&!updatedBook.steps) throw 'No data provided.'
+		if (updatedBook.title) {
+			if (typeof updatedBook.title !== "string") throw "Title is not a string";
+			updatedBookData.title = updatedBook.title;
 
 		}
-		if (updatedRecipe.ingredients) {
-			if (!Array.isArray(updatedRecipe.ingredients)) throw "Ingredient list is not an array.";
-			updatedRecipeData.ingredients = updatedRecipe.ingredients;
+		if (updatedBook.author) {
+			if (!Array.isArray(updatedBook.author)) throw "Author list is not an array.";
+			updatedBookData.author = updatedBook.author;
 		}
-		if (updatedRecipe.steps) {
-			if (!Array.isArray(updatedRecipe.steps)) throw "Steps are not passed as an array.";
-			updatedRecipeData.steps = updatedRecipe.steps;
+		if (updatedBook.steps) {
+			if (!Array.isArray(updatedBook.steps)) throw "Steps are not passed as an array.";
+			updatedBookData.steps = updatedBook.steps;
 		}
 
 		let updateCommand = {
-			$set: updatedRecipeData
+			$set: updatedBookData
 		};
 		const query = {
 			_id: id
 		};
 		await booksCollection.updateOne(query,updateCommand);
 
-		return await this.getRecipeById(id);
+		return await this.getBookById(id);
 	}
 };
 
