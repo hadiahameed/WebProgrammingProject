@@ -1,7 +1,6 @@
 const mongoCollections = require("../config/mongoCollections");
 const uuid = require("node-uuid");
 const books = mongoCollections.books;
-const reviews = mongoCollections.reviews;
 
 const exportedMethods = {
   async getAllBooks() {
@@ -67,6 +66,10 @@ const exportedMethods = {
 		}
 		if (updatedBook.tags) {
 			updatedBookData.tags = updatedBook.tags;
+		}
+
+		if (updatedBook.review) {
+			updatedBookData.review = updatedBook.review;
 		}
 
 		let updateCommand = {
