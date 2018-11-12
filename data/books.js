@@ -23,7 +23,7 @@ const exportedMethods = {
         if (!image) image = null;
         if (!rating) rating = null;
 		if (!tags) tages = null;
-		const reviews = 
+		const reviews = await booksCollection.findOne({ _id: id });
 		
 		const booksCollection = await books();
 
