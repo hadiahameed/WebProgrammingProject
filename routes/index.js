@@ -31,7 +31,7 @@ router.get("/users/:id", async (req, res) => {
   }
 });
 
-router.post('/books', async (req, res, next) => {
+router.post('/books/new', async (req, res, next) => {
   let Books = await bookModel()
   let Reviews = await reviewModel();
   let name = req.body.name
