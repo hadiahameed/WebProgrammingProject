@@ -3,7 +3,7 @@ var router = express.Router();
 
 const bookModel = require('../model/book')
 const reviewModel = require('../model/review')
-const userModel = reuqire('../model/user')
+const userModel = require('../model/user')
 
 
 /* GET home page. */
