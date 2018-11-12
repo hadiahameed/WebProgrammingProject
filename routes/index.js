@@ -6,7 +6,7 @@ const bookModel = require('../model/book')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render("books/book", { title: 'Express' });
+  res.render("pages/index", { title: 'Express' });
 });
 
 router.get('/books', async (req, res, next) => {
