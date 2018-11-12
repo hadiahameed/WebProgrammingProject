@@ -3,7 +3,7 @@ var router = express.Router();
 
 const bookModel = require('../model/book')
 const reviewModel = require('../model/review')
-const userModel = reuqire('../model/user')
+const userModel = require('../model/user')
 
 
 /* GET home page. */
@@ -90,6 +90,11 @@ router.put('/books/:id', async (req, res, next) => {
   catch (e) {
     res.send({ msg: e.message })
   }
+})
+
+router.post('/users', async (req, res, next) => {
+  console.log(req.body)
+  res.send('user created')
 })
 
 module.exports = router;

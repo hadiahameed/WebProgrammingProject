@@ -2,9 +2,9 @@
 
 <p>Don't have an account?</p>
 
-<form>
-    <label>Username: <input name="user-name" type="text"> </label>
-    <label>Email: <input name="user-email" type="text"> </label>
-    <label>Password: <input name="user-password" type="password"> </label>
+<form id="newuser" action="/users" method="POST">
+    <label><span> Username: </span> <input name="user-name" type="text" required> </label>
+    <label><span> Email: </span> <input name="user-email" type="email" required> </label>
+    <label><span> Password: </span> <input name="user-password" type="password" required> </label>
     <button type="submit" value="submit">Create account</button>
 </form>
