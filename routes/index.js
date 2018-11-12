@@ -42,10 +42,10 @@ router.post('/books', async (req, res, next) => {
   let author = req.body.author
   let review_body = req.body.review
   try {
-    let book = new Books({ name, author, review_body })
+    let book = new Books({ name, author, review: review_body })
     await book.save()
     let bookId = book.props._id;
-    let review = new Reviews({ bookId, review_body })
+    let review = new Reviews({ bookId, body: review_body })
     res.send(book.props)
     res.send(review.props)
   } catch (e) {
