@@ -13,9 +13,12 @@ router.get('/', function(req, res, next) {
 
 router.get('/books', async (req, res, next) => {
   let Books = await bookModel()
-  let name = req.body.name
-
   res.send(await Books.getAll())
+})
+
+router.get('/reviews', async (req, res, next) => {
+  let Reviews = await reviewModel()
+  res.send(await Reviews.getAll())
 })
 
 router.post('/books', async (req, res, next) => {
@@ -23,13 +26,14 @@ router.post('/books', async (req, res, next) => {
   let Reviews = await reviewModel();
   let name = req.body.name
   let author = req.body.author
-  let reviews = req.body.review
+  let review_body = req.body.review
   try {
-    let book = new Books({ name, author, review })
+    let book = new Books({ name, author, review_body })
     await book.save()
     let bookId = book.props._id;
-    let review = new Reviews({ bookId, review })
+    let review = new Reviews({ bookId, review_body })
     res.send(book.props)
+    res.send(review.props)
   } catch (e) {
     res.send(e.message)
     return 

@@ -9,9 +9,10 @@ module.exports = async () => {
     Review.getAllReviews = Review.getAll.bind({
         projection: {
             _id: 1,
+            bookId: 1,
             body: 1
         }
     })
-    
+
     return Review
 }
