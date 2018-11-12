@@ -17,10 +17,6 @@ app.set("view engine", "handlebars");
 const static = express.static(__dirname + '/public')
 app.use("/public", static);
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

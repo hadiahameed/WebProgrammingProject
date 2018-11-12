@@ -1,5 +1,6 @@
 const db = require('../db')
 const uuidv4 = require('uuid/v4')
+const classes = {}
 
 function check(obj, schema) {
     for(let key in schema) {
@@ -20,6 +21,9 @@ function check(obj, schema) {
 
 async function Model(name, schema) {
     let _col = await db.getCollection(name)
+    if(classes[name]) {
+        return classes[name]
+    }
     let tmp = class {
         constructor(props) {
             this.name = name
@@ -100,7 +104,11 @@ async function Model(name, schema) {
     }
     tmp.schema = schema
     tmp.collection = _col
+    classes[name] = tmp
     return tmp
 }
 
-module.exports = Model
+// module.exports = Model
+module.exports = async (name, props) => {
+    return Model(name, props)
+}
