@@ -7,7 +7,7 @@ module.exports = async () => {
         review: String
     })
 
-    Book.getAllBooks = Book.getAll.bind({
+    Book.getAllBooks = () => Book.getAll({
         projection: {
             _id: 1,
             name: 1
