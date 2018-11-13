@@ -14,7 +14,8 @@ router.get('/', function(req, res, next) {
 
 router.get('/books', async (req, res, next) => {
   let Books = await bookModel()
-  res.send(await Books.getAll())
+  // res.send(await Books.getAll())
+  res.render("books/bookshelf", { title: 'bookshelf' });
 })
 
 router.get('/reviews', async (req, res, next) => {
