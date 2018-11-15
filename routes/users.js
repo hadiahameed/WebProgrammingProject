@@ -1,9 +1,18 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.post('/users', async (req, res, next) => {
+  console.log(req.body)
+  res.send('user created')
+})
+
+router.get("/users/:id", async (req, res) => {
+  try {
+    let User = await userModel()
+    res.send(await User.getById(req.params.id))
+  } catch (e) {
+    res.status(404).json({ error: "User not found" });
+  }
 });
 
 module.exports = router;
