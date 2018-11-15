@@ -1,10 +1,12 @@
 const router = require('express').Router()
 
 const bookModel = require('../model/book')
+
 router.get('/books', async (req, res, next) => {
   let Books = await bookModel()
-  let name = req.body.name
-  res.send(await Books.getAllBooks())
+  // res.send(await Books.getAll())
+  res.render("books/bookshelf", { title: 'bookshelf' });
+  // res.send(await Books.getAllBooks())
 })
 
 router.post('/books', async (req, res, next) => {
