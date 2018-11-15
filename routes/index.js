@@ -14,13 +14,10 @@ router.get('/', function(req, res, next) {
 
 router.get('/books', async (req, res, next) => {
   let Books = await bookModel()
-<<<<<<< HEAD
   // res.send(await Books.getAll())
   res.render("books/bookshelf", { title: 'bookshelf' });
-=======
-  let name = req.body.name
-  res.send(await Books.getAllBooks())
->>>>>>> 3356e52d0def14a1fed350d1e48cc39da232cee1
+  // let name = req.body.name
+  // res.send(await Books.getAllBooks())
 })
 
 router.get('/reviews', async (req, res, next) => {
