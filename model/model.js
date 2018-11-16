@@ -43,6 +43,15 @@ async function Model(name, schema) {
             return result == null ? null : new tmp(result)
         }
 
+        static async getBy(fields, options) {
+            if(!fields) {
+                return []
+            }
+
+            let result = await tmp.collection.find(fields)
+            return result.toArray()
+        }
+
         async save() {
             check(this.props, tmp.schema)
             if(typeof this.props['_id'] == 'undefined') {

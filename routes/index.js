@@ -1,10 +1,9 @@
-var express = require('express');
-var router = express.Router();
+const homeRouter = require('./home')
+const usersRouter = require('./users');
+const vlaidateRouter = require('./validate')
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render("pages/index", { title: 'Log in' });
-  // if logged in: "pages.home"
-});
-
-module.exports = router;
+module.exports = app => {
+    app.use('/', homeRouter)
+    app.use('/users', usersRouter)
+    app.use('/validate', vlaidateRouter)
+}

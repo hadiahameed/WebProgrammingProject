@@ -3,7 +3,10 @@ const Model = require('./model')
 module.exports = async () => {
     let User = await Model('user', {
         name: String,
-        password: String
+        email: String,
+        password: String,
+        validated: Boolean,
+        validation_code: Number
     })
 
     User.getAllUsers = User.getAll.bind({

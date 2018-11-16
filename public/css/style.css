@@ -37,11 +37,11 @@ header nav label button:hover {
 }
 
 /* NEW USER */
-form#newuser label {
+/* form#newuser label {
     display: block;
 }
 
 form#newuser span {
     display: inline-block;
     width: 80px;
-}
+} */
