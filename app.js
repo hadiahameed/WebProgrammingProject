@@ -1,18 +1,33 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
 const exphbs = require("express-handlebars");
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const layouts = require('handlebars-layouts');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const app = express();
 
-var app = express();
+const hbs = exphbs.create({
+  defaultLayout: "main",
+  partialsDir: [
+    'views/partials/'
+  ]
+})
+
+hbs.getPartials({
+  cache: true,
+  precompiled:false
+}).then((partials) => {
+  hbs.handlebars.registerPartial(partials)
+})
 
 // handlebars and public
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
+hbs.handlebars.registerHelper(layouts(hbs.handlebars));
 
 const static = express.static(__dirname + '/public')
 app.use("/public", static);
@@ -37,9 +52,9 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // // render the error page 
-  // res.status(err.status || 500);
-  // res.render("pages/error");
+  // render the error page 
+  res.status(err.status || 500);
+  res.render("pages/error");
   // ^^ this should render whatever page and pass in error: true
 });
 

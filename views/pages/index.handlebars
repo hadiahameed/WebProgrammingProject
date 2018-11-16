@@ -1,10 +1,23 @@
-<h1>Hello!</h1>
-
-<p>Don't have an account?</p>
-
-<form id="newuser" action="/users" method="POST">
-    <label><span> Username: </span> <input name="user-name" type="text" required> </label>
-    <label><span> Email: </span> <input name="user-email" type="email" required> </label>
-    <label><span> Password: </span> <input name="user-password" type="password" required> </label>
-    <button type="submit" value="submit">Create account</button>
-</form>
+{{#extend "layout"}}
+    {{#content "styles" mode="append"}}
+        <!-- private styles -->
+    {{/content}}
+    {{#content "content"}}
+        <div class="container">
+            <h1>Hello!!</h1>
+            <p>Don't have an account?</p>
+            <form id="newuser" action="/users" method="POST">
+                <label><span> Username: </span> <input name="user-name" type="text" required> </label>
+                <label><span> Email: </span> <input name="user-email" type="email" required> </label>
+                <label><span> Password: </span> <input name="user-password" type="password" required> </label>
+                <input name="captcha_response" type="hidden">
+                <div class="g-recaptcha" data-sitekey="6Lf1GHsUAAAAAJzdSXc25k_9XQI4Zf9uRpiiiOZx"></div>
+                <button type="submit" value="submit">Create account</button>
+            </form>
+            </div>
+    {{/content}}
+    {{#content "scripts" mode="append"}}
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <script src="public/scripts/index.js"></script>
+    {{/content}}
+{{/extend}}

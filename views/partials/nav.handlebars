@@ -1,0 +1,11 @@
+<nav>
+    <span>The Literary Archives</span>
+    <label><input type="text" placeholder="Search"><button type="submit" value="submit">Go</button></label>
+    {{#unless logged-in}}
+    <form>
+        <input name="user-name" type="text" placeholder="Username">
+        <input name="user-password" type="password" placeholder="Password">
+        <button type="submit" value="submit">Log in</button>
+    </form>
+    {{/unless}}
+</nav>

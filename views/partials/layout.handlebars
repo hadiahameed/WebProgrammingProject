@@ -1,0 +1,28 @@
+<head>
+    {{#block "head"}}
+    {{>head}}
+    {{/block}}
+    
+    {{#block "styles"}}
+    {{/block}}
+</head>
+<body>
+    <header>
+    {{>nav}}
+    </header>
+    
+    <main>
+        {{#block "content"}}
+        {{/block}}
+    </main>
+
+    <footer>
+        {{#block "footer"}}
+        {{>footer}}
+        {{/block}}
+
+        {{#block "scripts"}}
+        {{>common_scripts}}
+        {{/block}}
+    </footer>
+</body>
