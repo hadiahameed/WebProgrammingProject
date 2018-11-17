@@ -7,7 +7,9 @@ const layouts = require('handlebars-layouts');
 const logger = require('morgan');
 const router = require('./routes')
 
+
 const app = express();
+
 
 /**
  * Initialize handlebars
