@@ -1,6 +1,3 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt')
-
 const Model = require('./model')
 
 module.exports = async () => {
