@@ -16,7 +16,5 @@ module.exports = async () => {
         }
     });
 
-    return User
+    return User;
 }
-
-module.exports = User;
