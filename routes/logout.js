@@ -10,4 +10,5 @@ router.post("/",(req,res) => {
         res.clearCookie('AuthCookie');
         res.render("page/index",{error:"You've successfully logged out!"})
         });
-    
+
+module.exports = router;
