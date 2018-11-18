@@ -10,6 +10,14 @@
                     <p>Don't have an account?</p>
                     <form id="newuser" action="/users" method="POST">
                         <div class="form-group">
+                            <label>First Name:</label>
+                            <input class="form-control" name="first-name" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name:</label>
+                            <input class="form-control" name="last-name" type="text" required>
+                        </div>
+                        <div class="form-group">
                             <label>Username:</label>
                             <input class="form-control" name="name" type="text" required>
                         </div>
@@ -18,13 +26,17 @@
                             <input class="form-control" name="email" type="email" required>
                         </div>
                         <div class="form-group">
-                            <label>Password:</label>
-                            <input class="form-control" name="password" type="password" required>
+                            <label for="password">Password:</label>
+                            <input class="form-control" id = "password" name="password" type="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password:</label>
+                            <input class="form-control" id="confirmPassword" name="confirmPassword" type="password" required>
                         </div>
                         <div class="form-group">
                             <div class="g-recaptcha" data-sitekey="6Lf1GHsUAAAAAJzdSXc25k_9XQI4Zf9uRpiiiOZx"></div>
                         </div>
-                        <button class="btn btn-block btn-primary" type="submit" value="submit">Create account</button>
+                        <button class="btn btn-block btn-primary" type="submit" id="submitButton" value="submit">Create account</button>
                     </form>
                 </div>
             </div>
