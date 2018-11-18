@@ -6,6 +6,7 @@ const sendMail = require('../helpers/sendMail')
 const validator = require('validator')
 const config = require('config')
 const url = require('url')
+const bcrypt = require("bcrypt");
 
 router.post('/', reCaptcha, async (req, res, next) => {
   let firstname = req.body.firstname,
@@ -37,7 +38,9 @@ router.post('/', reCaptcha, async (req, res, next) => {
     }
 
     let validation_code = parseInt(Math.random() * 100000000)
-    user = new User({ firstname,lastname,username, email, password, validated: false, validation_code: validation_code })
+    const saltRounds = 16;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    user = new User({ firstname,lastname,username, email, password: hashedPassword, validated: false, validation_code: validation_code })
     await user.save()
     let str = new url.URLSearchParams()
     str.append('code', validation_code)
