@@ -2,7 +2,9 @@ const Model = require('./model')
 
 module.exports = async () => {
     let User = await Model('user', {
-        name: String,
+        firstname: String,
+        lastname: String,
+        username: String,
         email: String,
         password: String,
         validated: Boolean,
@@ -12,7 +14,7 @@ module.exports = async () => {
     User.getAllUsers = User.getAll.bind({
         projection: {
             _id: 1,
-            name: 1
+            username: 1
         }
     });
 
