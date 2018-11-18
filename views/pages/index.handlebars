@@ -41,6 +41,13 @@
                 </div>
             </div>
         </div>
+        {{#if error }}
+        <div class="message-group">
+            <div class="inform-danger">
+              <p>{{ error }}</p>  
+            </div>
+        </div>
+        {{/if}}
     {{/content}}
     {{#content "scripts" mode="append"}}
         <script src='https://www.google.com/recaptcha/api.js'></script>
