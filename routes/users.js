@@ -6,13 +6,16 @@ const sendMail = require('../helpers/sendMail')
 const validator = require('validator')
 const config = require('config')
 const url = require('url')
+const bcrypt = require("bcrypt");
 
 router.post('/', reCaptcha, async (req, res, next) => {
-  let name      = req.body.name,
+  let firstname = req.body.firstname,
+      lastname  = req.body.lastname,
+      username  = req.body.username,
       email     = req.body.email,
       password  = req.body.password
   
-  if (!name || !email || !password) {
+  if (!firstname || !lastname || !username || !email || !password) {
     res.status(400).json({ success: false, msg: 'missing parameter(s)'})
     return
   }
@@ -24,8 +27,6 @@ router.post('/', reCaptcha, async (req, res, next) => {
   try {
     let User = await userModel()
     let user = await User.getBy({ email })
-
-    console.log(user)
     /**
      * Check if the user has registered
      */
@@ -37,7 +38,9 @@ router.post('/', reCaptcha, async (req, res, next) => {
     }
 
     let validation_code = parseInt(Math.random() * 100000000)
-    user = new User({ name, email, password, validated: false, validation_code: validation_code })
+    const saltRounds = 16;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    user = new User({ firstname,lastname,username, email, password: hashedPassword, validated: false, validation_code: validation_code })
     await user.save()
     let str = new url.URLSearchParams()
     str.append('code', validation_code)
