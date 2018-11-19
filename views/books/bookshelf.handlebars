@@ -3,7 +3,7 @@
 <h1> Bookshelves</h1>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBookshelf">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBookshelf" id="addShelf">
   Add bookshelf
 </button>
 
@@ -30,13 +30,18 @@
   </div>
 </div>
 
-<h2> Bookshelf title </h2>
+<h2> {{title}} </h2>
+{{#each books}}
 
-<img>
-<h3> Title of book </h3>
-<p> Author of book </p>
-<p> Date book was added </p>
-<p> Review </p>
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
+  <div class="card-body">
+    <h3 class="card-title">{{this.title}}</h3>
+    <h4 class="card-text">{{this.author}}</h4>
+    <p class="card-text">Date added: {{this.added}}</p>
+  </div>
+</div>
 
+{{/each}}
  {{/content}}
 {{/extend}}

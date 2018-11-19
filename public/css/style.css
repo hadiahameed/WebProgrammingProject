@@ -4,6 +4,7 @@
 
 h1 {
     color: blue;
+    display: inline;
 }
 
 header nav {
@@ -34,6 +35,15 @@ header nav label button {
 header nav label button:hover {
     background-color: rgb(176, 210, 255);
     color: white;
+}
+
+.card {
+    display: inline-block;
+}
+
+button#addShelf {
+    position: absolute;
+    right: 20%;
 }
 
 /* NEW USER */
