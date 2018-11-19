@@ -14,4 +14,10 @@ module.exports = app => {
     //app.use('/login',loginRouter);
     //app.use('/logout',logoutRouter);
     app.use('/userProfileRouter',userProfileRouter);
+    app.use('*', async (req, res, next) => {
+        res.status(404)
+        res.render('pages/error', {
+            error: "Could not find this page"
+        })
+    })
 }
