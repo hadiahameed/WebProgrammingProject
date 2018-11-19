@@ -2,13 +2,15 @@ const express = require("express");
 const router = express.Router();
 const cookieMiddleware = require("../middlewares/validateCookie");
 
-router.get("/", cookieMiddleware, async(req,res) => {
-   
+router.get("/", async(req,res) => {
+    // cookieMiddleware, 
     let userData = req.cookies['AuthCookie'];
 
-    res.render("pages/home",{"title"     : "You're viewing user profile page",
-                            "firstName" : userData.firstname,
-                            "lastName"   : userData.lastname
+    res.render("user/profile",{
+                        "title"     : "You're viewing user profile page",
+                        "firstName" : "Sanne",    
+                        // "firstName" : userData.firstname,
+                            // "lastName"   : userData.lastname
                             });
 });
 
