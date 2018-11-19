@@ -1,1 +1,15 @@
-<h1>Hello {{firstName}} {{lastName}}!</h1>
+{{#extend "layout"}}
+    {{#content "content"}}
+        <div>
+            <h1 id="bookTitle">
+                {{title}}
+            </h1>
+            <h2 id="author">
+                {{author}}
+            </h2>
+            <p id="review">
+                {{review}}
+            </p>
+        </div>
+    {{/content}}
+{{/extend}}

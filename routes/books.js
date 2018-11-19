@@ -1,37 +1,69 @@
 const router = require('express').Router()
-
 const bookModel = require('../model/book')
+const reviewModel = require('../model/review')
+
+router.get('/', async (req, res, next) => {
+  let Book = await bookModel()
+  let BookList = await Book.getAll();
+  res.send(BookList);
+
+})
+
+router.get('/new', async (req, res, next) => {
+  res.render("books/new",{});
 
 router.get('/', async (req, res, next) => {
   // let Books = await bookModel()
   // res.send(await Books.getAll())
-  res.render("books/bookshelf", { title: 'bookshelf' });
+
+  // just some dummy data
+  let books = [{title: "Fred", author: "Anne", image: "https://about.canva.com/wp-content/uploads/sites/3/2015/01/children_bookcover.png", added: "11-7-18"},
+{title: "The Happy Lemon", author: "Kurt", image: "https://marketplace.canva.com/MAB___U-clw/1/0/thumbnail_large/canva-yellow-lemon-children-book-cover-MAB___U-clw.jpg", added: "11-7-18"}]
+
+  res.render("books/bookshelf", { title: 'Want to read', books: books });
   // res.send(await Books.getAllBooks())
 })
 
-router.post('/books', async (req, res, next) => {
+router.get("/:id", async (req, res) => {
+  try {
+    let Book = await bookModel()
+    let BookObject = await Book.getById(req.params.id);
+    console.log(BookObject.props.title);
+    res.render("books/book", {
+      title: BookObject.props.title,
+      author: BookObject.props.author,
+      review: BookObject.props.review
+    });
+  } 
+  catch (e) {
+    res.status(404).json({ error: "Book not found" });
+  }
+});
+
+router.post('/', async (req, res, next) => {
   /**
    * body: { "_id": "6efd0903-4db7-4d4b-912f-346eab19b8f9", "name": "new" }
    */
+  console.log("Come here.")
   let Books = await bookModel()
   let Reviews = await reviewModel();
-  let name = req.body.name
+  let title = req.body.title;
   let author = req.body.author
-  let review_body = req.body.review
+  let review = req.body.review
   try {
     let book = new Books({
-      name,
+      title,
       author,
-      review_body
+      review
     })
     await book.save()
     let bookId = book.props._id;
-    let review = new Reviews({
+    let bookReview = new Reviews({
       bookId,
-      review_body
+      review
     })
     res.send(book.props)
-    res.send(review.props)
+    res.send(bookReview.props)
   } catch (e) {
     res.send(e.message)
     return
