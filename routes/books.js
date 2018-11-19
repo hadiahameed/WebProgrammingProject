@@ -5,12 +5,13 @@ const reviewModel = require('../model/review')
 router.get('/', async (req, res, next) => {
   let Book = await bookModel()
   let BookList = await Book.getAll();
-  res.send(BookList);
-
+  // res.send(BookList);
+  res.render("books/books")
 })
 
 router.get('/new', async (req, res, next) => {
   res.render("books/new",{});
+})
 
 router.get('/books', async (req, res, next) => {
   // let Books = await bookModel()
@@ -113,4 +114,4 @@ router.put('/books/:id', async (req, res, next) => {
   }
 })
 
-module.exports = router
+module.exports = router;
