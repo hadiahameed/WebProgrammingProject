@@ -1,37 +1,59 @@
 const router = require('express').Router()
-
 const bookModel = require('../model/book')
+const reviewModel = require('../model/review')
 
-router.get('/books', async (req, res, next) => {
-  // let Books = await bookModel()
-  // res.send(await Books.getAll())
-  res.render("books/bookshelf", { title: 'bookshelf' });
-  // res.send(await Books.getAllBooks())
+router.get('/', async (req, res, next) => {
+  let Book = await bookModel()
+  let BookList = await Book.getAll();
+  res.send(BookList);
+
 })
 
-router.post('/books', async (req, res, next) => {
+router.get('/new', async (req, res, next) => {
+  res.render("books/new",{});
+
+})
+
+router.get("/:id", async (req, res) => {
+  try {
+    let Book = await bookModel()
+    let BookObject = await Book.getById(req.params.id);
+    console.log(BookObject.props.title);
+    res.render("books/book", {
+      title: BookObject.props.title,
+      author: BookObject.props.author,
+      review: BookObject.props.review
+    });
+  } 
+  catch (e) {
+    res.status(404).json({ error: "Book not found" });
+  }
+});
+
+router.post('/', async (req, res, next) => {
   /**
    * body: { "_id": "6efd0903-4db7-4d4b-912f-346eab19b8f9", "name": "new" }
    */
+  console.log("Come here.")
   let Books = await bookModel()
   let Reviews = await reviewModel();
-  let name = req.body.name
+  let title = req.body.title;
   let author = req.body.author
-  let review_body = req.body.review
+  let review = req.body.review
   try {
     let book = new Books({
-      name,
+      title,
       author,
-      review_body
+      review
     })
     await book.save()
     let bookId = book.props._id;
-    let review = new Reviews({
+    let bookReview = new Reviews({
       bookId,
-      review_body
+      review
     })
     res.send(book.props)
-    res.send(review.props)
+    res.send(bookReview.props)
   } catch (e) {
     res.send(e.message)
     return

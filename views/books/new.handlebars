@@ -1,9 +1,22 @@
+{{#extend "layout"}}
+    {{#content "styles" mode="append"}}
+        <!-- private styles -->
+    {{/content}}
+    {{#content "content"}}
 <form id="newbook" action="/books" method="POST">
-    <label>Title: <input name="book-title" type="text" required></label>
-    <label>Author: <input name="book-author" type="text" required></label>
+    <label>Title: <input name="title" type="text" required></label>
+    <label>Author: <input name="author" type="text" required></label>
+    <label>Review: <input name="review" type="text" required></label>
+    <!---
     <label>Cover: <input name="book-image" type="file" required></label>
     <label>Tags:</label>
         <label><input name="book-tags" type="checkbox" value="Thriller"> Thriller </label>
         <label><input name="book-tags" type="checkbox" value="Comedy"> Comedy </label>
+        <--->
     <button type="submit" value="submit">Add book</button>
 </form>
+{{/content}}
+    {{#content "scripts" mode="append"}}
+        <script src="public/scripts/index.js"></script>
+    {{/content}}
+{{/extend}}
