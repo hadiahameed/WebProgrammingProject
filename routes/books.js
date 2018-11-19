@@ -52,8 +52,7 @@ router.post('/', async (req, res, next) => {
       bookId,
       review
     })
-    res.send(book.props)
-    res.send(bookReview.props)
+    res.redirect(`/books/${bookId}`)
   } catch (e) {
     res.send(e.message)
     return
