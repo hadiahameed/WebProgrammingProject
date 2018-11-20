@@ -1,7 +1,9 @@
 const router = require('express').Router()
 const bookModel = require('../model/book')
 const reviewModel = require('../model/review')
-const formidable = require('formidable');
+var multiparty = require('connect-multiparty'),
+    multipartyMiddleware = multiparty({ uploadDir: './public/resources/' });
+
 
 router.get('/', async (req, res, next) => {
   let Book = await bookModel()
@@ -22,7 +24,7 @@ router.get("/:id", async (req, res) => {
       title: BookObject.props.title,
       author: BookObject.props.author,
       review: BookObject.props.review,
-      image: BookObject.props.image
+      image: "/" + BookObject.props.image
     });
   } 
   catch (e) {
@@ -31,22 +33,14 @@ router.get("/:id", async (req, res) => {
 });
 
 
-router.post('/',async (req, res, next) => {
-  var form = new formidable.IncomingForm();
-  form.parse(req);
-  form.on('fileBegin', function (name, file){
-      file.path = "/public/resources/" +  file.name;
-  });
-  form.on('file', function (name, file){
-    console.log('Uploaded ' + file.name);
-  });
-  
-  let image = "/public/resources/" + req.files.image.name;
+router.post('/',multipartyMiddleware, async (req, res, next) => {
+  console.log(req.files)
+  let image = req.files.image.path;
+  let title = req.body.title;
+  let author = req.body.author;
+  let review = req.body.review;
   let Books = await bookModel()
   let Reviews = await reviewModel();
-  let title = req.fields.title;
-  let author = req.fields.author
-  let review = req.fields.review
   
   try {
     let book = new Books({
