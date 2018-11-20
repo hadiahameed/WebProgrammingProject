@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const bookModel = require('../model/book')
 const reviewModel = require('../model/review')
+const formidable = require('formidable');
 
 router.get('/', async (req, res, next) => {
   let Book = await bookModel()
@@ -11,18 +12,17 @@ router.get('/', async (req, res, next) => {
 
 router.get('/new', async (req, res, next) => {
   res.render("books/new",{});
-
 })
 
 router.get("/:id", async (req, res) => {
   try {
     let Book = await bookModel()
     let BookObject = await Book.getById(req.params.id);
-    console.log(BookObject.props.title);
     res.render("books/book", {
       title: BookObject.props.title,
       author: BookObject.props.author,
-      review: BookObject.props.review
+      review: BookObject.props.review,
+      image: BookObject.props.image
     });
   } 
   catch (e) {
@@ -30,21 +30,30 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
-  /**
-   * body: { "_id": "6efd0903-4db7-4d4b-912f-346eab19b8f9", "name": "new" }
-   */
-  console.log("Come here.")
+
+router.post('/',async (req, res, next) => {
+  var form = new formidable.IncomingForm();
+  form.parse(req);
+  form.on('fileBegin', function (name, file){
+      file.path = "/public/resources/" +  file.name;
+  });
+  form.on('file', function (name, file){
+    console.log('Uploaded ' + file.name);
+  });
+  
+  let image = "/public/resources/" + req.files.image.name;
   let Books = await bookModel()
   let Reviews = await reviewModel();
-  let title = req.body.title;
-  let author = req.body.author
-  let review = req.body.review
+  let title = req.fields.title;
+  let author = req.fields.author
+  let review = req.fields.review
+  
   try {
     let book = new Books({
       title,
       author,
-      review
+      review, 
+      image
     })
     await book.save()
     let bookId = book.props._id;
@@ -52,6 +61,7 @@ router.post('/', async (req, res, next) => {
       bookId,
       review
     })
+    await bookReview.save()
     res.redirect(`/books/${bookId}`)
   } catch (e) {
     res.send(e.message)
