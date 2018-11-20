@@ -6,10 +6,12 @@ const cookieParser = require('cookie-parser');
 const layouts = require('handlebars-layouts');
 const logger = require('morgan');
 const router = require('./routes')
+const formidable = require('express-formidable');
+
 
 
 const app = express();
-
+app.use(formidable());
 
 /**
  * Initialize handlebars
