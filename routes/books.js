@@ -14,8 +14,6 @@ router.get('/', async (req, res, next) => {
 
 router.get('/new', async (req, res, next) => {
   res.render("books/new",{});
-<<<<<<< HEAD
-=======
 })
 
 router.get('/books', async (req, res, next) => {
@@ -28,7 +26,6 @@ router.get('/books', async (req, res, next) => {
 
   res.render("books/bookshelf", { title: 'Want to read', books: books });
   // res.send(await Books.getAllBooks())
->>>>>>> aa7b39f29b5de06809e2b13b06bd7758e216d5af
 })
 
 router.get("/:id", async (req, res) => {
