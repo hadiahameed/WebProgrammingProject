@@ -6,10 +6,16 @@ const cookieParser = require('cookie-parser');
 const layouts = require('handlebars-layouts');
 const logger = require('morgan');
 const router = require('./routes')
+const session = require('express-session')
+const passport = require('./middlewares/passport')
 
 
 const app = express();
-
+app.use(session({
+  secret: 'just for test',
+  resave: true,
+  saveUninitialized: true
+}))
 
 /**
  * Initialize handlebars
@@ -43,6 +49,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 /**
  * Set routes
