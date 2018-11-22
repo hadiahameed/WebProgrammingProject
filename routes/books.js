@@ -8,12 +8,27 @@ var multiparty = require('connect-multiparty'),
 router.get('/', async (req, res, next) => {
   let Book = await bookModel()
   let BookList = await Book.getAll();
-  res.send(BookList);
-
+  // res.send(BookList);
+  res.render("books/books")
 })
 
 router.get('/new', async (req, res, next) => {
   res.render("books/new",{});
+<<<<<<< HEAD
+=======
+})
+
+router.get('/books', async (req, res, next) => {
+  // let Books = await bookModel()
+  // res.send(await Books.getAll())
+
+  // just some dummy data
+  let books = [{title: "Fred", author: "Anne", image: "https://about.canva.com/wp-content/uploads/sites/3/2015/01/children_bookcover.png", added: "11-7-18"},
+{title: "The Happy Lemon", author: "Kurt", image: "https://marketplace.canva.com/MAB___U-clw/1/0/thumbnail_large/canva-yellow-lemon-children-book-cover-MAB___U-clw.jpg", added: "11-7-18"}]
+
+  res.render("books/bookshelf", { title: 'Want to read', books: books });
+  // res.send(await Books.getAllBooks())
+>>>>>>> aa7b39f29b5de06809e2b13b06bd7758e216d5af
 })
 
 router.get("/:id", async (req, res) => {
@@ -106,4 +121,4 @@ router.put('/books/:id', async (req, res, next) => {
   }
 })
 
-module.exports = router
+module.exports = router;

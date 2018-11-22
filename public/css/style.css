@@ -3,13 +3,18 @@
 }
 
 h1 {
-    color: blue;
+    /* color: blue; */
     display: inline;
 }
 
-header nav {
+/* header {
+    background-color: lightblue;
+} */
+
+header nav.navbar {
     display: flex;
     justify-content: space-around;
+    
 }
 
 header nav label {
@@ -35,6 +40,11 @@ header nav label button {
 header nav label button:hover {
     background-color: rgb(176, 210, 255);
     color: white;
+}
+
+main {
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .card {

@@ -1,17 +1,18 @@
 {{#extend "layout"}}
     {{#content "content"}}
     <button type="button" class="btn btn-primary"><a href="/books/new" class="text-white">Add new book</a></button>
+        {{#each book}}
         <div>
             <h1 id="bookTitle">
-                {{title}}
+                {{this.title}}
             </h1>
             <h2 id="author">
-                {{author}}
+                {{this.author}}
             </h2>
             <p id="review">
-                {{review}}
+                {{this.review}}
             </p>
-            <img src= {{image}}>
         </div>
+        {{/each}}
     {{/content}}
 {{/extend}}
