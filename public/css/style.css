@@ -51,10 +51,36 @@ main {
     display: inline-block;
 }
 
+/* BOOKSHELF PAGE */
+
 button#addShelf {
     position: absolute;
     right: 20%;
 }
+
+/* BOOKS PAGE */
+
+#booksList {
+    margin: 10px 0 10px 0;
+}
+
+#booksList div {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+#booksList .image {
+    width: 10%;
+}
+
+#booksList h1 {
+    font-size: 1.5rem;
+}
+
+#booksList h2 {
+    font-size: 1.2rem;
+}
+
 
 /* NEW USER */
 /* form#newuser label {
