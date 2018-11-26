@@ -1,8 +1,9 @@
 var LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcrypt-nodejs')
+const bcrypt = require('bcrypt')
 const userModel = require('../model/user')
+const passport = require('passport');
 
-module.exports = function(passport) {
+
     // passport session setup, required for persistent login sessions
     passport.serializeUser(function(user, done) {
         done(null, user);
@@ -13,25 +14,30 @@ module.exports = function(passport) {
     });
 
     passport.use('local', new LocalStrategy({
-        usernameField: 'username',
-        passwordField: 'password'
-    }, async function(req, username, password, done) {
+        usernameField: 'user-name',
+        passwordField: 'user-password'
+    }, async function(username, password, done) {
         let user=null;
         try
         {
             let User = await userModel()
             user = await User.getBy({ username });
+            console.log(user);
             if(!user)
             {
+                console.log("No user")
                 return done(null,false, {message : 'Incorrect username'});
             }
+            user = user[0]
             if(!user.validated)
             {
                 return done(null,false,{message : 'Please validate your account'})
             }
+            console.log("No error")
             
         }catch(error)
         {
+            console.log("Error found")
             return done(error);
         }
 
@@ -39,6 +45,7 @@ module.exports = function(passport) {
         {
             if(!await bcrypt.compare(password,user.password))
             {
+                console.log("Not matched")
                 return done(null, false, {message:'Password do not match'});
             }
 
@@ -49,4 +56,4 @@ module.exports = function(passport) {
         }
     }
     ));
-}
+module.exports = passport

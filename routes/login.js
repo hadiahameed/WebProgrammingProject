@@ -1,21 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const authenticateUser = require("../helpers/verifyAuthenticatedUser");
-const passport = require('passport');
+const passport = require('./passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 
-router.post("/", async(req,res,next) => {
-    req.check('user-name','Please enter valid user name').isEmpty();
-    req.check('user-password','Please enter valid password').isEmpty();
-
-    var errors = req.validationErrors();
-    if(errors){
-        req.session.errors = errors;
-    }
-    res.redirect('/home');
-    
-    passport.authenticate('local', {failureFlash: true}, function(err, user, info) {
+router.post("/", passport.authenticate('local'),async(req,res,next) => {
+    res.send(req.user);
+    /*passport.authenticate('local', {failureFlash: true}, function(err, user, info) {
         if (err) {
            return next(err); 
         }
@@ -28,7 +20,7 @@ router.post("/", async(req,res,next) => {
           }
           return res.redirect('/userProfile');
         });
-      })(req, res, next);
+      })(req, res, next);*/
 });
 
 module.exports = router;

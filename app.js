@@ -7,7 +7,8 @@ const cookieParser = require('cookie-parser');
 const layouts = require('handlebars-layouts');
 const logger = require('morgan');
 const router = require('./routes');
-const passport = require('passport');
+//const passport = require('passport');
+const passport = require('./routes/passport');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -75,8 +76,8 @@ app.use(function(err, req, res, next) {
 //Express session
 app.use(session({
   secret:'secret',
-  saveUninitialized:false,
-  resave:false
+  saveUninitialized:true,
+  resave:true
 }));
 
 // initialize passport and session
