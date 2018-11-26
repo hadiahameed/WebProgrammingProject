@@ -13,7 +13,7 @@ module.exports = app => {
     app.use('/books', booksRouter)
     app.use('/login',loginRouter);
     //app.use('/logout',logoutRouter);
-    app.use('/userProfileRouter',userProfileRouter);
+    app.use('/userProfile',userProfileRouter);
     app.use('*', async (req, res, next) => {
         res.status(404)
         res.render('pages/error', {

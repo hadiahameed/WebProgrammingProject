@@ -7,7 +7,8 @@ const cookieParser = require('cookie-parser');
 const layouts = require('handlebars-layouts');
 const logger = require('morgan');
 const router = require('./routes');
-const passport = require('passport');
+//const passport = require('passport');
+const passport = require('./routes/passport');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -50,15 +51,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-/**
- * Set routes
- */
-router(app)
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -72,16 +65,16 @@ app.use(function(err, req, res, next) {
   // ^^ this should render whatever page and pass in error: true
 });
 
-// initialize passport and session
-app.use(passport.initialize());
-app.use(passport.session());
-
 //Express session
 app.use(session({
   secret:'secret',
-  saveUninitialized:false,
-  resave:false
+  saveUninitialized:true,
+  resave:true
 }));
+
+// initialize passport and session
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Express Validator
 app.use(expressValidator({
@@ -104,5 +97,14 @@ app.use(expressValidator({
 
 //Connect Flash
 app.use(flash());
+/**
+ * Set routes
+ */
+router(app)
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
 module.exports = app;

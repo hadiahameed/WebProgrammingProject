@@ -4,10 +4,12 @@
 <div class="logged-in-class">
   <h1>{{title}}</h1>
   <br>
+{{#with user}}
   <div class="user-data-class">
-    <p>First Name : {{firstName}}</p>
-    <p>Last Name : {{lastName}}</p>
+    <p>First Name : {{firstname}}</p>
+    <p>Last Name : {{lastname}}</p>
   </div>
+{{/with}}
 </div>
 
 <div class="card" style="width: 18rem;">
