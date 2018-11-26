@@ -7,8 +7,8 @@ const LocalStrategy = require('passport-local').Strategy;
 
 router.post("/", passport.authenticate('local'),async(req,res,next) => {
     //res.send(req.user);
-    res.redirect('userProfile');
-    /*passport.authenticate('local', {failureFlash: true}, function(err, user, info) {
+    
+    passport.authenticate('local', {failureFlash: true}, function(err, user, info) {
         if (err) {
            return next(err); 
         }
@@ -21,7 +21,8 @@ router.post("/", passport.authenticate('local'),async(req,res,next) => {
           }
           return res.redirect('/userProfile');
         });
-      })(req, res, next);*/
+      })(req, res, next);
+      //res.redirect('userProfile');
 });
 
 module.exports = router;
