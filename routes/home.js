@@ -8,11 +8,11 @@ router.get('/', function(req, res, next) {
    * If exits navigate to home page
    * If not render the login page
    */
-  if(!req.cookies.AuthCookie)
+  if(!req.user)
     res.render("pages/index", { title: 'Log in' });
   else
     //if logged in: "pages.home"
-    res.render("pages/home",{title:"Welcome to the home page"});
+    res.redirect('userProfile') // ("user/userProfile",{title:"Welcome to the home page"});
 });
 
 module.exports = router;

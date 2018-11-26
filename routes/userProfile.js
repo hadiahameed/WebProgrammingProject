@@ -4,9 +4,10 @@ const cookieMiddleware = require("../middlewares/validateCookie");
 
 router.get("/", async(req,res) => {
     // cookieMiddleware, 
-    let userData = req.cookies['AuthCookie'];
+   
 
-    res.render("user/profile",{
+    res.render("user/userProfile",{
+                        user: req.user,
                         "title"     : "You're viewing user profile page",
                         "firstName" : "Sanne",    
                         // "firstName" : userData.firstname,
