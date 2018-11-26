@@ -23,13 +23,9 @@
         <img class="card-img-top" src="{{image}}" alt="Card image cap">
         <div class="card-body">
             <h1 id="bookTitle"> {{title}} </h1>
-            <h2 id="author"> {{author}} </h2>
+            <h3 id="author"> {{author}} </h2>
+            <article>Review: {{review}}</article>
             <p>Rating: {{rating}}</p>
-            {{#each book}}
-                <p id="review">
-                    {{this.review}}
-                </p>
-            {{/each}}
             {{#if loggedIn}}
                 <button><a href="#" class="btn btn-primary">Write review</a></button>
             {{/if}}

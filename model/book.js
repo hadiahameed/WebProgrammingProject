@@ -6,6 +6,7 @@ module.exports = async () => {
         author: String,
         review: String,
         rating: String,
+        tags: Array,
         image: String
     })
 
