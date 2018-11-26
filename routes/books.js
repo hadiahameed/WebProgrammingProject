@@ -36,12 +36,7 @@ router.get("/:id", async (req, res) => {
       title: BookObject.props.title,
       author: BookObject.props.author,
       review: BookObject.props.review,
-<<<<<<< HEAD
-      rating: BookObject.props.rating,
-      image: "/" + BookObject.props.image
-=======
       image: BookObject.props.image
->>>>>>> fe75d940fdd35ad3d65a0decff6d8baaf1c63780
     });
   } 
   catch (e) {
@@ -63,14 +58,8 @@ router.post('/',multipartyMiddleware, async (req, res, next) => {
     let book = new Books({
       title,
       author,
-<<<<<<< HEAD
-      review,
-      rating, 
-      image
-=======
       review, 
       image: "/"+image
->>>>>>> fe75d940fdd35ad3d65a0decff6d8baaf1c63780
     })
     await book.save()
     let bookId = book.props._id;
