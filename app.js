@@ -72,16 +72,16 @@ app.use(function(err, req, res, next) {
   // ^^ this should render whatever page and pass in error: true
 });
 
-// initialize passport and session
-app.use(passport.initialize());
-app.use(passport.session());
-
 //Express session
 app.use(session({
   secret:'secret',
   saveUninitialized:false,
   resave:false
 }));
+
+// initialize passport and session
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Express Validator
 app.use(expressValidator({
