@@ -9,7 +9,7 @@ router.get('/', async (req, res, next) => {
   let Book = await bookModel()
   let BookList = await Book.getAll();
   // res.send(BookList);
-  res.render("books/books")
+  res.render("books/books",{books: BookList})
 })
 /*
 
@@ -37,7 +37,8 @@ router.get("/:id", async (req, res) => {
       title: BookObject.props.title,
       author: BookObject.props.author,
       review: BookObject.props.review,
-      image: "/" + BookObject.props.image
+      rating: BookObject.props.rating,
+      image: BookObject.props.image
     });
   } 
   catch (e) {
@@ -47,11 +48,12 @@ router.get("/:id", async (req, res) => {
 
 
 router.post('/',multipartyMiddleware, async (req, res, next) => {
-  console.log(req.files)
   let image = req.files.image.path;
   let title = req.body.title;
   let author = req.body.author;
   let review = req.body.review;
+  let rating = req.body["book-rating"];
+  let tags = req.body.genre;
   let Books = await bookModel()
   let Reviews = await reviewModel();
   
@@ -60,7 +62,9 @@ router.post('/',multipartyMiddleware, async (req, res, next) => {
       title,
       author,
       review, 
-      image
+      rating,
+      tags,
+      image: "/"+image
     })
     await book.save()
     let bookId = book.props._id;

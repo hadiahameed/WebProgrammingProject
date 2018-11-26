@@ -20,4 +20,9 @@ module.exports = app => {
             error: "Could not find this page"
         })
     })
+
+    // Please ignore this, this is just for easy testing purposes for the handlebars
+    app.get('/', function(req, res, next) {
+        res.render("books/books", { firstName: 'Sanne' });
+    })
 }

@@ -1,3 +1,6 @@
+{{!-- USER PROFILE PAGE --}}
+{{#extend "layout"}}
+{{#content "content"}}
 <div class="logged-in-class">
   <h1>{{title}}</h1>
   <br>
@@ -7,6 +10,15 @@
     <p>Last Name : {{lastname}}</p>
   </div>
 {{/with}}
-
-<a href="/logout">logout</a>
 </div>
+
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="https://vignette.wikia.nocookie.net/bungostraydogs/images/1/1e/Profile-icon-9.png/revision/latest?cb=20171030104015" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Hi there, {{firstName}}</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+{{/content}}
+{{/extend}}
