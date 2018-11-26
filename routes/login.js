@@ -6,7 +6,8 @@ const LocalStrategy = require('passport-local').Strategy;
 
 
 router.post("/", passport.authenticate('local'),async(req,res,next) => {
-    res.send(req.user);
+    //res.send(req.user);
+    res.redirect('userProfile');
     /*passport.authenticate('local', {failureFlash: true}, function(err, user, info) {
         if (err) {
            return next(err); 
