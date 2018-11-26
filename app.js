@@ -7,6 +7,11 @@ const cookieParser = require('cookie-parser');
 const layouts = require('handlebars-layouts');
 const logger = require('morgan');
 const router = require('./routes');
+const passport = require('passport');
+const expressValidator = require('express-validator');
+const flash = require('connect-flash');
+const session = require('express-session');
+const LocalStrategy = require('passport-local').Strategy;
 
 const app = express();
 
@@ -66,5 +71,38 @@ app.use(function(err, req, res, next) {
   res.render("pages/error");
   // ^^ this should render whatever page and pass in error: true
 });
+
+// initialize passport and session
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Express session
+app.use(session({
+  secret:'secret',
+  saveUninitialized:false,
+  resave:false
+}));
+
+//Express Validator
+app.use(expressValidator({
+  errorFormatter:function(param,msg,value) {
+    var namespace = param.split('.')
+    ,root = namespace.shift()
+    ,formParam = root;
+
+    while(namespace.length)
+    {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param : formParam,
+      msg:msg,
+      value:value
+    };
+  }
+}));
+
+//Connect Flash
+app.use(flash());
 
 module.exports = app;

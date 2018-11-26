@@ -1,11 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const authenticateUser = require("../helpers/verifyAuthenticatedUser");
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 
-router.post("/", async(req,res) => {
-    let userName = req.body.username;
-    let password = req.body.password;
+router.post("/", async(req,res,next) => {
+    let userName = req.body["user-name"];
+    let password = req.body["user-password"];
+    console.log(userName);
+    console.log(password);
 
     try
     {
@@ -22,27 +26,20 @@ router.post("/", async(req,res) => {
         return;
     }
     
-    let isAuthenticatedUser=null;
-    let userObject={};
-    try
-    {
-        isAuthenticatedUser = await authenticateUser.userAuthenticate(userName, password);
-        if(isAuthenticatedUser)
-        {
-            userObject['firstName'] = isAuthenticatedUser.firstname;
-            userObject['lastName'] =  isAuthenticatedUser.lastname;
+    passport.authenticate('local', {failureFlash: true}, function(err, user, info) {
+        if (err) {
+           return next(err); 
         }
-    }catch(error)
-    {
-        res.status(403);
-        res.render("page/index",{error:error});
-        return;
-    }
-
-    res.cookie('AuthCookie',userObject);
-    res.redirect('/userProfile');
-
-
+        if (!user) {
+           return res.redirect('/home'); 
+        }  
+        req.logIn(user, function(err) {
+          if (err) {
+            return next(err); 
+          }
+          return res.redirect('/userProfile');
+        });
+      })(req, res, next);
 });
 
 module.exports = router;

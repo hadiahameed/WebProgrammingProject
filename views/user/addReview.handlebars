@@ -1,3 +1,6 @@
+{{!-- ADD A REVIEW TO A BOOK --}}
+{{#extend "layout"}}
+{{#content "content"}}
 <form>
     <label>Title: <input name="review-title" type="text" required></label>
     <label>Rating: 
@@ -10,3 +13,5 @@
     <label>Review: <textarea name="review-review" type="file" rows="15" cols="50" required></textarea></label>
     <button type="submit" value="submit">Give review</button>
 </form>
+{{/content}}
+{{/extend}}

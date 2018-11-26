@@ -1,5 +1,15 @@
+{{!-- USER PROFILE PAGE --}}
 {{#extend "layout"}}
 {{#content "content"}}
+<div class="logged-in-class">
+  <h1>{{title}}</h1>
+  <br>
+  <div class="user-data-class">
+    <p>First Name : {{firstName}}</p>
+    <p>Last Name : {{lastName}}</p>
+  </div>
+</div>
+
 <div class="card" style="width: 18rem;">
   <img class="card-img-top" src="https://vignette.wikia.nocookie.net/bungostraydogs/images/1/1e/Profile-icon-9.png/revision/latest?cb=20171030104015" alt="Card image cap">
   <div class="card-body">
