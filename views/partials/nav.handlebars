@@ -1,8 +1,8 @@
 {{!-- NAV FOR NOT-LOGGED IN USER, CONTAINS LOGIN FORM --}}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a href="/" class="text-dark">The Literary Archives</a>
-    <label><input type="text" placeholder="Search"><button type="submit" value="submit">Go</button></label>
-    <form action="/login">
+<nav class="navbar navbar-expand-lg navbar-light bg-light row">
+    <a href="/" class="text-dark col-lg-4 col-md-4 col-sm-12" >The Literary Archives</a>
+    <label class="col-lg-4 col-md-4 col-sm-12"><input type="text" placeholder="Search"><button type="submit" value="submit">Go</button></label>
+    <form action="/login" class="col-lg-4 col-md-4 col-sm-12">
         <input name="user-name" type="text" placeholder="Username">
         <input name="user-password" type="password" placeholder="Password">
         <button type="submit" value="submit">Log in</button>
