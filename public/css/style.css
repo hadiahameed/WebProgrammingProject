@@ -1,17 +1,14 @@
+/* ---------- GENERAL ---------- */
+
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
 h1 {
-    /* color: blue; */
     display: inline;
 }
 
-/* header {
-    background-color: lightblue;
-} */
-
-header nav.navbar {
+/* header nav.navbar {
     display: flex;
     justify-content: space-around;
     
@@ -25,10 +22,10 @@ header nav label input {
     width: 80%;
     padding: 0.3rem;
     border-radius: 3px;
-}
+} */
 
 header nav label button {
-    width: 10%;
+    width: 40px;
     margin-left: 2%;
     padding: 0.3rem;
     border-radius: 3px;
@@ -51,17 +48,28 @@ main {
     display: inline-block;
 }
 
-/* BOOKSHELF PAGE */
+/* ---------- BOOKSHELF PAGE ---------- */
 
 button#addShelf {
     position: absolute;
     right: 20%;
 }
 
-/* BOOKS PAGE */
+/* ---------- BOOKS PAGE ---------- */
+
+#addNewBook {
+    display: block;
+    margin-bottom: 10px;
+}
 
 #booksList {
-    margin: 10px 0 10px 0;
+    margin: 5px 0 5px 0;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#booksList:nth-of-type(2n+1){
+    background-color: lightblue
 }
 
 #booksList div {
