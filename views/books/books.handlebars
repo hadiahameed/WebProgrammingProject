@@ -1,7 +1,6 @@
 {{!-- MULTIPLE BOOKS DISPLAYED, FOR EXAMPLE: AFTER THE USER PERFORMS A SEARCH --}}
 {{#extend "layout"}}
     {{#content "content"}}
-    <button type="button" class="btn btn-primary"><a href="/books/new" class="text-white">Add new book</a></button>
         {{#each books}}
         <div id="booksList">
             <img src= {{this.image}} alt={{this.title}} class="image">
@@ -12,5 +11,6 @@
             </div>
         </div>
         {{/each}}
+         <button type="button" class="btn btn-primary"><a href="/books/new" class="text-white">Add new book</a></button>
     {{/content}}
 {{/extend}}

@@ -9,7 +9,7 @@ router.get('/', async (req, res, next) => {
   let Book = await bookModel()
   let BookList = await Book.getAll();
   // res.send(BookList);
-  res.render("books/books")
+  res.render("books/books",{books: BookList})
 })
 
 router.get('/new', async (req, res, next) => {
