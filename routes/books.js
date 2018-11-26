@@ -36,6 +36,7 @@ router.get("/:id", async (req, res) => {
       title: BookObject.props.title,
       author: BookObject.props.author,
       review: BookObject.props.review,
+      rating: BookObject.props.rating,
       image: "/" + BookObject.props.image
     });
   } 
@@ -46,11 +47,11 @@ router.get("/:id", async (req, res) => {
 
 
 router.post('/',multipartyMiddleware, async (req, res, next) => {
-  console.log(req.files)
   let image = req.files.image.path;
   let title = req.body.title;
   let author = req.body.author;
   let review = req.body.review;
+  let rating = req.body.rating;
   let Books = await bookModel()
   let Reviews = await reviewModel();
   
@@ -58,7 +59,8 @@ router.post('/',multipartyMiddleware, async (req, res, next) => {
     let book = new Books({
       title,
       author,
-      review, 
+      review,
+      rating, 
       image
     })
     await book.save()
