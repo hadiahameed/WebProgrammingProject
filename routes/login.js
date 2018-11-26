@@ -6,25 +6,14 @@ const LocalStrategy = require('passport-local').Strategy;
 
 
 router.post("/", async(req,res,next) => {
-    let userName = req.body["user-name"];
-    let password = req.body["user-password"];
-    console.log(userName);
-    console.log(password);
+    req.check('user-name','Please enter valid user name').isEmpty();
+    req.check('user-password','Please enter valid password').isEmpty();
 
-    try
-    {
-        if(!userName)
-            throw "Please enter the user name"
-        if(!password)
-            throw "Please enter the password"
-    }catch(error)
-    {
-        res.status(403);
-        res.render("pages/error", {
-         error:error
-        });
-        return;
+    var errors = req.validationErrors();
+    if(errors){
+        req.session.errors = errors;
     }
+    res.redirect('/home');
     
     passport.authenticate('local', {failureFlash: true}, function(err, user, info) {
         if (err) {
