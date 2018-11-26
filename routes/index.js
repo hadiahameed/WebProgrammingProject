@@ -7,7 +7,7 @@ const loginRouter = require('./login');
 const userProfileRouter = require('./userProfile');
 
 module.exports = app => {
-    // app.use('/', homeRouter)
+    app.use('/', homeRouter)
     // app.use('/users', usersRouter)
     // app.use('/validate', vlaidateRouter)
     // app.use('/books', booksRouter)
