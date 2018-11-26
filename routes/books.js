@@ -1,13 +1,17 @@
 const router = require('express').Router()
 const bookModel = require('../model/book')
 const reviewModel = require('../model/review')
+var multiparty = require('connect-multiparty'),
+    multipartyMiddleware = multiparty({ uploadDir: './public/resources/' });
+
 
 router.get('/', async (req, res, next) => {
   let Book = await bookModel()
   let BookList = await Book.getAll();
   // res.send(BookList);
-  res.render("books/books")
+  res.render("books/books",{books: BookList})
 })
+/*
 
 router.get('/new', async (req, res, next) => {
   res.render("books/new",{});
@@ -24,16 +28,17 @@ router.get('/', async (req, res, next) => {
   res.render("books/bookshelf", { title: 'Want to read', books: books });
   // res.send(await Books.getAllBooks())
 })
-
+*/
 router.get("/:id", async (req, res) => {
   try {
     let Book = await bookModel()
     let BookObject = await Book.getById(req.params.id);
-    console.log(BookObject.props.title);
     res.render("books/book", {
       title: BookObject.props.title,
       author: BookObject.props.author,
-      review: BookObject.props.review
+      review: BookObject.props.review,
+      rating: BookObject.props.rating,
+      image: BookObject.props.image
     });
   } 
   catch (e) {
@@ -41,21 +46,25 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
-  /**
-   * body: { "_id": "6efd0903-4db7-4d4b-912f-346eab19b8f9", "name": "new" }
-   */
-  console.log("Come here.")
+
+router.post('/',multipartyMiddleware, async (req, res, next) => {
+  let image = req.files.image.path;
+  let title = req.body.title;
+  let author = req.body.author;
+  let review = req.body.review;
+  let rating = req.body["book-rating"];
+  let tags = req.body.genre;
   let Books = await bookModel()
   let Reviews = await reviewModel();
-  let title = req.body.title;
-  let author = req.body.author
-  let review = req.body.review
+  
   try {
     let book = new Books({
       title,
       author,
-      review
+      review, 
+      rating,
+      tags,
+      image: "/"+image
     })
     await book.save()
     let bookId = book.props._id;
@@ -63,8 +72,8 @@ router.post('/', async (req, res, next) => {
       bookId,
       review
     })
-    res.send(book.props)
-    res.send(bookReview.props)
+    await bookReview.save()
+    res.redirect(`/books/${bookId}`)
   } catch (e) {
     res.send(e.message)
     return

@@ -1,2 +1,8 @@
-<h1>Review title</h1>
-<p>Review body</p>
+{{!-- REVIEW OF A BOOK, WHEN USER CLICKS ON A REVIEW TO READ MORE (?) --}}
+{{#extend "layout"}}
+{{#content "content"}}
+<h1>{{reviewTitle}}!</h1>
+<p>By: {{reviewAuthor}}</p>
+<p>{{reviewBody}}</p>
+{{/content}}
+{{/extend}}

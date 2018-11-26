@@ -1,16 +1,36 @@
+{{!-- PAGE FOR A SINGLE BOOK, WHEN USER CLICKS ON A BOOK --}}
 {{#extend "layout"}}
     {{#content "content"}}
-    <button type="button" class="btn btn-primary"><a href="/new" class="text-white">Add new book</a></button>
-        <div>
-            <h1 id="bookTitle">
-                {{title}}
-            </h1>
-            <h2 id="author">
-                {{author}}
-            </h2>
-            <p id="review">
-                {{review}}
-            </p>
+    <button type="button" class="btn btn-primary" id="addNewBook"><a href="/books/new" class="text-white">Add new book</a></button>
+        {{!-- <div>
+            <img src= {{image}}>
+            <h1 id="bookTitle"> {{title}} </h1>
+            <h2 id="author"> {{author}} </h2>
+            <p>Rating: {{rating}}</p>
+            {{#each book}}
+                <p id="review">
+                    {{this.review}}
+                </p>
+            {{/each}}
+            {{#if loggedIn}}
+                <button> Write review </button>
+            {{/if}}
+        </div> --}}
+
+
+
+        <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{image}}" alt="Card image cap">
+        <div class="card-body">
+            <h1 id="bookTitle"> {{title}} </h1>
+            <h3 id="author"> {{author}} </h2>
+            <article>Review: {{review}}</article>
+            <p>Rating: {{rating}}</p>
+            {{#if loggedIn}}
+                <button><a href="#" class="btn btn-primary">Write review</a></button>
+            {{/if}}
+            
+        </div>
         </div>
     {{/content}}
 {{/extend}}

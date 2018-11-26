@@ -1,3 +1,10 @@
-<h1>{{message}}</h1>
-<h2>{{error.status}}</h2>
-<pre>{{error.stack}}</pre>
+{{!-- PAGE FOR ERRORS --}}
+{{#extend "layout"}}
+{{#content "content"}}
+<div class="alert alert-danger">
+    <p>{{error}}</h1>
+</div>
+{{!-- <h2>{{error.status}}</h2>
+<pre>{{error.stack}}</pre> --}}
+{{/content}}
+{{/extend}}
