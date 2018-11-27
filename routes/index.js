@@ -3,6 +3,7 @@ const usersRouter = require('./users');
 const booksRouter = require('./books');
 const vlaidateRouter = require('./validate')
 const loginRouter = require('./login');
+const bookshelfRouter = require('./bookshelves');
 //const logoutRouter = require('/logout');
 const userProfileRouter = require('./userProfile');
 
@@ -12,6 +13,7 @@ module.exports = app => {
     app.use('/validate', vlaidateRouter)
     app.use('/books', booksRouter)
     app.use('/login',loginRouter);
+    app.use('/bookshelves',bookshelfRouter);
     //app.use('/logout',logoutRouter);
     app.use('/userProfile',userProfileRouter);
     app.use('*', async (req, res, next) => {
