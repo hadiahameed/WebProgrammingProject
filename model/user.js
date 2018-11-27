@@ -19,5 +19,10 @@ module.exports = async () => {
         }
     });
 
+    User.prototype.addBookshelf = function (bookshelf) {
+        this.props.bookshelves.push(bookshelf);
+        return this.updateAll();
+    }
+
     return User;
 }

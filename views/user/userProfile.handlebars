@@ -8,8 +8,8 @@
   <div class="user-data-class">
     <p>First Name : {{firstname}}</p>
     <p>Last Name : {{lastname}}</p>
-    {{#if bookshelves.length}}
-      <ul><h2>Bookshelves:</h2>
+    {{#if hasBookshelves}}
+      <ul><h2>Bookshelves:                                                        </h2>
         {{#each bookshelves}}
           <li><a href="#">{{this.name}}</a></li>
         {{/each}}
