@@ -8,13 +8,12 @@
   <div class="user-data-class">
     <p>First Name : {{firstname}}</p>
     <p>Last Name : {{lastname}}</p>
-    {{#if hasBookshelves}}
-      <ul><h2>Bookshelves:                                                        </h2>
-        {{#each bookshelves}}
-          <li><a href="#">{{this.name}}</a></li>
-        {{/each}}
-      </ul>
-    {{/if}}
+    <ul>
+      <h2>Bookshelves: </h2>
+      {{#each bookshelves}}
+      <li><a href="#">{{this.name}}</a></li>
+      {{/each}}
+    </ul>
   </div>
   {{/with}}
 </div>
@@ -35,6 +34,6 @@
 </div>
 {{/content}}
 {{#content "scripts" mode="append"}}
-  <script src="public/scripts/index.js"></script>
+<script src="public/scripts/index.js"></script>
 {{/content}}
 {{/extend}}
