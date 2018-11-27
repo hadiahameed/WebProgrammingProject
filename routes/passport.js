@@ -22,7 +22,6 @@ const passport = require('passport');
         {
             let User = await userModel()
             user = await User.getBy({ username });
-            console.log(user);
             if(!user)
             {
                 console.log("No user")

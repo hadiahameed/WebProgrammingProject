@@ -4,18 +4,18 @@
 <div class="logged-in-class">
   <h1>{{title}}</h1>
   <br>
-  {{#with user}}
   <div class="user-data-class">
-    <p>First Name : {{firstname}}</p>
-    <p>Last Name : {{lastname}}</p>
-    <ul>
-      <h2>Bookshelves: </h2>
-      {{#each bookshelves}}
-      <li><a href="#">{{this.name}}</a></li>
-      {{/each}}
-    </ul>
+    <p>First Name : {{user.firstname}}</p>
+    <p>Last Name : {{user.lastname}}</p>
+    {{#if user.bookshelves.length}}
+      <ul>
+        <h2>Bookshelves: </h2>
+        {{#each user.bookshelves}}
+        <li><a href="#">{{this.name}}</a></li>
+        {{/each}}
+      </ul>
+    {{/if}}
   </div>
-  {{/with}}
 </div>
 
 <!-- Button trigger modal -->
