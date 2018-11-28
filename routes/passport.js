@@ -22,10 +22,10 @@ const passport = require('passport');
         {
             let User = await userModel()
             user = await User.getBy({ username });
-            console.log(user);
-            if(!user)
+            //console.log(user);
+            if(user.length == 0)
             {
-                console.log("No user")
+                //console.log("No user")
                 return done(null,false, {message : 'Incorrect username'});
             }
             user = user[0]
@@ -33,11 +33,11 @@ const passport = require('passport');
             {
                 return done(null,false,{message : 'Please validate your account'})
             }
-            console.log("No error")
+            //console.log("No error")
             
         }catch(error)
         {
-            console.log("Error found")
+            //console.log("Error found")
             return done(error);
         }
 

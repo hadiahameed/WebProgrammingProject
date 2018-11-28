@@ -11,13 +11,13 @@ router.get('/', async (req, res, next) => {
   // res.send(BookList);
   res.render("books/books",{books: BookList})
 })
-/*
+
 
 router.get('/new', async (req, res, next) => {
   res.render("books/new",{});
 })
-
-router.get('/', async (req, res, next) => {
+/*
+router.get('/books', async (req, res, next) => {
   // let Books = await bookModel()
   // res.send(await Books.getAll())
 

@@ -7,6 +7,7 @@ module.exports = async () => {
         username: String,
         email: String,
         password: String,
+        bookshelves: Array,
         validated: Boolean,
         validation_code: Number
     });

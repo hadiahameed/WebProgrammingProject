@@ -4,21 +4,50 @@
 <div class="logged-in-class">
   <h1>{{title}}</h1>
   <br>
-{{#with user}}
+  {{#with user}}
   <div class="user-data-class">
-    <p>First Name : {{firstname}}</p>
-    <p>Last Name : {{lastname}}</p>
+    <p>{{firstname}} {{lastname}}
+      <a href="/profileEdit">(edit profile)</a>
+    </p>
+    {{#if bookshelves.length}}
+      <ul><h2>Bookshelves:</h2>
+        {{#each bookshelves}}
+          <li><a href="#">{{this.name}}</a></li>
+        {{/each}}
+      </ul>
+    {{/if}}
   </div>
-{{/with}}
+  {{/with}}
 </div>
 
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" id="addShelf">
+  Add bookshelf
+</button>
+
 <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="https://vignette.wikia.nocookie.net/bungostraydogs/images/1/1e/Profile-icon-9.png/revision/latest?cb=20171030104015" alt="Card image cap">
+  <img class="card-img-top" src="https://vignette.wikia.nocookie.net/bungostraydogs/images/1/1e/Profile-icon-9.png/revision/latest?cb=20171030104015"
+    alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">Hi there, {{firstName}}</h5>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
     <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
 </div>
+
+<!-- User LogOut -->
+<div class="logout-user">
+  <a class="fixed" href="/logout">LogOut</a>
+</div>
+
+<br>
+<!-- User's bookshelves -->
+<div class="user-bookshelves">
+  <a class="user-bookshelf" href="/bookshelves">{{firstName}}'s Bookshelves</a>
+  <hr>
+</div>
+{{/content}}
+{{#content "scripts" mode="append"}}
+  <script src="public/scripts/index.js"></script>
 {{/content}}
 {{/extend}}
