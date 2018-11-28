@@ -8,15 +8,12 @@
 </head>
 <body>
     <header>
-    {{#if login}}
-        {{>navLogin}}
-    {{else}}
+    {{#block "navbar"}}
         {{>nav}}
-    {{/if}}
-
+    {{/block}}
     </header>
     
-    <main class="container">
+    <main>
         {{#block "content"}}
         {{/block}}
     </main>
