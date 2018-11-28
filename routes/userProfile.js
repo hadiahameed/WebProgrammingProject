@@ -9,7 +9,8 @@ router.get("/", async(req,res) => {
     res.render("user/userProfile",{
                         user: req.user,
                         "title"     : "You're viewing user profile page",
-                        "firstName" : "Sanne",    
+                        "firstName" : "Sanne",
+                        loggedIn: true    
                         // "firstName" : userData.firstname,
                             // "lastName"   : userData.lastname
                             });
