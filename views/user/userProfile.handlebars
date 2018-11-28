@@ -6,7 +6,9 @@
   <br>
   {{#with user}}
   <div class="user-data-class">
-    <p>{{firstname}} {{lastname}}</p>
+    <p>{{firstname}} {{lastname}}
+      <a href="/edit">(edit profile)</a>
+    </p>
     {{#if bookshelves.length}}
       <ul><h2>Bookshelves:</h2>
         {{#each bookshelves}}
