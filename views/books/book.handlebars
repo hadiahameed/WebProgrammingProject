@@ -1,36 +1,23 @@
 {{!-- PAGE FOR A SINGLE BOOK, WHEN USER CLICKS ON A BOOK --}}
-{{#extend "layout"}}
+{{#extend "loggedIn"}}
     {{#content "content"}}
-    <button type="button" class="btn btn-primary" id="addNewBook"><a href="/books/new" class="text-white">Add new book</a></button>
-        {{!-- <div>
-            <img src= {{image}}>
-            <h1 id="bookTitle"> {{title}} </h1>
-            <h2 id="author"> {{author}} </h2>
-            <p>Rating: {{rating}}</p>
-            {{#each book}}
-                <p id="review">
-                    {{this.review}}
-                </p>
-            {{/each}}
-            {{#if loggedIn}}
-                <button> Write review </button>
-            {{/if}}
-        </div> --}}
-
-
-
-        <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="{{image}}" alt="Card image cap">
-        <div class="card-body">
-            <h1 id="bookTitle"> {{title}} </h1>
-            <h3 id="author"> {{author}} </h2>
-            <article>Review: {{review}}</article>
-            <p>Rating: {{rating}}</p>
-            {{#if loggedIn}}
-                <button><a href="#" class="btn btn-primary">Write review</a></button>
-            {{/if}}
-            
-        </div>
+        <a href="/books">Back to all books</a>
+        <button type="button" class="btn btn-primary" id="addNewBook"><a href="/books/new" class="text-white">Add new book</a></button>
+        <div class="bookInfo">
+            <div class="bookText">
+                <h1 id="bookTitle"> {{title}} </h1>
+                <h2 id="author"> {{author}} </h2>
+                <p>Rating: {{rating}}</p>
+                <article>Review: {{review}}</article>
+                <form>
+                    <h3>Write your own review:</h3>
+                    <div class="form-group">
+                        <textarea cols="50" rows="10"></textarea>
+                    </div>
+                    <submit href="#" class="btn btn-primary">Write review</submit>
+                </form>
+            </div>
+            <img src="{{image}}" alt="Card image cap">
         </div>
     {{/content}}
 {{/extend}}

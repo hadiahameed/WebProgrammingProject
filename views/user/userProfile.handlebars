@@ -1,5 +1,5 @@
 {{!-- USER PROFILE PAGE --}}
-{{#extend "layout"}}
+{{#extend "loggedIn"}}
 {{#content "content"}}
 <div class="logged-in-class">
   <h1>{{title}}</h1>
@@ -31,11 +31,6 @@
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
     <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
-</div>
-
-<!-- User LogOut -->
-<div class="logout-user">
-  <a class="fixed" href="/logout">LogOut</a>
 </div>
 
 <br>

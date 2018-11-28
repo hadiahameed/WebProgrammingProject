@@ -2,14 +2,17 @@
 {{#extend "loggedIn"}}
     {{#content "content"}}
     <button type="button" class="btn btn-primary"><a href="/books/new" class="text-white">Add new book</a></button>
-        {{#each books}}
+        {{#each books as |book|}}
         <div id="booksList">
             <img src={{this.image}} alt={{this.title}} class="image">
             <div>
-                <h1 id="bookTitle">Title: {{this.title}} </h1>
+                <a href="/books/{{this._id}}"><h1 id="bookTitle">Title: {{this.title}} </h1></a>
                 <h2 id="author">Author: {{this.author}} </h2>
                 <p id="rating">Rating: {{this.rating}} </p>
-                <p id="rating">Latest Review: {{this.review}} </p>
+                <p id="review">Latest Review: {{this.review}} </p>
+                {{#if this.tags}}
+                <p id="tags">Tags: {{#each book.tags}}<span class="oneTag">{{this}}</span> {{/each}} </p>
+                {{/if}}
             </div>
         </div>
         {{/each}}

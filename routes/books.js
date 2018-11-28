@@ -16,6 +16,7 @@ router.get('/', async (req, res, next) => {
     test = test + " ..."
     BookList[i].review = test
   }
+  console.log(BookList)
   res.render("books/books",{books: BookList})
 })
 
@@ -55,12 +56,20 @@ router.get("/:id", async (req, res) => {
 
 
 router.post('/',multipartyMiddleware, async (req, res, next) => {
+  
   let image = req.files.image.path;
   let title = req.body.title;
   let author = req.body.author;
   let review = req.body.review;
   let rating = req.body["book-rating"];
-  let tags = req.body.genre;
+  
+  if (req.body.genre) {
+    var tags = req.body.genre; 
+    if(typeof tags === String) tags = tags.split();
+  } else {
+    var tags = [];
+  }
+  
   let Books = await bookModel()
   let Reviews = await reviewModel();
   
