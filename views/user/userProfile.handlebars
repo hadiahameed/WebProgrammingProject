@@ -4,7 +4,6 @@
 <div class="logged-in-class">
   <h1>{{title}}</h1>
   <br>
-  {{#with user}}
   <div class="user-data-class">
     <p>{{firstname}} {{lastname}}
       <a href="/profileEdit">(edit profile)</a>
@@ -17,7 +16,6 @@
       </ul>
     {{/if}}
   </div>
-  {{/with}}
 </div>
 
 <!-- Button trigger modal -->
@@ -48,6 +46,6 @@
 </div>
 {{/content}}
 {{#content "scripts" mode="append"}}
-  <script src="public/scripts/index.js"></script>
+<script src="public/scripts/index.js"></script>
 {{/content}}
 {{/extend}}
