@@ -14,6 +14,12 @@ router.post('/', async (req, res, next) => {
     let reviewBody = req.body.reviewText;
     let bookId = document.getElementsByClassName("bookTitle").id;
     let Reviews = await reviewModel()
+    let bookReview = new Reviews({
+      bookId,
+      reviewBody
+    })
+    await bookReview.save()
+    res.redirect(`/books/${bookId}`)
 })
 
 module.exports = router
