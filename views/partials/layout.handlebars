@@ -7,16 +7,13 @@
     {{/block}}
 </head>
 <body>
-    <header class="container">
-    {{#if loggedIn}}
-        {{>navLogin}}
-    {{else}}
+    <header>
+    {{#block "navbar"}}
         {{>nav}}
-    {{/if}}
-
+    {{/block}}
     </header>
     
-    <main class="container">
+    <main>
         {{#block "content"}}
         {{/block}}
     </main>
