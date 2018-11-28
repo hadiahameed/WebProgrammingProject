@@ -9,6 +9,13 @@ router.get('/', async (req, res, next) => {
   let Book = await bookModel()
   let BookList = await Book.getAll();
   // res.send(BookList);
+  
+  // For testing the books page with long reviews
+  for(var i = 0; i < BookList.length; i++) {
+    var test = BookList[i].review.slice(0, 500);
+    test = test + " ..."
+    BookList[i].review = test
+  }
   res.render("books/books",{books: BookList})
 })
 

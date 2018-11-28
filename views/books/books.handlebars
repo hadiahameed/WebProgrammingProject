@@ -1,5 +1,5 @@
 {{!-- MULTIPLE BOOKS DISPLAYED, FOR EXAMPLE: AFTER THE USER PERFORMS A SEARCH --}}
-{{#extend "layout"}}
+{{#extend "loggedIn"}}
     {{#content "content"}}
     <button type="button" class="btn btn-primary"><a href="/books/new" class="text-white">Add new book</a></button>
         {{#each books}}
