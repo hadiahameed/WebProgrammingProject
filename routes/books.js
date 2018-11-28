@@ -57,11 +57,21 @@ router.get('/books', async (req, res, next) => {
 router.get("/:id", async (req, res) => {
   try {
     let Book = await bookModel()
+    let Review = await reviewModel()
     let BookObject = await Book.getById(req.params.id);
+    let arr = BookObject.props.review;
+    let reviewArray = [];
+    for (var j = 0; j < arr.length; j++){
+      let reviewId = arr[j];
+      let ReviewObject = await Review.getById(reviewId);
+      reviewArray.push(ReviewObject.props.review);
+    }
+    let ReviewObject = await Review.getById(req.params.id);
     res.render("books/book", {
+      _id: BookObject.props._id,
       title: BookObject.props.title,
       author: BookObject.props.author,
-      review: BookObject.props.review,
+      review: reviewArray,
       rating: BookObject.props.rating,
       image: BookObject.props.image
     });
@@ -94,7 +104,6 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
     return
   }
   let bookshelf = req.body.bookshelf;
-  // let tags = req.body.genre;
   
   if (req.body.genre) {
     var tags = req.body.genre; 
@@ -110,19 +119,25 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
     let book = new Books({
       title,
       author,
-      review,
+      review: [],
       rating,
       tags,
       image: "/" + image
     })
     await book.save()
-    await user.addBook(bookshelf,book)
+    console.log(book)
     let bookId = book.props._id;
     let bookReview = new Reviews({
       bookId,
       review
     })
     await bookReview.save()
+    
+    let savedBook = await Books.getById(bookId);
+    savedBook.props.review.push(bookReview.props._id);
+    savedBook.updateAll();
+
+    await user.addBook(bookshelf,savedBook)
     res.redirect(`/books/${bookId}`)
   } catch (e) {
     res.send(e.message)

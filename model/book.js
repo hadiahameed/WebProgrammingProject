@@ -4,7 +4,7 @@ module.exports = async () => {
     let Book = await Model('book', {
         title: String,
         author: String,
-        review: String,
+        review: Array,
         rating: String,
         tags: Array,
         image: String

@@ -1,23 +1,26 @@
 {{!-- PAGE FOR A SINGLE BOOK, WHEN USER CLICKS ON A BOOK --}}
 {{#extend "loggedIn"}}
-    {{#content "content"}}
-        <a href="/books"><i class="fas fa-arrow-left"></i> Back to all books</a>
-        <button type="button" class="btn btn-primary" id="addNewBook"><a href="/books/new" class="text-white">Add new book</a></button>
-        <div class="bookInfo">
-            <div class="bookText">
-                <h1 id="bookTitle"> {{title}} </h1>
-                <h2 id="author"> {{author}} </h2>
-                <p>Rating: {{rating}}</p>
-                <article>Review: {{review}}</article>
-                <form>
-                    <h3>Write your own review:</h3>
-                    <div class="form-group">
-                        <textarea cols="50" rows="10"></textarea>
-                    </div>
-                    <submit href="#" class="btn btn-primary">Write review</submit>
-                </form>
+{{#content "content"}}
+<a href="/books"><i class="fas fa-arrow-left"></i> Back to all books</a>
+<button type="button" class="btn btn-primary" id="addNewBook"><a href="/books/new" class="text-white">Add new book</a></button>
+<div class="bookInfo">
+    <div class="bookText">
+        <h1 class="bookTitle" id={{_id}}> {{title}} </h1>
+        <h2 id="author"> {{author}} </h2>
+        <p>Rating: {{rating}}</p>
+        {{#each review}}
+        <article>Review: {{review}}</article>
+        {{/each}}
+        
+        <form id="newreview" action="/review" method="POST">
+            <h3>Write your own review:</h3>
+            <div class="form-group">
+                <textarea name="reviewText" cols="50" rows="10"></textarea>
             </div>
-            <img src="{{image}}" alt="Card image cap">
-        </div>
-    {{/content}}
+            <submit href="#" class="btn btn-primary">Write review</submit>
+        </form>
+    </div>
+    <img src="{{image}}" alt="Card image cap">
+</div>
+{{/content}}
 {{/extend}}
