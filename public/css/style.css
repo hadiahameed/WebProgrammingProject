@@ -93,11 +93,12 @@ input[type='checkbox'] {
 
 #booksList div {
     display: inline-block;
-    margin-left: 20px;
+    margin-left: 2%;
+    width: 80%;
 }
 
 #booksList .image {
-    width: 10%;
+    width: 15%;
     vertical-align: top;
 }
 
