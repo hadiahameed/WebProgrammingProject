@@ -1,12 +1,12 @@
 {{!-- MULTIPLE BOOKSHELVES DISPLAYED --}}
-{{#extend "layout"}}
+{{#extend "loggedIn"}}
 {{#content "content"}}
 {{#if bookshelves.length}}
-<ul>
-    <h2>Bookshelves:</h2>
+<ul class="bookshelves">
+    <h1>Bookshelves:</h1>
     {{#each bookshelves}}
     <div>
-    <li><a href="#">{{this.name}}</a>
+    <li><a href="#"><h2>{{this.name}}</h2></a>
         {{#if this.books.length}}
         {{#each this.books}}
         <div class="card" style="width: 18rem;">

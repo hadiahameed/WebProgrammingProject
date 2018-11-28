@@ -93,6 +93,14 @@ button#addShelf {
     right: 20%;
 }
 
+.bookshelves li {
+    list-style-type: none;
+}
+
+.bookshelves li a {
+    display: block;
+}
+
 /* ---------- BOOKS PAGE ---------- */
 
 #addNewBook {
