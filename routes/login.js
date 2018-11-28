@@ -12,13 +12,13 @@ router.post("/", passport.authenticate('local', ),async(req,res,next) => {
            return next(err); 
         }
         if (user.length == 0) {
-           return res.redirect('/home'); 
+           return res.redirect('/'); 
         }  
         req.logIn(user, function(err) {
           if (err) {
             return next(err); 
           }
-          return res.redirect('/userProfile');
+          return res.redirect('userProfile');
         });
       })(req, res, next);
       //res.redirect('userProfile');
