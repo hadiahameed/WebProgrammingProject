@@ -5,12 +5,12 @@
   <h1>{{title}}</h1>
   <br>
   <div class="user-data-class">
-    <p>{{firstname}} {{lastname}}
+    <p>{{user.firstname}} {{user.lastname}}
       <a href="/profileEdit">(edit profile)</a>
     </p>
-    {{#if bookshelves.length}}
+    {{#if user.bookshelves.length}}
       <ul><h2>Bookshelves:</h2>
-        {{#each bookshelves}}
+        {{#each user.bookshelves}}
           <li><a href="#">{{this.name}}</a></li>
         {{/each}}
       </ul>
