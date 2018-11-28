@@ -1,0 +1,27 @@
+{{!-- MULTIPLE BOOKSHELVES DISPLAYED --}}
+{{#extend "layout"}}
+{{#content "content"}}
+{{#if bookshelves.length}}
+<ul>
+    <h2>Bookshelves:</h2>
+    {{#each bookshelves}}
+    <div>
+    <li><a href="#">{{this.name}}</a>
+        {{#if this.books.length}}
+        {{#each this.books}}
+        <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{image}}" alt="Card image cap">
+        <div class="card-body">
+            <h1 id="bookTitle"> {{this.title}} </h1>
+            <h3 id="author"> {{this.author}} </h2>
+            <p>Rating: {{this.rating}}</p>           
+        </div>
+        </div>
+        {{/each}}
+        {{/if}}
+    </li>
+    {{/each}}
+</ul>
+{{/if}}
+{{/content}}
+{{/extend}}

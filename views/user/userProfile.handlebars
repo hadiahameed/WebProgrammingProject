@@ -9,7 +9,7 @@
       <a href="/profileEdit">(edit profile)</a>
     </p>
     {{#if user.bookshelves.length}}
-      <ul><h2>Bookshelves:</h2>
+      <ul><h2><a href="/bookshelves">Bookshleves</a></h2>
         {{#each user.bookshelves}}
           <li><a href="#">{{this.name}}</a></li>
         {{/each}}

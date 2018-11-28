@@ -25,6 +25,17 @@
             <input type="radio" name="book-rating" value="5" /> 5
         </label>
     </div>
+    
+    {{#if bookshelves.length}}
+    <div class="form-group">
+        <label>Bookshelf: 
+            {{#each bookshelves}}
+            <input type="radio" name="bookshelf" value={{this.name}} />{{this.name}}
+            {{/each}}
+        </label>
+    </div>
+    {{/if}}
+
     <div class="form-group">
         <label>Genres:
             <label><input type="checkbox" name="genre" value="Thriller">Thriller</label>

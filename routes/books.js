@@ -1,20 +1,37 @@
 const router = require('express').Router()
 const bookModel = require('../model/book')
+const userModel = require('../model/user')
 const reviewModel = require('../model/review')
 var multiparty = require('connect-multiparty'),
-    multipartyMiddleware = multiparty({ uploadDir: './public/resources/' });
+  multipartyMiddleware = multiparty({ uploadDir: './public/resources/' });
 
 
 router.get('/', async (req, res, next) => {
   let Book = await bookModel()
   let BookList = await Book.getAll();
   // res.send(BookList);
-  res.render("books/books",{books: BookList})
+  res.render("books/books", { books: BookList })
 })
 
 
 router.get('/new', async (req, res, next) => {
-  res.render("books/new",{});
+  let User = await userModel()
+  let userId = req.user._id;
+
+  try {
+    let user = await User.getById(userId);
+    if (user == null) {
+      return res.send({
+        msg: "_id not found"
+      })
+    }
+    let bookshelves = user.props.bookshelves;
+    res.render("books/new", {bookshelves:bookshelves});
+  } catch (e) {
+    res.send(e.message)
+    return
+  }
+  
 })
 /*
 router.get('/books', async (req, res, next) => {
@@ -40,33 +57,50 @@ router.get("/:id", async (req, res) => {
       rating: BookObject.props.rating,
       image: BookObject.props.image
     });
-  } 
+  }
   catch (e) {
     res.status(404).json({ error: "Book not found" });
   }
 });
 
 
-router.post('/',multipartyMiddleware, async (req, res, next) => {
+router.post('/', multipartyMiddleware, async (req, res, next) => {
+  let User = await userModel()
+  let userId = req.user._id;
+
+  try {
+    let user = await User.getById(userId);
+    if (user == null) {
+      return res.send({
+        msg: "_id not found"
+      })
+    }
+
   let image = req.files.image.path;
   let title = req.body.title;
   let author = req.body.author;
   let review = req.body.review;
   let rating = req.body["book-rating"];
+  if(!req.body.bookshelf){
+    res.send("User does not have bookshelves!")
+    return
+  }
+  let bookshelf = req.body.bookshelf;
   let tags = req.body.genre;
   let Books = await bookModel()
   let Reviews = await reviewModel();
-  
+
   try {
     let book = new Books({
       title,
       author,
-      review, 
+      review,
       rating,
       tags,
-      image: "/"+image
+      image: "/" + image
     })
     await book.save()
+    await user.addBook(bookshelf,book)
     let bookId = book.props._id;
     let bookReview = new Reviews({
       bookId,
@@ -78,6 +112,12 @@ router.post('/',multipartyMiddleware, async (req, res, next) => {
     res.send(e.message)
     return
   }
+} catch (e) {
+  res.send(e.message)
+  return
+}
+
+
 })
 
 router.delete('/books/:id', async (req, res, next) => {
