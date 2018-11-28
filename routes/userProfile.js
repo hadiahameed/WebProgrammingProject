@@ -9,11 +9,11 @@ router.get("/", async(req,res) => {
     let user = await User.getById(req.user._id);
     
     res.render("user/userProfile",{
-                        user: user.props,
+                        user: req.user,
+                        "user": user.props,
                         "title"     : "You're viewing user profile page",
                         "firstName" : req.user.firstname,    
-                        // "firstName" : userData.firstname,
-                            // "lastName"   : userData.lastname
+
                             });
 });
 

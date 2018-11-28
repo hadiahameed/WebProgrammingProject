@@ -1,20 +1,45 @@
 const router = require('express').Router()
 const bookModel = require('../model/book')
+const userModel = require('../model/user')
 const reviewModel = require('../model/review')
 var multiparty = require('connect-multiparty'),
-    multipartyMiddleware = multiparty({ uploadDir: './public/resources/' });
+  multipartyMiddleware = multiparty({ uploadDir: './public/resources/' });
 
 
 router.get('/', async (req, res, next) => {
   let Book = await bookModel()
   let BookList = await Book.getAll();
   // res.send(BookList);
+  
+  // For testing the books page with long reviews
+  for(var i = 0; i < BookList.length; i++) {
+    var test = BookList[i].review.slice(0, 500);
+    test = test + " ..."
+    BookList[i].review = test
+  }
+  console.log(BookList)
   res.render("books/books",{books: BookList})
 })
 
 
 router.get('/new', async (req, res, next) => {
-  res.render("books/new",{});
+  let User = await userModel()
+  let userId = req.user._id;
+
+  try {
+    let user = await User.getById(userId);
+    if (user == null) {
+      return res.send({
+        msg: "_id not found"
+      })
+    }
+    let bookshelves = user.props.bookshelves;
+    res.render("books/new", {bookshelves:bookshelves});
+  } catch (e) {
+    res.send(e.message)
+    return
+  }
+  
 })
 /*
 router.get('/books', async (req, res, next) => {
@@ -32,52 +57,98 @@ router.get('/books', async (req, res, next) => {
 router.get("/:id", async (req, res) => {
   try {
     let Book = await bookModel()
+    let Review = await reviewModel()
     let BookObject = await Book.getById(req.params.id);
+    let arr = BookObject.props.review;
+    let reviewArray = [];
+    for (var j = 0; j < arr.length; j++){
+      let reviewId = arr[j];
+      let ReviewObject = await Review.getById(reviewId);
+      reviewArray.push(ReviewObject.props.review);
+    }
+    let ReviewObject = await Review.getById(req.params.id);
     res.render("books/book", {
+      _id: BookObject.props._id,
       title: BookObject.props.title,
       author: BookObject.props.author,
-      review: BookObject.props.review,
+      review: reviewArray,
       rating: BookObject.props.rating,
       image: BookObject.props.image
     });
-  } 
+  }
   catch (e) {
     res.status(404).json({ error: "Book not found" });
   }
 });
 
 
-router.post('/',multipartyMiddleware, async (req, res, next) => {
+router.post('/', multipartyMiddleware, async (req, res, next) => {
+  let User = await userModel()
+  let userId = req.user._id;
+
+  try {
+    let user = await User.getById(userId);
+    if (user == null) {
+      return res.send({
+        msg: "_id not found"
+      })
+    }
+
   let image = req.files.image.path;
   let title = req.body.title;
   let author = req.body.author;
   let review = req.body.review;
   let rating = req.body["book-rating"];
-  let tags = req.body.genre;
+  if(!req.body.bookshelf){
+    res.send("User does not have bookshelves!")
+    return
+  }
+  let bookshelf = req.body.bookshelf;
+  
+  if (req.body.genre) {
+    var tags = req.body.genre; 
+    if(typeof tags === String) tags = tags.split();
+  } else {
+    var tags = [];
+  }
+  
   let Books = await bookModel()
   let Reviews = await reviewModel();
-  
+
   try {
     let book = new Books({
       title,
       author,
-      review, 
+      review: [],
       rating,
       tags,
-      image: "/"+image
+      image: "/" + image
     })
     await book.save()
+    console.log(book)
     let bookId = book.props._id;
     let bookReview = new Reviews({
       bookId,
       review
     })
     await bookReview.save()
+    
+    let savedBook = await Books.getById(bookId);
+    savedBook.props.review.push(bookReview.props._id);
+    savedBook.updateAll();
+
+    await user.addBook(bookshelf,savedBook)
     res.redirect(`/books/${bookId}`)
   } catch (e) {
     res.send(e.message)
     return
   }
+} catch (e) {
+  res.send(e.message)
+  return
+}
+
+
 })
 
 router.delete('/books/:id', async (req, res, next) => {

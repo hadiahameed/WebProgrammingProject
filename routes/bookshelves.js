@@ -30,4 +30,25 @@ router.get('/new', async (req, res) => {
     res.render("bookshelf/new");
   })
 
+router.get('/', async (req, res) => {
+    let User = await userModel()
+    let userId = req.user._id;
+
+    try {
+        let user = await User.getById(userId);
+        if (user == null){
+            return res.send({
+                msg: "_id not found"
+            })
+        }
+        let bookshelves = user.props.bookshelves;
+        console.log(bookshelves[0])
+        res.render("bookshelf/bookshelves",{bookshelves});
+    } catch (e) {
+        res.send(e.message)
+        return
+    }
+    
+})
+
   module.exports = router;

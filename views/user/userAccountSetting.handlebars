@@ -1,29 +1,32 @@
 {{!-- USER ACCOUNT SETTINGS--}}
 {{#extend "layout"}}
 {{#content "content"}}
-<form id="account-settings" action="/profileEdit" method="POST">
+<div id="account-settings">
     <div class="profile-group">
         <label>First Name:</label>
-            <input class="form-control" name="firstname" type="text">
+            <input class="form-control" name="firstname" type="text" value="{{firstname}}">
     </div>
     <br>
     <div class="profile-group">
         <label>Last Name:</label>
-            <input class="form-control" name="lastname" type="text">
+            <input class="form-control" name="lastname" type="text" value="{{lastname}}" >
     </div>
     <br>
     <div class="profile-group">
         <label>Username:</label>
-            <input class="form-control" name="username" type="text">
+            <input class="form-control" name="username" type="text" value="{{username}}">
     </div>
     <br>
     <div class="profile-group">
-        <label>Email:</label>
-        <input class="form-control" name="email" type="email">
+        <label>Password:</label>
+        <input class="form-control" name="password" type="password" value="{{password}}">
     </div>
     <br>
-    <button class="profile-submit" type="submit" id="submitButton" value="submit">Save Profile Settings</button>
+    <button class="profile-submit" id="submitUpdate" value="submit">Save Profile Settings</button>
 
-</form>
+</div>
 {{/content}}
+ {{#content "scripts" mode="append"}}
+        <script src="public/scripts/updateProfile.js"></script>
+    {{/content}}
 {{/extend}}
