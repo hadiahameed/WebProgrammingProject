@@ -94,6 +94,12 @@ input[type='checkbox'] {
     font-size: 1.2rem;
 }
 
+a.fixed {
+    position: absolute;
+    right: 10px;
+    top: 50px;
+    width: 260px;
+}
 
 /* NEW USER */
 /* form#newuser label {

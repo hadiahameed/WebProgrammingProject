@@ -6,8 +6,7 @@
   <br>
   {{#with user}}
   <div class="user-data-class">
-    <p>First Name : {{firstname}}</p>
-    <p>Last Name : {{lastname}}</p>
+    <p>{{firstname}} {{lastname}}</p>
     {{#if bookshelves.length}}
       <ul><h2>Bookshelves:</h2>
         {{#each bookshelves}}
@@ -32,6 +31,10 @@
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
     <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
+</div>
+
+<div class="logout-user">
+  <a class="fixed" href="/logout">LogOut</a>
 </div>
 {{/content}}
 {{#content "scripts" mode="append"}}
