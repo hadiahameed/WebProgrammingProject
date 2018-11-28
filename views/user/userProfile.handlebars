@@ -9,11 +9,7 @@
       <a href="/profileEdit">(edit profile)</a>
     </p>
     {{#if user.bookshelves.length}}
-<<<<<<< HEAD
       <ul><h5><a class="user-bookshelf" href="/bookshelves">{{firstName}}'s Bookshelves</a></h5>
-=======
-      <ul><h2><a href="/bookshelves">Bookshelves</a></h2>
->>>>>>> 75a86e35856df46ea75a33c11295cce45daad761
         {{#each user.bookshelves}}
           <li><a href="#">{{this.name}}</a></li>
         {{/each}}
