@@ -32,22 +32,45 @@ header nav label button {
     font-weight: 600;
 }
 
-header nav label button:hover {
-    background-color: rgb(176, 210, 255);
-    color: white;
-}
-
-header nav .dropdown .content {
+header nav .dropdown button {
     display: none;
-    position: absolute;
 }
 
 header nav .dropdown .content a {
     display: block;
+    text-align: center;
 }
 
-header nav .dropdown:hover .content {
-    display: block;
+@media (min-width: 700px) {
+    header nav .dropdown button {
+        display: inline-block;
+    }
+
+    header nav label button:hover {
+        background-color: rgb(176, 210, 255);
+        color: white;
+    }
+
+    header nav .dropdown .content {
+        display: none;
+        position: absolute;
+        background-color: rgb(154, 194, 247);
+        padding: 5px;
+        border-radius: 2px;
+    }
+
+    header nav .dropdown button {
+        cursor: pointer;
+    }
+
+    header nav .dropdown .content a {
+        cursor: pointer;
+        display: block;
+    }
+
+    header nav .dropdown:hover .content {
+        display: block;
+    }
 }
 
 header nav > a {
@@ -109,6 +132,28 @@ input[type='checkbox'] {
 #booksList h2 {
     font-size: 1.2rem;
 }
+
+#booksList p .oneTag:not(:last-child):after {
+    content: ",";
+}
+
+/* SINGLE BOOK PAGE */
+div.bookInfo img {
+    width: 25%;
+    position: absolute;
+    right: 0;
+    margin-right: 10%;
+}
+
+div.bookInfo div.bookText {
+    width: 54%;
+    display: inline-block;
+}
+
+div.bookInfo div.bookText form {
+    margin-top: 20px;
+}
+
 
 /* Logout link */
 a.fixed {
