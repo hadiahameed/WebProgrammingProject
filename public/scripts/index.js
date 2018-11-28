@@ -8,24 +8,38 @@ $(document).ready(function () {
             return false
         }
     })*/
-    $('#submitButton').click(function (e) {
-        var password = $("#password").val();
-        var confirmPassword = $("#confirmPassword").val();
-        let g_response = $('#g-recaptcha-response').val();
-        if (password == confirmPassword) {
-            if (!g_response) {
-                $.alert('Please check the captcha box to proceed to the destination page.');
-                return false
-            }
-            else {
-                return true;
-            }
+    $('#next-btn').click(function () {
+        let result = $("#signUpModal form").validate().form()
+        if(result == false) {
+            return
         }
-        else {
-            $.alert(`Passwords don't match.`);
-            return false
-        }
+        $("#signUpModal").modal('hide')
+        $("#infoModal").modal('show')
     });
+
+    $('#getStarted').click(function () {
+        let result = $('#infoModal form').validate().form()
+        let captcha = $('.g-recaptcha textarea').val()
+
+        if(result == false) {
+            return
+        }
+
+        if(captcha.length == 0) {
+            $.alert('Are you a robot?')
+            return
+        }
+
+        axios.post('/users', {
+            'g-recaptcha-response': captcha,
+            firstname: $('#first-name').val(),
+            lastname: $('#last-name').val(),
+            username: $('#user-name').val(),
+            password: $('#user-password').val(),
+            email: $('#email').val()
+        })
+        
+    })
 
     $('#addShelf').click(function () {
         window.location.href = '/bookshelves/new';

@@ -9,6 +9,9 @@ const userProfileRouter = require('./userProfile');
 const profileEditRouter = require('./profileEdit');
 
 module.exports = app => {
+    app.patch('/', (req, res, ) => {
+        res.send(req.body);
+    })
     app.use('/', homeRouter)
     app.use('/users', usersRouter)
     app.use('/validate', vlaidateRouter)
