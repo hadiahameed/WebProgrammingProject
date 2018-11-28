@@ -18,11 +18,8 @@ router.post('/', async (req, res) => {
                 msg: "_id not found"
             })
         }
-        let bookshelves = user.props.bookshelves;
-        bookshelves.push(bookshelf)
-        console.log(bookshelves);
-        await user.update({bookshelves: bookshelves})
-        res.redirect(`/userProfile`)
+        await user.addBookshelf(bookshelf)
+        res.redirect('/userProfile')
     } catch (e) {
         res.send(e.message)
         return
