@@ -38,8 +38,12 @@
   <a class="fixed" href="/logout">LogOut</a>
 </div>
 
+<br>
 <!-- User's bookshelves -->
-
+<div class="user-bookshelves">
+  <a class="user-bookshelf" href="/bookshelves">{{firstName}}'s Bookshelves</a>
+  <hr>
+</div>
 {{/content}}
 {{#content "scripts" mode="append"}}
   <script src="public/scripts/index.js"></script>
