@@ -16,13 +16,11 @@ h1 {
 
 header nav label {
     width: 30%;
-}
+}*/
 
 header nav label input {
     width: 80%;
-    padding: 0.3rem;
-    border-radius: 3px;
-} */
+} 
 
 header nav label button {
     width: 40px;
@@ -37,6 +35,23 @@ header nav label button {
 header nav label button:hover {
     background-color: rgb(176, 210, 255);
     color: white;
+}
+
+header nav .dropdown .content {
+    display: none;
+    position: absolute;
+}
+
+header nav .dropdown .content a {
+    display: block;
+}
+
+header nav .dropdown:hover .content {
+    display: block;
+}
+
+header nav > a {
+    text-align: center
 }
 
 main {
@@ -94,7 +109,23 @@ input[type='checkbox'] {
     font-size: 1.2rem;
 }
 
+/* Logout link */
+a.fixed {
+    position: absolute;
+    right: 10px;
+    top: 50px;
+    width: 260px;
+}
 
+/* Profile Update Text Field */
+div.profile-group {
+    width:250px;
+}
+
+/* Profile Update Button */
+button.profile-submit {
+    width:250px;
+}
 /* NEW USER */
 /* form#newuser label {
     display: block;

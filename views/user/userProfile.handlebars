@@ -5,13 +5,13 @@
   <h1>{{title}}</h1>
   <br>
   <div class="user-data-class">
-    <p>First Name : {{user.firstname}}</p>
-    <p>Last Name : {{user.lastname}}</p>
-    {{#if user.bookshelves.length}}
-      <ul>
-        <h2>Bookshelves: </h2>
-        {{#each user.bookshelves}}
-        <li><a href="#">{{this.name}}</a></li>
+    <p>{{firstname}} {{lastname}}
+      <a href="/profileEdit">(edit profile)</a>
+    </p>
+    {{#if bookshelves.length}}
+      <ul><h2>Bookshelves:</h2>
+        {{#each bookshelves}}
+          <li><a href="#">{{this.name}}</a></li>
         {{/each}}
       </ul>
     {{/if}}
@@ -31,6 +31,18 @@
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
     <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
+</div>
+
+<!-- User LogOut -->
+<div class="logout-user">
+  <a class="fixed" href="/logout">LogOut</a>
+</div>
+
+<br>
+<!-- User's bookshelves -->
+<div class="user-bookshelves">
+  <a class="user-bookshelf" href="/bookshelves">{{firstName}}'s Bookshelves</a>
+  <hr>
 </div>
 {{/content}}
 {{#content "scripts" mode="append"}}
