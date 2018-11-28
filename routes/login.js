@@ -5,22 +5,23 @@ const passport = require('./passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 
-router.post("/", passport.authenticate('local'),async(req,res,next) => {
-    res.send(req.user);
-    /*passport.authenticate('local', {failureFlash: true}, function(err, user, info) {
+router.post("/", passport.authenticate('local', ),async(req,res,next) => {
+    
+    passport.authenticate('local', {failureFlash: true}, function(err, user, info) {
         if (err) {
            return next(err); 
         }
-        if (!user) {
-           return res.redirect('/home'); 
+        if (user.length == 0) {
+           return res.redirect('/'); 
         }  
         req.logIn(user, function(err) {
           if (err) {
             return next(err); 
           }
-          return res.redirect('/userProfile');
+          return res.redirect('userProfile');
         });
-      })(req, res, next);*/
+      })(req, res, next);
+      //res.redirect('userProfile');
 });
 
 module.exports = router;

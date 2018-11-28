@@ -109,7 +109,23 @@ input[type='checkbox'] {
     font-size: 1.2rem;
 }
 
+/* Logout link */
+a.fixed {
+    position: absolute;
+    right: 10px;
+    top: 50px;
+    width: 260px;
+}
 
+/* Profile Update Text Field */
+div.profile-group {
+    width:250px;
+}
+
+/* Profile Update Button */
+button.profile-submit {
+    width:250px;
+}
 /* NEW USER */
 /* form#newuser label {
     display: block;

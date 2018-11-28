@@ -3,9 +3,10 @@ const router=express.Router();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-router.get('/logout', async (req,res) => {
-    req.logOut();
-    req.flash('success_msg','You are logged out');
-    res.redirect('/home');
+router.get('/', async (req,res) => {
+        req.logOut();
+        //res.clearCookie('connect.sid');
+        res.redirect('/');
+    
 });
 module.exports = router;

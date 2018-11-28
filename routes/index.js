@@ -3,8 +3,10 @@ const usersRouter = require('./users');
 const booksRouter = require('./books');
 const vlaidateRouter = require('./validate')
 const loginRouter = require('./login');
-//const logoutRouter = require('/logout');
+const bookshelfRouter = require('./bookshelves');
+const logoutRouter = require('./logout');
 const userProfileRouter = require('./userProfile');
+const profileEditRouter = require('./profileEdit');
 
 module.exports = app => {
     app.use('/', homeRouter)
@@ -12,8 +14,10 @@ module.exports = app => {
     app.use('/validate', vlaidateRouter)
     app.use('/books', booksRouter)
     app.use('/login',loginRouter);
-    //app.use('/logout',logoutRouter);
+    app.use('/bookshelves',bookshelfRouter);
+    app.use('/logout',logoutRouter);
     app.use('/userProfile',userProfileRouter);
+    app.use('/profileEdit',profileEditRouter);
     app.use('*', async (req, res, next) => {
         res.status(404)
         res.render('pages/error', {
