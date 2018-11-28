@@ -4,9 +4,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 router.get('/', async (req,res) => {
-    req.session.destroy(function (err){
-        req.logout();
+        req.logOut();
+        //res.clearCookie('connect.sid');
         res.redirect('/');
-    });
+    
 });
 module.exports = router;
