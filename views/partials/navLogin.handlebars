@@ -1,14 +1,17 @@
 {{!-- NAV FOR LOGGED IN USER --}}
-<nav class="navbar navbar-expand-lg navbar-light bg-light row">
+<nav class="container">
     <a href="/" class="text-dark col-lg-3 col-md-3 col-sm-12" >Home</a>
-    <a href="/user/bookshelves" class="text-dark col-lg-3 col-md-3 col-sm-12" >My Books</a>
+    <a href="/bookshelves" class="text-dark col-lg-3 col-md-3 col-sm-12" >My Books</a>
     <label class="text-dark col-lg-5 col-md-5 col-sm-12"><input type="text" placeholder="Search" id="loggedin"><button type="submit" value="submit">Go</button></label>
     <div class="dropdown col-lg-1 col-md-1 col-sm-12">
         <button><i class="fas fa-user-circle"></i></button>
         <div class="content">
-            <a>View profile</a>
-            <a>Edit profile</a>
-            <a href="/logout">Log out</a>
+            <a href="/userProfile">View profile</a>
+            <a href="/userProfile">Edit profile</a>
+            <!-- User LogOut -->
+            <div class="logout-user">
+            <a href="/logout">LogOut</a>
+            </div>
         </div>
     </div>
 </nav>

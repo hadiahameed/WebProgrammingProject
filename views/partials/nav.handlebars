@@ -1,12 +1,11 @@
 {{!-- NAV FOR NOT-LOGGED IN USER, CONTAINS LOGIN FORM --}}
-<nav class="navbar navbar-expand-lg navbar-light bg-light row">
+<nav class="container">
     <a href="/" class="text-dark col-lg-2 col-md-2 col-sm-12" >Home</a>
-    <a href="/user/bookshelves" class="text-dark col-lg-2 col-md-2 col-sm-12" >My Books</a>
+    {{!-- <a href="/bookshelves" class="text-dark col-lg-2 col-md-2 col-sm-12" >My Books</a> --}}
     <label class="col-lg-3 col-md-3 col-sm-12"><input type="text" placeholder="Search"><button type="submit" value="submit">Go</button></label>
     <form action="/login" class="col-lg-5 col-md-5 col-sm-12" method="POST">
         <input name="user-name" type="text" placeholder="Username">
         <input name="user-password" type="password" placeholder="Password">
         <button type="submit" value="submit">Log in</button>
     </form>
-    
 </nav> 

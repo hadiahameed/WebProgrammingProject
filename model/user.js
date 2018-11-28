@@ -24,5 +24,17 @@ module.exports = async () => {
         return this.updateAll();
     }
 
+    User.prototype.addBook = function (bookshelf,book) {
+        let arr = this.props.bookshelves;
+        for (var j = 0; j < arr.length; j++) {
+            if(arr[j].name == bookshelf){
+                let selectedBookshelf = j;
+                this.props.bookshelves[selectedBookshelf].books.push(book.props);
+                return this.updateAll();
+            }
+        };  
+        return false;   
+    }
+
     return User;
 }

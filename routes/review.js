@@ -10,4 +10,10 @@ router.get('/reviews', async (req, res, next) => {
     // res.render('/books/review')
 })
 
+router.post('/', async (req, res, next) => {
+    let reviewBody = req.body.reviewText;
+    let bookId = document.getElementsByClassName("bookTitle").id;
+    let Reviews = await reviewModel()
+})
+
 module.exports = router
