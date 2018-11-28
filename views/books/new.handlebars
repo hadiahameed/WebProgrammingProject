@@ -1,11 +1,11 @@
 {{!-- CREATING A NEW BOOK --}}
-{{#extend "layout"}}
+{{#extend "loggedIn"}}
     {{#content "styles" mode="append"}}
         <!-- private styles -->
     {{/content}}
     {{#content "content"}}
+    <a href="/books"><i class="fas fa-arrow-left"></i> Back to all books</a>
 <form id="newbook" action="/books" method="POST" enctype="multipart/form-data">
-    
     
     <div class="form-group">
         <label>Title: <input name="title" type="text" required></label>
