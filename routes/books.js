@@ -10,9 +10,6 @@ router.get('/', async (req, res, next) => {
   let Book = await bookModel()
   let BookList = await Book.getAll();
   // res.send(BookList);
-<<<<<<< HEAD
-  res.render("books/books", { books: BookList })
-=======
   
   // For testing the books page with long reviews
   for(var i = 0; i < BookList.length; i++) {
@@ -22,7 +19,6 @@ router.get('/', async (req, res, next) => {
   }
   console.log(BookList)
   res.render("books/books",{books: BookList})
->>>>>>> df4d12923b9a659fd27eaa30a271c5c0389ff0cf
 })
 
 
@@ -76,7 +72,6 @@ router.get("/:id", async (req, res) => {
 });
 
 
-<<<<<<< HEAD
 router.post('/', multipartyMiddleware, async (req, res, next) => {
   let User = await userModel()
   let userId = req.user._id;
@@ -89,23 +84,17 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
       })
     }
 
-=======
-router.post('/',multipartyMiddleware, async (req, res, next) => {
-  
->>>>>>> df4d12923b9a659fd27eaa30a271c5c0389ff0cf
   let image = req.files.image.path;
   let title = req.body.title;
   let author = req.body.author;
   let review = req.body.review;
   let rating = req.body["book-rating"];
-<<<<<<< HEAD
   if(!req.body.bookshelf){
     res.send("User does not have bookshelves!")
     return
   }
   let bookshelf = req.body.bookshelf;
-  let tags = req.body.genre;
-=======
+  // let tags = req.body.genre;
   
   if (req.body.genre) {
     var tags = req.body.genre; 
@@ -114,7 +103,6 @@ router.post('/',multipartyMiddleware, async (req, res, next) => {
     var tags = [];
   }
   
->>>>>>> df4d12923b9a659fd27eaa30a271c5c0389ff0cf
   let Books = await bookModel()
   let Reviews = await reviewModel();
 
