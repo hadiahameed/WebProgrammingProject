@@ -17,11 +17,11 @@ $(document).ready(function () {
         $("#infoModal").modal('show')
     });
 
-    $('#getStarted').click(function () {
-        let result = $('#infoModal form').validate().form()
+    $('#getStarted').click(async function () {
+        let valid = $('#infoModal form').validate().form()
         let captcha = $('.g-recaptcha textarea').val()
 
-        if(result == false) {
+        if(valid == false) {
             return
         }
 
@@ -30,15 +30,25 @@ $(document).ready(function () {
             return
         }
 
-        axios.post('/users', {
-            'g-recaptcha-response': captcha,
-            firstname: $('#first-name').val(),
-            lastname: $('#last-name').val(),
-            username: $('#user-name').val(),
-            password: $('#user-password').val(),
-            email: $('#email').val()
-        })
-        
+        try {
+            let result = await axios.post('/users', {
+                'g-recaptcha-response': captcha,
+                firstname: $('#first-name').val(),
+                lastname: $('#last-name').val(),
+                username: $('#user-name').val(),
+                password: $('#user-password').val(),
+                email: $('#email').val()
+            })
+    
+            if(result.data.success != true) {
+                $.alert(`Oops! ${result.data.msg}`)
+            }
+            $('.modal').modal('hide')
+            $.alert('Great! Please validate your email and then log in!')
+        }
+        catch(e) {
+            $.alert(`Oops! ${e.msg}`)
+        }
     })
 
     $('#addShelf').click(function () {

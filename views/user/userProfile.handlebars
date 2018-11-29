@@ -1,54 +1,55 @@
 {{!-- USER PROFILE PAGE --}}
 {{#extend "loggedIn"}}
 {{#content "content"}}
-<div class="logged-in-class">
-  <h1>Welcome {{user.firstname}} {{user.lastname}}</h1>
-  <a href="/profileEdit">(edit profile)</a>
-  <br>
-  <br>
-  <div class="card" style="width: 8rem;">
-    <img class="card-img-top" src="https://vignette.wikia.nocookie.net/bungostraydogs/images/1/1e/Profile-icon-9.png/revision/latest?cb=20171030104015"
-    alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Hi there, {{firstName}}</h5>
-      <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-      <!--<a href="#" class="btn btn-primary">Go somewhere</a> -->
+<div class="container">
+  <div class="logged-in-class">
+    <h1>Welcome {{user.firstname}} {{user.lastname}}</h1>
+    <a href="/profileEdit">(edit profile)</a>
+    <br>
+    <br>
+    <div class="card" style="width: 8rem;">
+      <img class="card-img-top" src="https://vignette.wikia.nocookie.net/bungostraydogs/images/1/1e/Profile-icon-9.png/revision/latest?cb=20171030104015"
+      alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Hi there, {{firstName}}</h5>
+        <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+        <!--<a href="#" class="btn btn-primary">Go somewhere</a> -->
+      </div>
+    </div>
+
+    <br>
+    <div class="user-data-class">
+      {{#if user.bookshelves.length}}
+        <br>
+        <ul class="my-bookshelf"><h5><a class="user-bookshelf" href="/bookshelves">{{firstName}}'s Bookshelves</a></h5>
+        <hr>
+        {{#each user.bookshelves}}
+          <li><a href="#">{{this.name}}</a></li>
+          {{/each}}
+        </ul>
+      {{/if}}
     </div>
   </div>
 
-  <br>
-  <div class="user-data-class">
-    {{#if user.bookshelves.length}}
-      <br>
-      <ul class="my-bookshelf"><h5><a class="user-bookshelf" href="/bookshelves">{{firstName}}'s Bookshelves</a></h5>
-      <hr>
-      {{#each user.bookshelves}}
-        <li><a href="#">{{this.name}}</a></li>
-        {{/each}}
-      </ul>
-    {{/if}}
+  <div class="user-books-details">
+    <h5><a href="/currentlyreading">{{firstName}} is currently reading</ph5></a>
+    <hr>
+    <h5>{{firstName}} recently rated a book</h5>
+    <hr>
   </div>
-</div>
 
-<div class="user-books-details">
-  <h5><a href="/currentlyreading">{{firstName}} is currently reading</ph5></a>
+  <div class="users-following">
+  <h5>{{firstName}}'s Recent Updates</h5>
   <hr>
-  <h5>{{firstName}} recently rated a book</h5>
-  <hr>
+  <p>{{firstName}} is now following ABC's reviews</p>
+  </div>
+
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" id="addShelf">
+    Add bookshelf
+  </button>
+  <br>
 </div>
-
-<div class="users-following">
- <h5>{{firstName}}'s Recent Updates</h5>
- <hr>
- <p>{{firstName}} is now following ABC's reviews</p>
-</div>
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" id="addShelf">
-  Add bookshelf
-</button>
-<br>
-
 {{/content}}
 {{#content "scripts" mode="append"}}
 <script src="public/scripts/index.js"></script>
