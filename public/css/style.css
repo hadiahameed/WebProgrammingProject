@@ -90,7 +90,8 @@ main {
 
 button#addShelf {
     position: absolute;
-    right: 20%;
+    right: 30%;
+    top: 63%;
 }
 
 .bookshelves li {
@@ -180,6 +181,8 @@ div.profile-group {
 button.profile-submit {
     width:250px;
 }
+
+
 /* NEW USER */
 /* form#newuser label {
     display: block;
