@@ -40,7 +40,19 @@ router.post('/', reCaptcha, async (req, res, next) => {
     let validation_code = parseInt(Math.random() * 100000000)
     const saltRounds = 16;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    user = new User({ firstname,lastname,username, email, password: hashedPassword, validated: false, validation_code: validation_code, bookshelves: [] })
+    user = new User({ 
+      firstname,
+      lastname,
+      username,
+      email,
+      password: hashedPassword,
+      validated: false,
+      validation_code: validation_code,
+      bookshelves: [],
+      follower: [],
+      following: [],
+    })
+    
     await user.save()
     let str = new url.URLSearchParams()
     str.append('code', validation_code)

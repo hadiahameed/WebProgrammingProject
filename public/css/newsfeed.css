@@ -1,0 +1,9 @@
+.avatar {
+    max-width: 256px;
+    width: 100%;
+}
+
+li.media img {
+    height: 64px;
+    width: 64px;
+}

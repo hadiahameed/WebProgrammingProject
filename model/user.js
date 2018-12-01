@@ -10,7 +10,8 @@ module.exports = async () => {
         bookshelves: Array,
         validated: Boolean,
         validation_code: Number,
-        test: Number
+        followers: Array,
+        following: Array,
     });
 
     User.getAllUsers = User.getAll.bind({

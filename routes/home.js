@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
     res.render("pages/index", { title: 'Log in' });
   else
     //if logged in: "pages.home"
-    res.redirect('/user/profile') // ("user/userProfile",{title:"Welcome to the home page"});
+    res.render('newsfeed/newsfeed') // ("user/userProfile",{title:"Welcome to the home page"});
 });
 
 module.exports = router;

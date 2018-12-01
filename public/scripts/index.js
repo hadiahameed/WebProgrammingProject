@@ -28,7 +28,7 @@ $(document).ready(function () {
                 'user-password': $('input[name="user-password"]').val()
             })
             if(result.data.success) {
-                location.href = '/user/profile'
+                location.reload()
             }
             error(result.data.msg)
             $('#login-form input, #login-form button').attr('disabled', false)
