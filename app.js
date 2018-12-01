@@ -96,7 +96,7 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   if (err instanceof Errors.BaseError) {
-    return res.status(400).json(err.errObj)
+    return res.status(err.status).json(err.errObj)
   }
   
   // set locals, only providing error in development

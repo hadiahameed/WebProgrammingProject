@@ -1,3 +1,8 @@
+function error(msg) {
+    $('#indexError').html(msg).fadeIn()
+    setTimeout(() => $('#indexError').fadeOut(), 3000)
+}
+
 $(document).ready(function () {
     $('#login-form').validate({
         showErrors: function (errorMap, errorList) {
@@ -8,8 +13,7 @@ $(document).ready(function () {
             for(err in errorMap) {
                 msg += `<strong>${err}</strong>: ${errorMap[err]} `
             }
-            $('#indexError').html(msg).fadeIn()
-            setTimeout(() => $('#indexError').fadeOut(), 3000)
+            error(msg)
         }
     })
     
@@ -17,13 +21,21 @@ $(document).ready(function () {
         if($('#login-form').valid() == false) {
             return
         }
-        let result = await axios.post('/session', {
-            'user-name': $('input[name="user-name"]').val(),
-            'user-password': $('input[name="user-password"]').val()
-        })
-
-        if(result.data.success) {
-            location.href = ''
+        $('#login-form input').attr('disabled', true)
+        try {
+            let result = await axios.post('/session', {
+                'user-name': $('input[name="user-name"]').val(),
+                'user-password': $('input[name="user-password"]').val()
+            })
+            if(result.data.success) {
+                location.href = '/user/profile'
+            }
+            error(result.data.msg)
+            $('#login-form input').attr('disabled', false)
+        }
+        catch(e) {
+            $.alert(e.message)
+            $('#login-form input').attr('disabled', false)
         }
     })
     

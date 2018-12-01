@@ -1,10 +1,11 @@
 class BaseError extends Error {
-    constructor(msg) {
+    constructor(msg, status=200) {
         super(msg)
         this.errObj = {
             successs: false,
             msg
         }
+        this.status = status
     }
 }
 

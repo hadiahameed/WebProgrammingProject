@@ -38,9 +38,7 @@ passport.use('local', new LocalStrategy({
 
     if (!await bcrypt.compare(password, user.password)) {
         // return done(null, false, {message:'Password do not match'});
-        return done({
-            message: 'Password do not match'
-        }, false);
+        return done(new BaseError('Password do not match'), false);
     }
 
     return done(null, user);

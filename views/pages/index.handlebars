@@ -1,7 +1,5 @@
 {{!-- HOMEPAGE WHEN USER IS LOGGED IN --}}
 {{#extend "layout"}}
-    {{#content "navbar"}}
-    {{/content}}
     {{#content "content"}}
         <div class="col-sm-6 left d-flex justify-content-center flex-wrap">
             {{>nav}}
@@ -107,6 +105,6 @@
     {{#content "scripts" mode="append"}}
         <script src='https://www.google.com/recaptcha/api.js'></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js"></script>
-        <script src="public/scripts/index.js"></script>
+        <script src="/public/scripts/index.js"></script>
     {{/content}}
 {{/extend}}
