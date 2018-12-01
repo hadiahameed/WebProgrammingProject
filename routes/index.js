@@ -26,7 +26,6 @@ module.exports = app => {
      * Authentication required
      */
     let requireAuthenticationRoutes = {
-        '/users': usersRouter,
         '/books': booksRouter,
         '/bookshelves': bookshelfRouter,
         '/profileEdit': profileEditRouter,
@@ -36,6 +35,12 @@ module.exports = app => {
     for(let route in requireAuthenticationRoutes) {
         app.use(route, authenticate(), requireAuthenticationRoutes[route])
     }
+
+    /**
+     * Access Control in routes
+     */
+    app.use('/users', usersRouter)
+
 
     /**
      * Load API Route

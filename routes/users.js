@@ -7,8 +7,9 @@ const validator = require('validator')
 const config = require('config')
 const url = require('url')
 const bcrypt = require("bcrypt");
+const autheticate = require('../middlewares/authenticate')
 
-router.post('/', reCaptcha, async (req, res, next) => {
+router.post('/', reCaptcha(true), async (req, res, next) => {
   let firstname = req.body.firstname,
       lastname  = req.body.lastname,
       username  = req.body.username,
@@ -49,7 +50,7 @@ router.post('/', reCaptcha, async (req, res, next) => {
       validated: false,
       validation_code: validation_code,
       bookshelves: [],
-      follower: [],
+      followers: [],
       following: [],
     })
     

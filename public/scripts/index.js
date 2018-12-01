@@ -73,12 +73,14 @@ $(document).ready(function () {
     
             if(result.data.success != true) {
                 $.alert(`Oops! ${result.data.msg}`)
+                return
             }
+
             $('.modal').modal('hide')
             $.alert('Great! Please validate your email and then log in!')
         }
         catch(e) {
-            $.alert(`Oops! ${e.msg}`)
+            $.alert(`Oops! ${e.message}`)
         }
     })
 
