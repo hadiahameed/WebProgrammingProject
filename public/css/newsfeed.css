@@ -7,3 +7,12 @@ li.media img {
     height: 64px;
     width: 64px;
 }
+
+#editor {
+    background-color: #fff;
+}
+
+#toolbar-container {
+    border: none;
+    padding: 0;
+}
