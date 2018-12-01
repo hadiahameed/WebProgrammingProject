@@ -23,7 +23,7 @@ $(document).ready(function () {
         }
         $('#login-form input').attr('disabled', true)
         try {
-            let result = await axios.post('/session', {
+            let result = await axios.post('/api/session', {
                 'user-name': $('input[name="user-name"]').val(),
                 'user-password': $('input[name="user-password"]').val()
             })
