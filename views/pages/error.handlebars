@@ -2,9 +2,11 @@
 {{#extend "layout"}}
 {{#content "content"}}
 <div class="alert alert-danger">
-    <p>{{error}}</h1>
+    <p>{{message}}</p>
 </div>
-{{!-- <h2>{{error.status}}</h2>
-<pre>{{error.stack}}</pre> --}}
+{{#if error}}
+<h2>{{error.status}}</h2>
+<pre>{{error.stack}}</pre>
+{{/if}}
 {{/content}}
 {{/extend}}
