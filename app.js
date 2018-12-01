@@ -13,7 +13,6 @@ const passport = require('./middlewares/passport');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
-const LocalStrategy = require('passport-local').Strategy;
 
 const app = express();
 

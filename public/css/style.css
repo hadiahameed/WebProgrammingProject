@@ -192,3 +192,7 @@ form#newuser span {
     display: inline-block;
     width: 80px;
 } */
+
+#indexError {
+    display: none;
+}

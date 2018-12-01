@@ -5,6 +5,7 @@
     <p>{{message}}</p>
 </div>
 {{#if error}}
+{{!-- Do not comment following tag. They are helpful and only displayed in development. --}}
 <h2>{{error.status}}</h2>
 <pre>{{error.stack}}</pre>
 {{/if}}

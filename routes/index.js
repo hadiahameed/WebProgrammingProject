@@ -1,3 +1,7 @@
+/* Middlewares */
+const authenticate = require('../middlewares/authenticate')
+
+/* Routes */
 const homeRouter = require('./home')
 const usersRouter = require('./users');
 const booksRouter = require('./books');
@@ -7,26 +11,32 @@ const bookshelfRouter = require('./bookshelves');
 const logoutRouter = require('./logout');
 const userProfileRouter = require('./userProfile');
 const profileEditRouter = require('./profileEdit');
+const session = require('./session')
 
 module.exports = app => {
-    app.patch('/', (req, res, ) => {
-        res.send(req.body);
-    })
+    /**
+     * Fully accessible
+     */
     app.use('/', homeRouter)
-    app.use('/users', usersRouter)
     app.use('/validate', vlaidateRouter)
-    app.use('/books', booksRouter)
+    app.use('/session', session)
     app.use('/login',loginRouter);
-    app.use('/bookshelves',bookshelfRouter);
-    app.use('/logout',logoutRouter);
-    app.use('/userProfile',userProfileRouter);
-    app.use('/profileEdit',profileEditRouter);
-    app.use('*', async (req, res, next) => {
-        res.status(404)
-        res.render('pages/error', {
-            error: "Could not find this page"
-        })
-    })
+
+    /**
+     * Authentication required
+     */
+    let requireAuthenticationRoutes = {
+        '/users': usersRouter,
+        '/books': booksRouter,
+        '/bookshelves': bookshelfRouter,
+        '/logout': logoutRouter,
+        '/profileEdit': profileEditRouter,
+        '/user/profile': userProfileRouter,
+    }
+
+    for(let route in requireAuthenticationRoutes) {
+        app.use(route, authenticate(), requireAuthenticationRoutes[route])
+    }
 
     // Please ignore this, this is just for easy testing purposes for the handlebars
     app.get('/', function(req, res, next) {

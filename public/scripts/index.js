@@ -1,13 +1,32 @@
-
-
 $(document).ready(function () {
-    /*$('#newuser').on('submit', function() {
-        let g_response = $('#g-recaptcha-response').val()
-        if (!g_response) {
-            $.alert('Please check the captcha box to proceed to the destination page.');
-            return false
+    $('#login-form').validate({
+        showErrors: function (errorMap, errorList) {
+            if(errorList.length == 0) {
+                return
+            }
+            let msg = ''
+            for(err in errorMap) {
+                msg += `<strong>${err}</strong>: ${errorMap[err]} `
+            }
+            $('#indexError').html(msg).fadeIn()
+            setTimeout(() => $('#indexError').fadeOut(), 3000)
         }
-    })*/
+    })
+    
+    $('#loginBtn').click(async function () {
+        if($('#login-form').valid() == false) {
+            return
+        }
+        let result = await axios.post('/session', {
+            'user-name': $('input[name="user-name"]').val(),
+            'user-password': $('input[name="user-password"]').val()
+        })
+
+        if(result.data.success) {
+            location.href = ''
+        }
+    })
+    
     $('#next-btn').click(function () {
         let result = $("#signUpModal form").validate().form()
         if(result == false) {

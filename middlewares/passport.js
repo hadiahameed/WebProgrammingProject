@@ -2,6 +2,7 @@ var LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt')
 const userModel = require('../model/user')
 const passport = require('passport');
+const BaseError = require('../errors').BaseError
 
 
 // passport session setup, required for persistent login sessions
@@ -26,17 +27,16 @@ passport.use('local', new LocalStrategy({
     if (user.length == 0) {
         //console.log("No user")
         // return done(null,false, {message : 'Incorrect username'});
-        return done(new Error('Incorrect username'), false);
+        return done(new BaseError('Incorrect username'), false);
     }
     user = user[0]
     if (!user.validated) {
         // return done(null,false,{message : 'Please validate your account'})
-        return done(new Error('Please validate your account'), false)
+        return done(new BaseError('Please validate your account'), false)
     }
     //console.log("No error")
 
     if (!await bcrypt.compare(password, user.password)) {
-        console.log("Not matched")
         // return done(null, false, {message:'Password do not match'});
         return done({
             message: 'Password do not match'
@@ -45,4 +45,5 @@ passport.use('local', new LocalStrategy({
 
     return done(null, user);
 }));
+
 module.exports = passport
