@@ -21,7 +21,7 @@ $(document).ready(function () {
         if($('#login-form').valid() == false) {
             return
         }
-        $('#login-form input').attr('disabled', true)
+        $('#login-form input, #login-form button').attr('disabled', true)
         try {
             let result = await axios.post('/api/session', {
                 'user-name': $('input[name="user-name"]').val(),
@@ -31,11 +31,11 @@ $(document).ready(function () {
                 location.href = '/user/profile'
             }
             error(result.data.msg)
-            $('#login-form input').attr('disabled', false)
+            $('#login-form input, #login-form button').attr('disabled', false)
         }
         catch(e) {
             $.alert(e.message)
-            $('#login-form input').attr('disabled', false)
+            $('#login-form input, #login-form button').attr('disabled', false)
         }
     })
     

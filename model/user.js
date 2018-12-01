@@ -9,7 +9,8 @@ module.exports = async () => {
         password: String,
         bookshelves: Array,
         validated: Boolean,
-        validation_code: Number
+        validation_code: Number,
+        test: Number
     });
 
     User.getAllUsers = User.getAll.bind({

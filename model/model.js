@@ -25,10 +25,11 @@ async function Model(name, schema) {
         return classes[name]
     }
     let tmp = class {
-        constructor(props) {
+        constructor(props, validation=true) {
             this.name = name
             this.props = props
-            check(props, schema)
+            if(validation == true)
+                check(props, schema)
         }
 
         static async getAll(options) {
@@ -40,7 +41,7 @@ async function Model(name, schema) {
                 throw new TypeError('missing id')
             }
             let result = await tmp.collection.findOne({'_id': id})
-            return result == null ? null : new tmp(result)
+            return result == null ? null : new tmp(result, false)
         }
 
         static async getBy(fields, options) {
