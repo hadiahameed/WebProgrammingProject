@@ -1,3 +1,4 @@
+const Errors = require('./errors')
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -95,6 +96,10 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
+  if (err instanceof Errors.BaseError) {
+    return res.status(400).json(err.errObj)
+  }
+  
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -102,7 +107,6 @@ app.use(function(err, req, res, next) {
   // render the error page 
   res.status(err.status || 500);
   res.render("pages/error");
-  // ^^ this should render whatever page and pass in error: true
 });
 
 
