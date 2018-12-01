@@ -28,13 +28,14 @@ router.post('/', reCaptcha(true), async (req, res, next) => {
   try {
     let User = await userModel()
     let user = await User.getBy({ email })
+    user.push(...await User.getBy({username}))
     /**
      * Check if the user has registered
      */
     if (user.length != 0) {
       return res.json({
         success: false,
-        msg: 'This email has registered. Please change it or login'
+        msg: 'This email or username has registered. Please change it or login'
       })
     }
 
