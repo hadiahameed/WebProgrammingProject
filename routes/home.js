@@ -11,6 +11,8 @@ router.get('/', function (req, res, next) {
   else {
     res.render('newsfeed/newsfeed', {
       user: req.user,
+      feed_user: req.user,
+      isMe: true,
     })
   }
 });

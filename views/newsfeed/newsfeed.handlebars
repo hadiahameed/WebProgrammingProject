@@ -12,25 +12,24 @@
                     <div class="text-center">
                         <img class="avatar img-thumbnail rounded-circle" src="https://placeimg.com/480/480/any" alt="Card image cap">
                     </div>
-                    <h5 class="card-title text-center">Harry Potter</h5>
-                    {{!-- <div class="btn-group-vertical btn-block mt-3"> --}}
-                    <dl>
-                        <dd><i class="text-secondary fas fa-user-friends"></i> Following: 0</dd>
-                        <dd><i class="text-secondary fas fa-users"></i> Followers: 0</dd>
-                    </dl>
-                    <button type="button" class="btn btn-block btn-outline-primary">Follow</button>
-                    <button type="button" class="btn btn-block btn-outline-dark">Send Message</button>
-                    {{!-- </div> --}}
-
-                    {{!-- <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Harry Potter</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div> --}}
+                    <div class="pl-2 pt-2">
+                        {{#with feed_user}}
+                        <h4 class="card-title text-center">{{firstname}}<small class="text-center"> ({{username}})</small></h4>
+                        {{/with}}
+                        <hr>
+                        <dl class="text-secondary">
+                            <dd><i class="text-secondary fas fa-user-friends"></i> Following: 0</dd>
+                            <dd><i class="text-secondary fas fa-users"></i> Followers: 0</dd>
+                        </dl>
+                        {{#unless isMe}}
+                        <button type="button" class="btn btn-block btn-outline-primary">Follow</button>
+                        <button type="button" class="btn btn-block btn-outline-dark">Send Message</button>
+                        {{/unless}}
+                    </div>
                 </div>
                 <div class="col-md-7 px-4 mt-2">
                     <div class="p-3 bg-light rounded">
+                        {{#if isMe}}
                         <div class="form-group">
                             <div id="editor"></div>
                             <div class="d-flex justify-content-end align-items-center mt-2">
@@ -44,23 +43,24 @@
                                 <button class="btn btn-outline-primary">Post</button>
                             </div>
                         </div>
+                        {{/if}}
                         <ul class="list-unstyled">
                             <li class="media my-4">
-                                <img class="mr-3" src="https://placeimg.com/480/480/people" alt="Generic placeholder image">
+                                <img class="mr-3 rounded" src="https://placeimg.com/480/480/people" alt="Generic placeholder image">
                                 <div class="media-body">
                                 <h5 class="mt-0 mb-1">List-based media object</h5>
                                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                                 </div>
                             </li>
                             <li class="media my-4">
-                                <img class="mr-3" src="https://placeimg.com/480/480/animals" alt="Generic placeholder image">
+                                <img class="mr-3 rounded" src="https://placeimg.com/480/480/animals" alt="Generic placeholder image">
                                 <div class="media-body">
                                 <h5 class="mt-0 mb-1">List-based media object</h5>
                                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                                 </div>
                             </li>
                             <li class="media my-4">
-                                <img class="mr-3" src="https://placeimg.com/480/480/nature" alt="Generic placeholder image">
+                                <img class="mr-3 rounded" src="https://placeimg.com/480/480/nature" alt="Generic placeholder image">
                                 <div class="media-body">
                                 <h5 class="mt-0 mb-1">List-based media object</h5>
                                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.

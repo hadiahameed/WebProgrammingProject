@@ -9,7 +9,7 @@ const vlaidateRouter = require('./validate')
 const bookshelfRouter = require('./bookshelves');
 const userProfileRouter = require('./userProfile');
 const profileEditRouter = require('./profileEdit');
-const session = require('./api/session')
+const feedRouter = require('./feed')
 
 /* API Routes */
 const api = require('./api')
@@ -20,7 +20,6 @@ module.exports = app => {
      */
     app.use('/', homeRouter)
     app.use('/validate', vlaidateRouter)
-    // app.use('/session', session)
 
     /**
      * Authentication required
@@ -40,7 +39,7 @@ module.exports = app => {
      * Access Control in routes
      */
     app.use('/users', usersRouter)
-
+    app.use('/timeline', feedRouter)
 
     /**
      * Load API Route
