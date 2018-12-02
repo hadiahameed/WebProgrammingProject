@@ -108,12 +108,11 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
 
   if (req.body.genre) {
     var tags = req.body.genre;
-    console.log(typeof tags) 
     if(typeof tags === "string") tags = tags.split();
   } else {
     var tags = [];
   }
-  console.log(tags)
+
   let Books = await bookModel()
   let Reviews = await reviewModel();
 
