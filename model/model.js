@@ -113,6 +113,18 @@ async function Model(name, schema) {
             })
         }
 
+        async pull(array_field, item) {
+            if (!array_field || !item) {
+                throw new TypeError('Missing Parameters')
+            }
+            let _id = this.props._id
+            let pull = {}
+            pull[array_field] = item
+            return await tmp.collection.updateOne({ _id }, {
+                $pull: pull
+            })
+        }
+
         async delete() {
             if (!this.props._id) {
                 throw new TypeError('Cannot delete this document, because there is no _id')
