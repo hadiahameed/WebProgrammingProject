@@ -3,16 +3,16 @@ const uuidv4 = require('uuid/v4')
 const classes = {}
 
 function check(obj, schema) {
-    for(let key in schema) {
-        if(typeof obj[key] == 'undefined') {
+    for (let key in schema) {
+        if (typeof obj[key] == 'undefined') {
             throw new TypeError(`Object does not have key "${key}"`)
         }
-        else if(typeof schema[key] == 'object' && typeof obj[key] == 'object') {
+        else if (typeof schema[key] == 'object' && typeof obj[key] == 'object') {
             if(schema[key] !== obj[key] && schema[key] != null && obj[key] != null) {
                 check(obj[key], schema[key])
             }
         }
-        else if(obj[key].constructor != schema[key]) {
+        else if (obj[key].constructor != schema[key]) {
             throw new TypeError(`The type of ${key} is not ${!schema[key].name ? typeof schema[key] : schema[key].name}. The invalid data is ${obj[key]}, type ${typeof obj[key]}`)
         }
     }
@@ -21,15 +21,15 @@ function check(obj, schema) {
 
 async function Model(name, schema) {
     let _col = await db.getCollection(name)
-    if(classes[name]) {
+    if (classes[name]) {
         return classes[name]
     }
     let tmp = class {
-        constructor(props, validation=true) {
+        constructor(props,/*  validation=true */) {
             this.name = name
             this.props = props
-            if(validation == true)
-                check(props, schema)
+            // if (validation == true)
+            //     check(props, schema)
         }
 
         static async getAll(options) {
@@ -37,7 +37,7 @@ async function Model(name, schema) {
         }
     
         static async getById(id) {
-            if(typeof id == 'undefined') {
+            if (typeof id == 'undefined') {
                 throw new TypeError('missing id')
             }
             let result = await tmp.collection.findOne({'_id': id})
@@ -45,17 +45,17 @@ async function Model(name, schema) {
         }
 
         static async getBy(fields, options) {
-            if(!fields) {
+            if (!fields) {
                 return []
             }
 
-            let result = await tmp.collection.find(fields)
+            let result = await tmp.collection.find(fields, options)
             return result.toArray()
         }
 
         async save() {
             check(this.props, tmp.schema)
-            if(typeof this.props['_id'] == 'undefined') {
+            if (typeof this.props['_id'] == 'undefined') {
                 this.props._id = uuidv4()
             }
             return await tmp.collection.insertOne(this.props)
@@ -63,7 +63,7 @@ async function Model(name, schema) {
 
         async updateAll() {
             check(this.props, tmp.schema)
-            if(typeof this.props['_id'] == 'undefined') {
+            if (typeof this.props['_id'] == 'undefined') {
                 throw new TypeError('can\'t update without _id')
             }
             return await tmp.collection.updateOne(
@@ -77,13 +77,13 @@ async function Model(name, schema) {
         }
 
         async update(field) {
-            if(typeof field != 'object' ) {
+            if (typeof field != 'object' ) {
                 throw new TypeError('updated field must be an object')
             }
             let tmp_obj = {
                 ...this.props
             }
-            for(let key in field) {
+            for (let key in field) {
                 if(typeof tmp.schema[key] != 'undefined') {
                     tmp_obj[key] = field[key]
                 }
@@ -101,8 +101,20 @@ async function Model(name, schema) {
             return result
         }
 
+        async push(array_field, item) {
+            if (!array_field || !item) {
+                throw new TypeError('Missing Parameters')
+            }
+            let _id = this.props._id
+            let push = {}
+            push[array_field] = item
+            return await tmp.collection.updateOne({ _id }, {
+                $push: push
+            })
+        }
+
         async delete() {
-            if(!this.props._id) {
+            if (!this.props._id) {
                 throw new TypeError('Cannot delete this document, because there is no _id')
             }
             return await tmp.collection.deleteOne(
