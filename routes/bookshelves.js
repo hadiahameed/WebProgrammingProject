@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
             })
         }
         await user.addBookshelf(bookshelf)
-        res.redirect('/user/profile')
+        res.redirect('/bookshelves')
     } catch (e) {
         res.send(e.message)
         return
@@ -42,7 +42,7 @@ router.get('/', async (req, res) => {
             })
         }
         let bookshelves = user.props.bookshelves;
-        console.log(bookshelves[0])
+
         res.render("bookshelf/bookshelves",{bookshelves});
     } catch (e) {
         res.send(e.message)

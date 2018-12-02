@@ -17,7 +17,7 @@ router.get('/', async (req, res, next) => {
     test = test + " ..."
     BookList[i].review = test
   }
-  console.log(BookList)
+
   res.render("books/books",{books: BookList})
 })
 
@@ -64,9 +64,9 @@ router.get("/:id", async (req, res) => {
     for (var j = 0; j < arr.length; j++){
       let reviewId = arr[j];
       let ReviewObject = await Review.getById(reviewId);
-      reviewArray.push(ReviewObject.props.review);
+      reviewArray.push(ReviewObject.props);
     }
-    let ReviewObject = await Review.getById(req.params.id);
+
     res.render("books/book", {
       _id: BookObject.props._id,
       title: BookObject.props.title,
@@ -97,21 +97,22 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
   let image = req.files.image.path;
   let title = req.body.title;
   let author = req.body.author;
-  let review = req.body.review;
+  let reviewBody = req.body.review;
   let rating = req.body["book-rating"];
   if(!req.body.bookshelf){
     res.send("User does not have bookshelves!")
     return
   }
+
   let bookshelf = req.body.bookshelf;
-  
+
   if (req.body.genre) {
-    var tags = req.body.genre; 
-    if(typeof tags === String) tags = tags.split();
+    var tags = req.body.genre;
+    if(typeof tags === "string") tags = tags.split();
   } else {
     var tags = [];
   }
-  
+
   let Books = await bookModel()
   let Reviews = await reviewModel();
 
@@ -125,11 +126,11 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
       image: "/" + image
     })
     await book.save()
-    console.log(book)
+
     let bookId = book.props._id;
     let bookReview = new Reviews({
       bookId,
-      review
+      reviewBody
     })
     await bookReview.save()
     

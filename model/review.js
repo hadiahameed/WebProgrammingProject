@@ -3,7 +3,7 @@ const Model = require('./model')
 module.exports = async () => {
     let Review = await Model('review', {
         bookId: String,
-        review: String
+        reviewBody: String
     })
 
     Review.getAllReviews = Review.getAll.bind({

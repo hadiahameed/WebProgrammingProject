@@ -10,6 +10,7 @@ const bookshelfRouter = require('./bookshelves');
 const userProfileRouter = require('./userProfile');
 const profileEditRouter = require('./profileEdit');
 const feedRouter = require('./feed')
+const reviewRouter = require('./review');
 
 /* API Routes */
 const api = require('./api')
@@ -29,6 +30,7 @@ module.exports = app => {
         '/bookshelves': bookshelfRouter,
         '/profileEdit': profileEditRouter,
         '/user/profile': userProfileRouter,
+        '/review': reviewRouter
     }
 
     for(let route in requireAuthenticationRoutes) {

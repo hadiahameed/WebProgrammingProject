@@ -21,12 +21,12 @@ router.patch("/", async (req,res,next) => {
     try
     {
         userId = req.user._id;
-        console.log(userId);
+
         
         let firstname = req.body.firstname;
-        console.log(firstname);
+  
         let lastname = req.body.lastname;
-        console.log(lastname);
+
         let username = req.body.username;
         let password = req.body.password;
         if(firstname) userUpdateData.firstname = firstname;
@@ -45,17 +45,16 @@ router.patch("/", async (req,res,next) => {
     
     try
     {
-        console.log(userId);
+
         let user = await User.getById(userId);
         if (user == null){
             return res.send({
                 msg: "_id not found"
             })
         }
-        console.log("Before update")
+
         let updateCount = await user.update(userUpdateData);
-        console.log("After update")
-        console.log(updateCount.length);
+
         res.json({msg:'User data is updated successfully'});
     } catch (e) {
         res.send(e.message)
