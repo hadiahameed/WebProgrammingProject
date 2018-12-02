@@ -5,13 +5,14 @@
 <ul class="bookshelves">
     <h1>Bookshelves:</h1>
 
-    {{#each bookshelves}}
+    
     <div>
-    <li><h2>{{this.name}}</h2>
+    {{#each bookshelves}}
     <div class="row">
+        <li><h2>{{this.name}}</h2></li>
         <div id="{{this.name}}" class="col-md-12 col-md-offset-1" style="float:right; bottom: 10px;z-index: 999;">
-            <button id="btnEdit" class="btn btn-lg btn-warning glyphicon glyphicon-pencil">Add Books</button>
-            <button id="btnExc" class="btn btn-lg btn-danger glyphicon glyphicon-trash btnExc">Delete</button>
+            <button class="btn btn-lg btn-warning glyphicon glyphicon-pencil btnEdit">Add Books</button>
+            <button class="btn btn-lg btn-danger glyphicon glyphicon-trash btnExc">Delete</button>
         </div>
 	</div>
         {{#if this.books.length}}
@@ -19,14 +20,14 @@
         <div class="card" style="width: 18rem;">
         <img class="card-img-top" src="{{image}}" alt="Card image cap">
         <div class="card-body">
-            <h1 id="bookTitle"> {{this.title}} </h1>
+            <a href="/books/{{this._id}}" id="bookTitle"> {{this.title}} </a>
             <h3 id="author"> {{this.author}} </h2>
             <p>Rating: {{this.rating}}</p>           
         </div>
         </div>
         {{/each}}
         {{/if}}
-    </li>
+ 
     {{/each}}
 </ul>
 {{/if}}

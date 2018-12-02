@@ -1,5 +1,8 @@
 const router = require('express').Router()
 const userModel = require('../model/user')
+const bookModel = require('../model/book')
+const reviewModel = require('../model/review')
+
 
 router.post('/', async (req, res) => {
     let User = await userModel()
@@ -24,7 +27,6 @@ router.post('/', async (req, res) => {
                 {'bookshelves.name': name}
             ]
         });
-        console.log(result)
         if(result.length == 0){
             await user.addBookshelf(bookshelf);
             res.redirect('/bookshelves')
@@ -66,7 +68,11 @@ router.get('/', async (req, res) => {
 })
 
 router.delete('/',async (req,res) => {
-    let User = await userModel()
+
+    let User = await userModel(); 
+    let Book = await bookModel();
+    let Review = await reviewModel();
+ 
     let userId = req.user._id;
     try {
         let user = await User.getById(userId);
@@ -75,16 +81,30 @@ router.delete('/',async (req,res) => {
                 msg: "_id not found"
             })
         }
-        await user.pull('bookshelves', { name: {$eq: req.body.bookshelf} })
+        let books = [];
+        let arr = user.props.bookshelves;
+        for (var j = 0; j < arr.length; j++) {
+            if(arr[j].name == req.body.bookshelf){
+                books = arr[j].books;
+            }
+        };  
+        for (var j = 0; j < books.length; j++) {  
+            let book = await Book.getById(books[j]._id);
+            let reviewIds = book.props.review;
+            for (var k = 0; k < reviewIds.length; k++) {
+                let rv = await Review.getById(reviewIds[k]);
+                await rv.delete();    
+            }
+            let bk = await Book.getById(books[j]._id);
+            await bk.delete();
+        };
 
-        res.render("bookshelf/bookshelves",{bookshelves});
+        await user.pull('bookshelves', { name: {$eq: req.body.bookshelf} })
+        res.json({ success: true })
     } catch (e) {
         res.send(e.message)
         return
     }
-    
-
-
 })
 
   module.exports = router;

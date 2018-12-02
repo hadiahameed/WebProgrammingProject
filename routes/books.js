@@ -139,7 +139,7 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
     savedBook.updateAll();
 
     await user.addBook(bookshelf,savedBook)
-    res.redirect(`/books/${bookId}`)
+    res.redirect(`/bookshelves`)
   } catch (e) {
     res.send(e.message)
     return

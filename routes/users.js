@@ -53,6 +53,7 @@ router.post('/', reCaptcha(true), async (req, res, next) => {
       bookshelves: [],
       followers: [],
       following: [],
+      feeds: []
     })
     
     await user.save()

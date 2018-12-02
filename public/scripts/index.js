@@ -90,21 +90,19 @@ $(document).ready(function () {
         window.location.href = '/bookshelves/new';
     })
 
-    $("#btnEdit").click(function(){
+    $(".btnEdit").click(function(){
         window.location.href = '/books/new';
     });
 
-    $("#btnEdit").click(async function () {
+    $(".btnExc").click(async function () {
         try {
             let result = await axios.delete('/bookshelves', {
-                bookshelf: $(this).parent().attr('id')
-            })
-            if(result.data.success) {
-                location.reload()
-            }
+                data: {bookshelf: $(this).parent().attr('id')}
+              });
+            location.reload(true)    
         }
         catch(e) {
-            $.alert(e.message)
+            console.log(e)
         }
     })
     
