@@ -9,5 +9,12 @@
         <input id="newbookshelf-submit" type="submit" value="SUBMIT" class="btn" />
     </div>
 </form>
+{{#if error }}
+    <div class="message-group">
+        <div class="inform-danger">
+            <p>{{ error }}</p>  
+        </div>
+    </div>
+{{/if}}
 {{/content}}
 {{/extend}}

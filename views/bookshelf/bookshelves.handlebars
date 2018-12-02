@@ -1,13 +1,19 @@
 {{!-- MULTIPLE BOOKSHELVES DISPLAYED --}}
 {{#extend "loggedIn"}}
 {{#content "content"}}
-{{#if bookshelves.length}}
-<a href="/books/new">Add Books</a>
+{{#if bookshelves.length}} 
 <ul class="bookshelves">
     <h1>Bookshelves:</h1>
+
     {{#each bookshelves}}
     <div>
-    <li><a href="#"><h2>{{this.name}}</h2></a>
+    <li><h2>{{this.name}}</h2>
+    <div class="row">
+        <div id="{{this.name}}" class="col-md-12 col-md-offset-1" style="float:right; bottom: 10px;z-index: 999;">
+            <button id="btnEdit" class="btn btn-lg btn-warning glyphicon glyphicon-pencil">Add Books</button>
+            <button id="btnExc" class="btn btn-lg btn-danger glyphicon glyphicon-trash btnExc">Delete</button>
+        </div>
+	</div>
         {{#if this.books.length}}
         {{#each this.books}}
         <div class="card" style="width: 18rem;">
@@ -24,7 +30,11 @@
     {{/each}}
 </ul>
 {{/if}}
-<!-- Button trigger modal -->
+
 <a href="/bookshelves/new">Add bookshelf</a>
+{{/content}}
+{{#content "scripts" mode="append"}}
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js"></script>
+        <script src="/public/scripts/index.js"></script>
 {{/content}}
 {{/extend}}

@@ -18,8 +18,22 @@ router.post('/', async (req, res) => {
                 msg: "_id not found"
             })
         }
-        await user.addBookshelf(bookshelf)
-        res.redirect('/bookshelves')
+        let result = await User.getBy({
+            $and: [
+                { _id: userId},
+                {'bookshelves.name': name}
+            ]
+        });
+        console.log(result)
+        if(result.length == 0){
+            await user.addBookshelf(bookshelf);
+            res.redirect('/bookshelves')
+        }
+        else {
+            res.render('bookshelf/new',{error: "Bookshelf already exists."})
+        }
+
+        
     } catch (e) {
         res.send(e.message)
         return
@@ -49,6 +63,28 @@ router.get('/', async (req, res) => {
         return
     }
     
+})
+
+router.delete('/',async (req,res) => {
+    let User = await userModel()
+    let userId = req.user._id;
+    try {
+        let user = await User.getById(userId);
+        if (user == null){
+            return res.send({
+                msg: "_id not found"
+            })
+        }
+        await user.pull('bookshelves', { name: {$eq: req.body.bookshelf} })
+
+        res.render("bookshelf/bookshelves",{bookshelves});
+    } catch (e) {
+        res.send(e.message)
+        return
+    }
+    
+
+
 })
 
   module.exports = router;
