@@ -24,8 +24,8 @@ router.post('/', async (req, res) => {
                 {'bookshelves.name': name}
             ]
         });
-
-        if(!result){
+        console.log(result)
+        if(result.length == 0){
             await user.addBookshelf(bookshelf);
             res.redirect('/bookshelves')
         }
@@ -65,11 +65,26 @@ router.get('/', async (req, res) => {
     
 })
 
-/*router.delete('/',async (req,res) => {
+router.delete('/',async (req,res) => {
     let User = await userModel()
     let userId = req.user._id;
+    try {
+        let user = await User.getById(userId);
+        if (user == null){
+            return res.send({
+                msg: "_id not found"
+            })
+        }
+        await user.pull('bookshelves', { name: {$eq: req.body.bookshelf} })
+
+        res.render("bookshelf/bookshelves",{bookshelves});
+    } catch (e) {
+        res.send(e.message)
+        return
+    }
+    
 
 
-})*/
+})
 
   module.exports = router;

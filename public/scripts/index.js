@@ -91,5 +91,19 @@ $(document).ready(function () {
     $("#btnEdit").click(function(){
         window.location.href = '/books/new';
     });
+
+    $("#btnEdit").click(async function () {
+        try {
+            let result = await axios.delete('/bookshelves', {
+                bookshelf: $(this).parent().attr('id')
+            })
+            if(result.data.success) {
+                location.reload()
+            }
+        }
+        catch(e) {
+            $.alert(e.message)
+        }
+    })
     
 })
