@@ -2,6 +2,7 @@
 {{#extend "loggedIn"}}
 {{#content "content"}}
 {{#if bookshelves.length}}
+<a href="/books/new">Add Books</a>
 <ul class="bookshelves">
     <h1>Bookshelves:</h1>
     {{#each bookshelves}}
@@ -23,5 +24,7 @@
     {{/each}}
 </ul>
 {{/if}}
+<!-- Button trigger modal -->
+<a href="/bookshelves/new">Add bookshelf</a>
 {{/content}}
 {{/extend}}

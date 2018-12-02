@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
             })
         }
         await user.addBookshelf(bookshelf)
-        res.redirect('/user/profile')
+        res.redirect('/bookshelves')
     } catch (e) {
         res.send(e.message)
         return
