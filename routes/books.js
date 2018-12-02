@@ -17,7 +17,7 @@ router.get('/', async (req, res, next) => {
     test = test + " ..."
     BookList[i].review = test
   }
-  console.log(BookList)
+
   res.render("books/books",{books: BookList})
 })
 
@@ -103,9 +103,7 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
     res.send("User does not have bookshelves!")
     return
   }
-  console.log("got this bookshelf from HTML:")
-  console.log(req.body.bookshelf)
-  console.log(req.body)
+
   let bookshelf = req.body.bookshelf;
   
   if (req.body.genre) {

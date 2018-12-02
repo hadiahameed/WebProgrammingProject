@@ -27,9 +27,6 @@ module.exports = async () => {
     }
 
     User.prototype.addBook = function (bookshelf,book) {
-        console.log("Saving Bookshelf!")
-        console.log(bookshelf);
-        console.log(book)
         let arr = this.props.bookshelves;
         for (var j = 0; j < arr.length; j++) {
             if(arr[j].name == bookshelf){
