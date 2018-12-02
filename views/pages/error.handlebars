@@ -2,12 +2,16 @@
 {{#extend "layout"}}
 {{#content "content"}}
 <div class="alert alert-danger">
-    <p>{{message}}</p>
+    <div class="container">
+        <p>{{message}}</p>
+    </div>
 </div>
-{{#if error}}
-{{!-- Do not comment following tag. They are helpful and only displayed in development. --}}
-<h2>{{error.status}}</h2>
-<pre>{{error.stack}}</pre>
-{{/if}}
+<div class="container">
+    {{#if error}}
+    {{!-- Do not comment following tag. They are helpful and only displayed in development. --}}
+    <h2>{{error.status}}</h2>
+    <pre>{{error.stack}}</pre>
+    {{/if}}
+</div>
 {{/content}}
 {{/extend}}
