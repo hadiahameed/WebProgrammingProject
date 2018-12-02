@@ -70,7 +70,8 @@ $(document).ready(function () {
                 password: $('#user-password').val(),
                 email: $('#email').val()
             })
-    
+            /* reset the CAPTCHA */
+            grecaptcha.reset()
             if(result.data.success != true) {
                 $.alert(`Oops! ${result.data.msg}`)
                 return
@@ -82,6 +83,7 @@ $(document).ready(function () {
         catch(e) {
             $.alert(`Oops! ${e.message}`)
         }
+        
     })
 
     $('#addShelf').click(function () {
