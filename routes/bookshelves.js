@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
                 {'bookshelves.name': name}
             ]
         });
-        console.log(result)
+
         if(!result){
             await user.addBookshelf(bookshelf);
             res.redirect('/bookshelves')
