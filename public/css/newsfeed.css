@@ -16,3 +16,8 @@ li.media img {
     border: none;
     padding: 0;
 }
+
+.ql-editor:focus {
+    outline: solid 1px #44aaff;
+    box-shadow: 0 0 10px #44aaff;
+}

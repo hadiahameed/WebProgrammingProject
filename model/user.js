@@ -12,6 +12,7 @@ module.exports = async () => {
         validation_code: Number,
         followers: Array,
         following: Array,
+        feeds: Array,
     });
 
     User.getAllUsers = User.getAll.bind({
