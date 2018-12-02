@@ -105,14 +105,15 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
   }
 
   let bookshelf = req.body.bookshelf;
-  
+
   if (req.body.genre) {
-    var tags = req.body.genre; 
-    if(typeof tags === String) tags = tags.split();
+    var tags = req.body.genre;
+    console.log(typeof tags) 
+    if(typeof tags === "string") tags = tags.split();
   } else {
     var tags = [];
   }
-  
+  console.log(tags)
   let Books = await bookModel()
   let Reviews = await reviewModel();
 
