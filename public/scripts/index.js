@@ -88,4 +88,8 @@ $(document).ready(function () {
         window.location.href = '/bookshelves/new';
     })
 
+    $("#btnEdit").click(function(){
+        window.location.href = '/books/new';
+    });
+    
 })
