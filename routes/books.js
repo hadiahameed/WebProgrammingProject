@@ -20,11 +20,8 @@ router.get('/', async (req, res, next) => {
       var reviewId = reviews[j];
       
       let reviewObject = await ReviewList.getById(reviewId);
-      console.log(reviewObject);
       let reviewBody = reviewObject.props.reviewBody;
-      console.log(reviewBody);
       var long_review = reviewBody.slice(0, 500);
-      console.log(long_review);
       long_review = long_review + " ...";
       BookList[i].review[j] = long_review;
     }
