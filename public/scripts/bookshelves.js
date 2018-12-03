@@ -4,6 +4,10 @@ $(document).ready(function () {
         window.location.href = '/books/new'
     })
 
+    $("#addShelf").click(function(){
+        window.location.href = '/bookshelves/new'
+    })
+
     $(".btnExc").click(async function () {
         try {
             let result = await axios.delete('/bookshelves', {

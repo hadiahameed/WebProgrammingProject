@@ -90,8 +90,8 @@ main {
 
 button#addShelf {
     position: absolute;
-    right: 30%;
-    top: 63%;
+    right: 10%;
+    top: 10%;
 }
 
 .bookshelves li {
@@ -196,3 +196,51 @@ form#newuser span {
 #indexError {
     display: none;
 }
+
+.profile-pic {
+    max-width: 600px;
+    max-height: 600px;
+    display: block;
+    top:200px;
+}
+
+.file-upload {
+    display: none;
+}
+
+.circle {
+    border-radius: 6000px !important;
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+    border: 8px solid rgba(255, 255, 255, 0.7);
+    position: absolute;
+    top: 72px;
+}
+
+.p-image {
+    position: absolute;
+    top: 250px;
+    right: 100px;
+    color: #666666;
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+  }
+
+  .p-image:hover {
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+  }
+
+  .upload-button {
+    font-size: 1.2em;
+  }
+  
+  .upload-button:hover {
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+    color: #999;
+  }
+
+  .card-img-top2
+  {
+      width: 100px;
+      height: 100px;
+  }
