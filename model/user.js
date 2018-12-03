@@ -13,6 +13,7 @@ module.exports = async () => {
         followers: Array,
         following: Array,
         feeds: Array,
+        timeline: Array,
     });
 
     User.getAllUsers = User.getAll.bind({
@@ -52,6 +53,20 @@ module.exports = async () => {
         }
 
         return false
+    }
+
+    User.prototype.broadcast = async function (message) {
+        let followers = this.props.followers
+        let promises = []
+        for (let uid of followers) {
+            let promise = User.getById(uid).then(follower => {
+                follower.push('feeds', message)
+                return true
+            })
+            promises.push(promise)
+        }
+        await Promise.all(promises)
+        return true
     }
 
     return User;
