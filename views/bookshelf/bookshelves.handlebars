@@ -20,7 +20,7 @@
             </div>
                 {{#if this.books.length}}
                 {{#each books as |book|}}
-                <div class="card" style="width: 18rem;">
+                <div class="card">
                     <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
                     <div class="card-body">
                         <h1><a href="/books/{{this._id}}" id="bookTitle"> {{this.title}} </a></h1>
