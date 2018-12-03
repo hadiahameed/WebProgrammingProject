@@ -1,6 +1,27 @@
 {{!-- MULTIPLE BOOKS DISPLAYED, FOR EXAMPLE: AFTER THE USER PERFORMS A SEARCH --}}
 {{#extend "loggedIn"}}
     {{#content "content"}}
+<<<<<<< HEAD
+    <button type="button" class="btn btn-primary"><a href="/books/new" class="text-white">Add new book</a></button>
+        {{#each books as |book|}}
+        <div id="booksList">
+            <img src={{book.image}} alt={{book.title}} class="image">
+            <div>
+                <a href="/books/{{book._id}}"><h1 id="bookTitle">Title: {{this.title}} </h1></a>
+                <h2 id="author">Author: {{book.author}} </h2>
+                <p id="rating">Rating: {{book.rating}} </p>
+                {{#if book.review}}
+                <p id="review">Latest Review:
+                {{#each book.review}}
+                    {{#if @last}}{{this}}{{/if}}
+                {{/each}}
+                 </p>
+                {{/if}}
+                {{#if this.tags}}
+                <p id="tags">Tags: {{#each book.tags}}<span class="oneTag">{{this}}</span> {{/each}} </p>
+                {{/if}}
+            </div>
+=======
     <div class="container mt-3">
         <div class="row">
             <button type="button" class="btn btn-primary"><a href="/books/new" class="text-white"><i class="fas fa-plus"></i> Add new book</a></button>
@@ -18,6 +39,7 @@
                     </div>
                 </div>
                 {{/each}}
+>>>>>>> 0fc15778ab0582f28f8da557c0161a1e3a978d24
         </div>
     </div>
     {{/content}}
