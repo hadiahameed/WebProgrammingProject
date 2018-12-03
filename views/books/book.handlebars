@@ -13,7 +13,8 @@
                 <h3>Reviews:</h3>
                 {{#each review}}
                 <div class="review">
-                    <article>{{this.reviewBody}}</article>
+                    <article>{{this.reviewBody}}</article>mnc 
+                    
                     <button id={{this._id}} class="fa fa-thumbs-up reviewLike">{{#if this.likes}}{{this.likes}}{{else}} 0 {{/if}}</button>
                 </div>
                 

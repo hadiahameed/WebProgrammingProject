@@ -40,10 +40,8 @@ router.patch("/", async (req,res,next) => {
     {
         let review = await Review.getById(reviewId);
         let likes = review.props.likes;
-        likes = parseInt(likes);
-        likes = likes + 1;
+        likes = parseInt(likes) + 1;
         review.props.likes = ""+likes;
-        console.log(review)
         review.updateAll();
         res.json({ success: true })
     } catch (e) {
