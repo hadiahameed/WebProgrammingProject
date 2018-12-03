@@ -1,45 +1,50 @@
 {{!-- PAGE THAT DISPLAYS ONE BOOKSHELF --}}
 {{#extend "loggedIn"}}
 {{#content "content"}}
-<h1> Bookshelves</h1>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBookshelf" id="addShelf">
-  Add bookshelf
-</button>
+<div class="container mt-3">
+    <div class="row">
+    <h1> Bookshelves</h1>
 
-<!-- Modal -->
-<div class="modal fade" id="addBookshelf" tabindex="-1" role="dialog" aria-labelledby="addBookshelfLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addBookshelfLabel">New Bookshelf</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBookshelf" id="addShelf">
+      Add bookshelf
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addBookshelf" tabindex="-1" role="dialog" aria-labelledby="addBookshelfLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addBookshelfLabel">New Bookshelf</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form>
+            <div class="modal-body">
+                <label>Bookshelf name: <input type="name"></label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <submit><button type="button" class="btn btn-primary">Save bookshelf</button></submit>
+            </div>
+          </form>
+        </div>
       </div>
-      <form>
-        <div class="modal-body">
-            <label>Bookshelf name: <input type="name"></label>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <submit><button type="button" class="btn btn-primary">Save bookshelf</button></submit>
-        </div>
-      </form>
     </div>
-  </div>
-</div>
 
-<h2> {{title}} </h2>
-{{#each books}}
+    <h2> {{title}} </h2>
+    {{#each books}}
 
-<div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
-  <div class="card-body">
-    <h3 class="card-title">{{this.title}}</h3>
-    <h4 class="card-text">{{this.author}}</h4>
-    <p class="card-text">Date added: {{this.added}}</p>
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
+      <div class="card-body">
+        <h3 class="card-title">{{this.title}}</h3>
+        <h4 class="card-text">{{this.author}}</h4>
+        <p class="card-text">Date added: {{this.added}}</p>
+      </div>
+    </div>
   </div>
 </div>
 

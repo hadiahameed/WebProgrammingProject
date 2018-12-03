@@ -88,10 +88,28 @@ main {
 
 /* ---------- BOOKSHELF PAGE ---------- */
 
+.go-back {
+    width: 100%;
+}
+
 button#addShelf {
     position: absolute;
-    right: 30%;
-    top: 63%;
+    right: 10%;
+    top: 10%;
+}
+
+ul.bookshelves {
+    width: 100%;
+    padding: 0;
+}
+
+ul.bookshelves > div {
+    border-top: 1px solid grey;
+    margin-top: 10px;
+}
+
+ul.bookshelves p .oneTag:not(:last-child):after {
+    content: ",";
 }
 
 .bookshelves li {
@@ -100,6 +118,31 @@ button#addShelf {
 
 .bookshelves li a {
     display: block;
+}
+
+.bookshelves .book {
+    display: inline-block;
+    width: 200px;
+}
+
+.bookshelves .book h1 {
+    font-size: 1rem;
+    display: block;
+    text-align: center;
+}
+
+.bookshelves .bookwrapper {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    /* outline: 1px solid lime; */
+    overflow: auto;
+}
+
+.bookshelves .bookwrapper .books {
+    position: absolute;
+    width: 1300px;
+    height: 100px;
 }
 
 /* ---------- BOOKS PAGE ---------- */
@@ -117,6 +160,7 @@ input[type='checkbox'] {
     margin: 5px 0 5px 0;
     padding: 5px;
     border-radius: 5px;
+    width: 100%;
 }
 
 #booksList:nth-of-type(2n+1){
@@ -163,6 +207,11 @@ div.bookInfo div.bookText form {
     margin-top: 20px;
 }
 
+div.review {
+    border-bottom: 1px solid grey;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
 
 /* Logout link */
 a.fixed {
@@ -196,3 +245,51 @@ form#newuser span {
 #indexError {
     display: none;
 }
+
+.profile-pic {
+    max-width: 600px;
+    max-height: 600px;
+    display: block;
+    top:200px;
+}
+
+.file-upload {
+    display: none;
+}
+
+.circle {
+    border-radius: 6000px !important;
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+    border: 8px solid rgba(255, 255, 255, 0.7);
+    position: absolute;
+    top: 72px;
+}
+
+.p-image {
+    position: absolute;
+    top: 250px;
+    right: 100px;
+    color: #666666;
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+  }
+
+  .p-image:hover {
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+  }
+
+  .upload-button {
+    font-size: 1.2em;
+  }
+  
+  .upload-button:hover {
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+    color: #999;
+  }
+
+  .card-img-top2
+  {
+      width: 100px;
+      height: 100px;
+  }

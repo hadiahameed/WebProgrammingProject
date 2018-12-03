@@ -1,38 +1,43 @@
 {{!-- MULTIPLE BOOKSHELVES DISPLAYED --}}
 {{#extend "loggedIn"}}
 {{#content "content"}}
-{{#if bookshelves.length}} 
-<ul class="bookshelves">
-    <h1>Bookshelves:</h1>
-
-    
-    <div>
-    {{#each bookshelves}}
+<div class="container mt-3">
     <div class="row">
-        <li><h2>{{this.name}}</h2></li>
-        <div id="{{this.name}}" class="col-md-12 col-md-offset-1" style="float:right; bottom: 10px;z-index: 999;">
-            <button class="btn btn-lg btn-warning glyphicon glyphicon-pencil btnEdit">Add Books</button>
-            <button class="btn btn-lg btn-danger glyphicon glyphicon-trash btnExc">Delete</button>
-        </div>
-	</div>
-        {{#if this.books.length}}
-        {{#each this.books}}
-        <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="{{image}}" alt="Card image cap">
-        <div class="card-body">
-            <a href="/books/{{this._id}}" id="bookTitle"> {{this.title}} </a>
-            <h3 id="author"> {{this.author}} </h2>
-            <p>Rating: {{this.rating}}</p>           
-        </div>
-        </div>
-        {{/each}}
+        <a href="/bookshelves/new" class="btn btn-primary"><i class="fas fa-plus"></i> Add bookshelf</a>
+        {{#if bookshelves.length}} 
+        <ul class="bookshelves">
+            <h1>Bookshelves:</h1>
+            
+            <div>
+            {{#each bookshelves}}
+            <h2>{{this.name}}</h2>
+            <div class="row">
+                
+                <div id="{{this.name}}" class="col-md-12 col-md-offset-1" style="float:right; bottom: 10px;z-index: 999;">
+                    <button class="btn btn-warning glyphicon glyphicon-pencil btnEdit"><i class="fas fa-plus"></i> Add Books</button>
+                    <button class="btn btn-danger glyphicon glyphicon-trash btnExc"><i class="far fa-trash-alt"></i> Delete</button>
+                </div>
+            </div>
+            <div class="bookwrapper">
+                <div class="books">
+                    {{#if this.books.length}}
+                    {{#each books as |book|}}
+                    <div class="book col-2">
+                        <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
+                        <h1><a href="/books/{{this._id}}" id="bookTitle"> {{this.title}} </a></h1>
+                    </div>
+                    {{/each}}
+                    {{/if}}
+            
+                
+                </div>
+            </div>
+            {{/each}}
+        </ul>
         {{/if}}
- 
-    {{/each}}
-</ul>
-{{/if}}
 
-<a href="/bookshelves/new">Add bookshelf</a>
+    </div>
+</div>
 {{/content}}
 {{#content "scripts" mode="append"}}
         <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js"></script>

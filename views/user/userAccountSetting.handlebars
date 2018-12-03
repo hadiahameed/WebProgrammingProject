@@ -1,7 +1,11 @@
 {{!-- USER ACCOUNT SETTINGS--}}
-{{#extend "layout"}}
+{{#extend "loggedIn"}}
 {{#content "content"}}
+<div class="logged-in-class">
 <div id="account-settings">
+    <br>
+    <h2> Update Your Profile Details</h2>
+    <br>
     <div class="profile-group">
         <label>First Name:</label>
         <input class="form-control" name="firstname" type="text" value="{{firstname}}">
@@ -24,6 +28,7 @@
     <br>
     <button class="profile-submit" id="submitUpdate" value="submit">Save Profile Settings</button>
 
+</div>
 </div>
 {{/content}}
  {{#content "scripts" mode="append"}}
