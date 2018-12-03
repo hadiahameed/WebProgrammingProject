@@ -5,5 +5,3 @@ var quill = new Quill('#editor', {
     theme: 'snow',
     placeholder: 'What are you reading?'
 });
-
-// quill.addHandler('image')

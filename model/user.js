@@ -39,5 +39,20 @@ module.exports = async () => {
         return false;   
     }
 
+    User.prototype.hasFollowed = async function (uid) {
+        let result = await User.getBy({ 
+            $and: [
+                { _id: this.props._id },
+                { following: uid }
+            ]
+        })
+
+        if (result.length != 0) {
+            return true
+        }
+
+        return false
+    }
+
     return User;
 }

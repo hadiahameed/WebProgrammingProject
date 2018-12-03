@@ -9,7 +9,7 @@ const vlaidateRouter = require('./validate')
 const bookshelfRouter = require('./bookshelves');
 const userProfileRouter = require('./userProfile');
 const profileEditRouter = require('./profileEdit');
-const feedRouter = require('./feed')
+const timelineRouter = require('./timeline')
 const reviewRouter = require('./review');
 
 /* API Routes */
@@ -41,7 +41,7 @@ module.exports = app => {
      * Access Control in routes
      */
     app.use('/users', usersRouter)
-    app.use('/timeline', feedRouter)
+    app.use('/timeline', timelineRouter)
 
     /**
      * Load API Route
