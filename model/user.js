@@ -57,6 +57,7 @@ module.exports = async () => {
 
     User.prototype.broadcast = async function (message) {
         let followers = this.props.followers
+        if (!followers) return true
         let promises = []
         for (let uid of followers) {
             let promise = User.getById(uid).then(follower => {
