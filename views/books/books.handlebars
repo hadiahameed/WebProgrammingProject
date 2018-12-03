@@ -22,7 +22,9 @@
                 </p>
                 {{/if}}
                 {{#if this.tags}}
-                <p id="tags">Tags: {{#each book.tags}}<span class="oneTag">{{this}}</span> {{/each}} </p>
+                    <p id="tags">Tags: {{#each book.tags}}<span class="oneTag">{{this}}</span> {{/each}} </p>
+                {{else}}
+                    <p>No tags</p>
                 {{/if}}
             </div>
         </div>

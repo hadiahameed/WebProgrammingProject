@@ -18,28 +18,24 @@
                     <button class="btn btn-danger glyphicon glyphicon-trash btnExc"><i class="far fa-trash-alt"></i> Delete</button>
                 </div>
             </div>
-                {{#if this.books.length}}
-                {{#each books as |book|}}
-                <div class="card">
-                    <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
-                    <div class="card-body">
+            <div class="bookwrapper">
+                <div class="books">
+                    {{#if this.books.length}}
+                    {{#each books as |book|}}
+                    <div class="book col-2">
+                        <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
                         <h1><a href="/books/{{this._id}}" id="bookTitle"> {{this.title}} </a></h1>
-                        <h2 id="author"> {{this.author}} </h2>
-                        <p>Rating: {{this.rating}}</p> 
-                        {{#if this.tags}}
-                            <p id="tags">Tags: {{#each book.tags}}<span class="oneTag">{{this}}</span> {{/each}} </p>
-                        {{else}}
-                            <p>No tags</p>
-                        {{/if}}
-
                     </div>
-                </div>
+                    {{/each}}
+                    {{/if}}
+            
                 {{/each}}
-                {{/if}}
-        
-            {{/each}}
+                </div>
+            </div>
+            
         </ul>
         {{/if}}
+
     </div>
 </div>
 {{/content}}

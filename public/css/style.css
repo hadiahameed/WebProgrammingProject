@@ -120,20 +120,29 @@ ul.bookshelves p .oneTag:not(:last-child):after {
     display: block;
 }
 
-.bookshelves .card {
-    width: 14rem;
+.bookshelves .book {
+    display: inline-block;
+    width: 200px;
 }
 
-.bookshelves .card h1 {
-    font-size: 1.6rem;
-}
-
-.bookshelves .card h2 {
-    font-size: 1.2rem;
-}
-
-.bookshelves .card p {
+.bookshelves .book h1 {
     font-size: 1rem;
+    display: block;
+    text-align: center;
+}
+
+.bookshelves .bookwrapper {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    /* outline: 1px solid lime; */
+    overflow: auto;
+}
+
+.bookshelves .bookwrapper .books {
+    position: absolute;
+    width: 1300px;
+    height: 100px;
 }
 
 /* ---------- BOOKS PAGE ---------- */
