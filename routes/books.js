@@ -152,8 +152,11 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
     await book.save()
 
     let bookId = book.props._id;
+    let likes = "0";
     let bookReview = new Reviews({
       bookId,
+      userId,
+      likes,
       reviewBody
     })
     await bookReview.save()
