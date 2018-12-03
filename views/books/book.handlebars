@@ -1,27 +1,45 @@
 {{!-- PAGE FOR A SINGLE BOOK, WHEN USER CLICKS ON A BOOK --}}
 {{#extend "loggedIn"}}
 {{#content "content"}}
-<a href="/books"><i class="fas fa-arrow-left"></i> Back to all books</a>
-<button type="button" class="btn btn-primary" id="addNewBook"><a href="/books/new" class="text-white">Add new book</a></button>
-<div class="bookInfo">
-    <div class="bookText">
-        <h1 class="bookTitle" id={{_id}}> {{title}} </h1>
-        <h2 id="author"> {{author}} </h2>
-        <p>Rating: {{rating}}</p>
-        {{#each review}}
-        <article>Review: {{this.reviewBody}}</article>
-        {{/each}}
-        
-        <form id="newreview" action="/review" method="POST">
-            <h3>Write your own review:</h3>
-            <div class="form-group">
-                <input type="hidden" value={{_id}} name="bookId" />
-                <textarea name="reviewText" cols="50" rows="10"></textarea>
+<div class="container mt-3">
+    <div class="row">
+        <a href="/bookshelves"><i class="fas fa-arrow-left"></i> Back to all books</a>
+        {{!-- <button type="button" class="btn btn-primary" id="addNewBook"><a href="/books/new" class="text-white">Add new book</a></button> --}}
+        <div class="bookInfo">
+            <div class="bookText">
+                <h1 class="bookTitle" id={{_id}}> {{title}} </h1>
+                <h2 id="author"> {{author}} </h2>
+                <p>Rating: {{rating}}</p>
+                <h3>Reviews:</h3>
+                {{#each review}}
+                <div class="review">
+                    <article>{{this.reviewBody}}</article>
+                    <button class="btn btn-outline-primary">Like <i class="fal fa-star"></i></button>
+                </div>
+                
+                {{/each}}
+                
+                <form id="newreview" action="/review" method="POST">
+                    <h3>Write your own review:</h3>
+                    <div class="form-group">
+                        <label>Rating:
+                            <input type="radio" name="book-rating" value="1" /> 1
+                            <input type="radio" name="book-rating" value="2" /> 2
+                            <input type="radio" name="book-rating" value="3" /> 3
+                            <input type="radio" name="book-rating" value="4" /> 4
+                            <input type="radio" name="book-rating" value="5" /> 5
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" value={{_id}} name="bookId" />
+                        <textarea name="reviewText" cols="50" rows="10"></textarea>
+                    </div>
+                    <button type="submit" value="submit">Write review</button>
+                </form>
             </div>
-            <button type="submit" value="submit">Write review</button>
-        </form>
+            <img src="{{image}}" alt="Card image cap">
+        </div>
     </div>
-    <img src="{{image}}" alt="Card image cap">
 </div>
 {{/content}}
 {{/extend}}
