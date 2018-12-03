@@ -221,8 +221,8 @@ form#newuser span {
 }
 
 .profile-pic {
-    max-width: 600px;
-    max-height: 600px;
+    max-width: 200px;
+    max-height: 200px;
     display: block;
     top:200px;
 }

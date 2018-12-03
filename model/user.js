@@ -14,6 +14,7 @@ module.exports = async () => {
         following: Array,
         feeds: Array,
         timeline: Array,
+        image:String
     });
 
     User.getAllUsers = User.getAll.bind({
