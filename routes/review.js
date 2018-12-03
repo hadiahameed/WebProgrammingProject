@@ -14,6 +14,7 @@ router.get('/reviews', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     let reviewBody = req.body.reviewText;
     let bookId = req.body.bookId;
+    let rating = req.body["book-rating"];
     let Reviews = await reviewModel()
     let bookReview = new Reviews({
       bookId,
@@ -23,6 +24,7 @@ router.post('/', async (req, res, next) => {
     let Books = await bookModel();
     let savedBook = await Books.getById(bookId);
     savedBook.props.review.push(bookReview.props._id);
+    savedBook.props.rating.push(rating);
     savedBook.updateAll();
     res.redirect(`/books/${bookId}`)
 })

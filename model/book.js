@@ -5,7 +5,7 @@ module.exports = async () => {
         title: String,
         author: String,
         review: Array,
-        rating: String,
+        rating: Array,
         tags: Array,
         image: String
     })
