@@ -7,11 +7,18 @@ const BaseError = require('../errors').BaseError
 
 // passport session setup, required for persistent login sessions
 passport.serializeUser(function (user, done) {
-    done(null, user);
+    done(null, user._id);
 });
+
 //Attention: you can also use the same method body as serializeUser. remove user by id is not nesssary.
-passport.deserializeUser(function (user, done) {
-    done(null, user);
+passport.deserializeUser(async function (_id, done) {
+    let User = await userModel()
+    let user = await User.getById(_id)
+    if (user == null) {
+        done(new Error('user not foudn'), false)
+        return
+    }
+    done(null, user.props);
 });
 
 passport.use('local', new LocalStrategy({
