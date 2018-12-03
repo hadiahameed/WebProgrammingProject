@@ -9,13 +9,26 @@ var multiparty = require('connect-multiparty'),
 router.get('/', async (req, res, next) => {
   let Book = await bookModel()
   let BookList = await Book.getAll();
+  let ReviewList = await reviewModel();
   // res.send(BookList);
   
   // For testing the books page with long reviews
   for(var i = 0; i < BookList.length; i++) {
-    var test = BookList[i].review.slice(0, 500);
-    test = test + " ..."
-    BookList[i].review = test
+    var book = BookList[i];
+    var reviews = book.review;
+    for(var j = 0; j < reviews.length; j++) {
+      var reviewId = reviews[j];
+      
+      let reviewObject = await ReviewList.getById(reviewId);
+      console.log(reviewObject);
+      let reviewBody = reviewObject.props.reviewBody;
+      console.log(reviewBody);
+      var long_review = reviewBody.slice(0, 500);
+      console.log(long_review);
+      long_review = long_review + " ...";
+      BookList[i].review[j] = long_review;
+    }
+    
   }
 
   res.render("books/books",{books: BookList})

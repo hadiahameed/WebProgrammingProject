@@ -1,20 +1,24 @@
 {{#extend "loggedIn"}}
 {{#content "content"}}
 <!-- Modal -->
-<form id="newbookshelf" action="/bookshelves" method="post">
-    <div>
-        <label>Bookshelf name: <input type="name" name="name"></label>
+<div class="container mt-3">
+    <div class="row">
+        <form id="newbookshelf" action="/bookshelves" method="post">
+            <div>
+                <label>Bookshelf name: <input type="name" name="name"></label>
+            </div>
+            <div>
+                <input id="newbookshelf-submit" type="submit" value="SUBMIT" class="btn btn-primary" />
+            </div>
+        </form>
+        {{#if error }}
+            <div class="message-group">
+                <div class="inform-danger">
+                    <p>{{ error }}</p>  
+                </div>
+            </div>
     </div>
-    <div>
-        <input id="newbookshelf-submit" type="submit" value="SUBMIT" class="btn" />
-    </div>
-</form>
-{{#if error }}
-    <div class="message-group">
-        <div class="inform-danger">
-            <p>{{ error }}</p>  
-        </div>
-    </div>
+</div>
 {{/if}}
 {{/content}}
 {{/extend}}

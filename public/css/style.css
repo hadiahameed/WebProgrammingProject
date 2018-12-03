@@ -88,10 +88,28 @@ main {
 
 /* ---------- BOOKSHELF PAGE ---------- */
 
+.go-back {
+    width: 100%;
+}
+
 button#addShelf {
     position: absolute;
     right: 10%;
     top: 10%;
+}
+
+ul.bookshelves {
+    width: 100%;
+    padding: 0;
+}
+
+ul.bookshelves > div {
+    border-top: 1px solid grey;
+    margin-top: 10px;
+}
+
+ul.bookshelves p .oneTag:not(:last-child):after {
+    content: ",";
 }
 
 .bookshelves li {
@@ -163,6 +181,11 @@ div.bookInfo div.bookText form {
     margin-top: 20px;
 }
 
+div.review {
+    border-bottom: 1px solid grey;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
 
 /* Logout link */
 a.fixed {

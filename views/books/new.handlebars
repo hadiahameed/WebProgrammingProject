@@ -4,55 +4,59 @@
 <!-- private styles -->
 {{/content}}
 {{#content "content"}}
-<a href="/books"><i class="fas fa-arrow-left"></i> Back to all books</a>
-<form id="newbook" action="/books" method="POST" enctype="multipart/form-data">
+<div class="container mt-3">
+    <div class="row">
+        <a href="/books"><i class="fas fa-arrow-left"></i> Back to all books</a>
+        <form id="newbook" action="/books" method="POST" enctype="multipart/form-data">
 
-    <div class="form-group">
-        <label>Title: <input name="title" type="text" required></label>
-    </div>
-    <div class="form-group">
-        <label>Author: <input name="author" type="text" required></label>
-    </div>
-    <div class="form-group">
-        <label>Review: <input name="review" type="text" required></label>
-    </div>
-    <div class="form-group">
-        <label>Rating:
-            <input type="radio" name="book-rating" value="1" /> 1
-            <input type="radio" name="book-rating" value="2" /> 2
-            <input type="radio" name="book-rating" value="3" /> 3
-            <input type="radio" name="book-rating" value="4" /> 4
-            <input type="radio" name="book-rating" value="5" /> 5
-        </label>
-    </div>
+            <div class="form-group">
+                <label>Title: <input name="title" type="text" required></label>
+            </div>
+            <div class="form-group">
+                <label>Author: <input name="author" type="text" required></label>
+            </div>
+            <div class="form-group">
+                <label>Review: <input name="review" type="text" required></label>
+            </div>
+            <div class="form-group">
+                <label>Rating:
+                    <input type="radio" name="book-rating" value="1" /> 1
+                    <input type="radio" name="book-rating" value="2" /> 2
+                    <input type="radio" name="book-rating" value="3" /> 3
+                    <input type="radio" name="book-rating" value="4" /> 4
+                    <input type="radio" name="book-rating" value="5" /> 5
+                </label>
+            </div>
 
-    {{#if bookshelves.length}}
-    <div class="form-group">
-        <label>Bookshelf:
-            {{#each bookshelves}}
-            <input type="radio" name="bookshelf" value="{{this.name}}" checked>{{this.name}}
-            {{/each}}
-        </label>
+            {{#if bookshelves.length}}
+            <div class="form-group">
+                <label>Bookshelf:
+                    {{#each bookshelves}}
+                    <input type="radio" name="bookshelf" value="{{this.name}}" checked>{{this.name}}
+                    {{/each}}
+                </label>
+            </div>
+            {{/if}}
+
+            <div class="form-group">
+                <label>Genres:
+                    <label><input type="checkbox" name="genre" value="Thriller">Thriller</label>
+                    <label><input type="checkbox" name="genre" value="Horror">Horror</label>
+                    <label><input type="checkbox" name="genre" value="Comedy">Comedy</label>
+                    <label><input type="checkbox" name="genre" value="Sci-Fi">Sci-Fi</label>
+                </label>
+            </div>
+            <div class="form-group"><label>Cover: <input name="image" type="file" onchange="previewFile()" required></label></div>
+
+
+            <!---<label>Tags:</label>
+                <label><input name="book-tags" type="checkbox" value="Thriller"> Thriller </label>
+                <label><input name="book-tags" type="checkbox" value="Comedy"> Comedy </label>
+                <--->
+            <button type="submit" value="submit">Add book</button>
+        </form>
     </div>
-    {{/if}}
-
-    <div class="form-group">
-        <label>Genres:
-            <label><input type="checkbox" name="genre" value="Thriller">Thriller</label>
-            <label><input type="checkbox" name="genre" value="Horror">Horror</label>
-            <label><input type="checkbox" name="genre" value="Comedy">Comedy</label>
-            <label><input type="checkbox" name="genre" value="Sci-Fi">Sci-Fi</label>
-        </label>
-    </div>
-    <div class="form-group"><label>Cover: <input name="image" type="file" onchange="previewFile()" required></label></div>
-
-
-    <!---<label>Tags:</label>
-        <label><input name="book-tags" type="checkbox" value="Thriller"> Thriller </label>
-        <label><input name="book-tags" type="checkbox" value="Comedy"> Comedy </label>
-        <--->
-    <button type="submit" value="submit">Add book</button>
-</form>
+</div>
 {{/content}}
 {{#content "scripts" mode="append"}}
 {{/content}}
