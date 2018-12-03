@@ -14,7 +14,7 @@
                 {{#each review}}
                 <div class="review">
                     <article>{{this.reviewBody}}</article>
-                    <button class="btn btn-outline-primary">Like <i class="fal fa-star"></i></button>
+                    <button class="btn btn-outline-primary">Like {{#if this.likes}}{{this.likes}}{{else}}0{{/if}}</button>
                 </div>
                 
                 {{/each}}
