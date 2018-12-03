@@ -7,7 +7,7 @@ router.use(authenticate())
 
 router.post('/', async (req, res, next) => {
     let content = req.body.content
-    if (!content || !content.trim()) {
+    if (!content) {
         return res.send({
             success: false,
             msg: 'Content cannot be empty'
@@ -18,18 +18,33 @@ router.post('/', async (req, res, next) => {
     let user = new User( req.user )
     let timestamp =  Date.now()
     let content_uuid = uuid()
-    let result = await user.push('timeline', { uuid, content, timestamp })
-    await user.broadcast({
+    let pkg = {
         type: 'timeline',
         uid: req.user._id,
+        username: req.user.username,
         content_uuid,
         content,
         timestamp
-    })
+    }
+    await user.push('timeline', { uuid, content, timestamp })
+    await user.push('feeds', pkg)
+    await user.broadcast(pkg)
     res.send({
         success: true,
-        result
     })
+})
+
+router.get('/', async (req, res, next) => {
+    let User = await userModel()
+    let user = await User.getById(req.user._id)
+    res.send({
+        success: true,
+        feeds: user.props.feeds
+    })
+})
+
+router.get('/:username', (req, res, next) => {
+
 })
 
 module.exports = router

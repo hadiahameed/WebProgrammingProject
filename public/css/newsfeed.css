@@ -3,9 +3,13 @@
     width: 100%;
 }
 
-li.media img {
+li.media img.avatar {
     height: 64px;
     width: 64px;
+}
+
+li.media img {
+    max-width: 100%;
 }
 
 #editor {
