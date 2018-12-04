@@ -27,16 +27,26 @@ router.get('/', async (req, res, next) => {
     for(var j = 0; j < reviews.length; j++) {
       var reviewId = reviews[j];
       
-      let reviewObject = await ReviewList.getById(reviewId);
-      let reviewBody = reviewObject.props.reviewBody;
-      var long_review = reviewBody.slice(0, 500);
-      long_review = long_review + " ...";
-      BookList[i].review[j] = long_review;
+      try{
+        let reviewObject = await ReviewList.getById(reviewId);
+        let reviewBody = reviewObject.props.reviewBody;
+        var long_review = reviewBody.slice(0, 500);
+        long_review = long_review + " ...";
+        BookList[i].review[j] = long_review;
+      }
+      catch (e) {
+        res.status(500).render("books/books", {
+          errors: e,
+          hasErrors: true
+        });
+      }
     }
-    
   }
 
+  console.log(BookList)
   res.render("books/books",{books: BookList})
+
+
 })
 
 

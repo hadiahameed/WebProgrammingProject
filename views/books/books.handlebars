@@ -7,7 +7,7 @@
                 Add new book</a></button>
         {{#each books as |book|}}
         <div id="booksList">
-            <img src={{this.image}} alt={{this.title}} class="image">
+            <img src={{this.image}} alt="/public/resources/no-img-icon.jpeg" class="image">
             <div>
                 <a href="/books/{{this._id}}">
                     <h1 id="bookTitle">Title: {{this.title}} </h1>
@@ -22,14 +22,20 @@
                 </p>
                 {{/if}}
                 {{#if this.tags}}
-                    <p id="tags">Tags: {{#each book.tags}}<span class="oneTag">{{this}}</span> {{/each}} </p>
+                <p id="tags">Tags: {{#each book.tags}}<span class="oneTag">{{this}}</span> {{/each}} </p>
                 {{else}}
-                    <p>No tags</p>
+                <p>No tags</p>
                 {{/if}}
             </div>
         </div>
         {{/each}}
     </div>
+    {{#if hasErrors}}
+    <div class="alert alert-danger error-list" role="alert">
+        {{error}}
+    </div>
+    {{/if}}
 </div>
+    
 {{/content}}
 {{/extend}}
