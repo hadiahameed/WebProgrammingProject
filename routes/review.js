@@ -16,11 +16,18 @@ router.post('/', async (req, res, next) => {
     let bookId = req.body.bookId;
     let rating = req.body["book-rating"];
     let userId = req.user._id;
+    let userFirstName = req.user.firstname;
+    let userLastName = req.user.lastname;
+    let userProfile = {
+        userId,
+        userFirstName,
+        userLastName
+    }
     let likes = "0";
     let Reviews = await reviewModel()
     let bookReview = new Reviews({
       bookId,
-      userId,
+      userProfile,
       likes,
       reviewBody
     });

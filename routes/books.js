@@ -109,6 +109,13 @@ router.get("/:id", async (req, res) => {
 router.post('/', multipartyMiddleware, async (req, res, next) => {
   let User = await userModel()
   let userId = req.user._id;
+  let userFirstName = req.user.firstname;
+  let userLastName = req.user.lastname;
+  let userProfile = {
+    userId,
+    userFirstName,
+    userLastName
+  }
 
   try {
     let user = await User.getById(userId);
@@ -155,7 +162,7 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
     let likes = "0";
     let bookReview = new Reviews({
       bookId,
-      userId,
+      userProfile,
       likes,
       reviewBody
     })

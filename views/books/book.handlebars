@@ -13,7 +13,8 @@
                 <h3>Reviews:</h3>
                 {{#each review}}
                 <div class="review">
-                    <article>{{this.reviewBody}}</article>mnc 
+                    <article>{{this.reviewBody}}</article>
+                    <p>by <a href="/user/profile">{{this.userProfile.userFirstName}} {{this.userProfile.userLastName}}</a></p>
                     
                     <button id={{this._id}} class="fa fa-thumbs-up reviewLike">{{#if this.likes}}{{this.likes}}{{else}} 0 {{/if}}</button>
                 </div>
