@@ -40,6 +40,20 @@ router.post('/', reCaptcha(true), async (req, res, next) => {
     }
 
     let validation_code = parseInt(Math.random() * 100000000)
+    let bookshelves = [
+      {
+        name: "Read",
+        books: []
+      },
+      {
+        name: "Currently Reading",
+        books: []
+      },
+      {
+        name: "Want to Read",
+        books: []
+      }
+    ]
     const saltRounds = 16;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     user = new User({ 
@@ -50,7 +64,7 @@ router.post('/', reCaptcha(true), async (req, res, next) => {
       password: hashedPassword,
       validated: false,
       validation_code: validation_code,
-      bookshelves: [],
+      bookshelves: bookshelves,
       followers: [],
       following: [],
       feeds: [],

@@ -38,6 +38,12 @@ hbs.getPartials({
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 hbs.handlebars.registerHelper(layouts(hbs.handlebars));
+hbs.handlebars.registerHelper('ifCond', function(v1, options) {
+  if(v1 > 2) {
+    return options.fn(this);
+  }
+  return options.inverse(this);
+});
 
 /**
  * Set static/public folder
