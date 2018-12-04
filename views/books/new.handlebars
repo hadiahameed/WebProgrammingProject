@@ -16,7 +16,10 @@
                 <label>Author: <input name="author" type="text" required></label>
             </div>
             <div class="form-group">
-                <label>Review: <input name="review" type="text" required></label>
+                <label>Review: 
+                    <input type="hidden" value={{_id}} name="bookId" />
+                    <textarea name="review" cols="50" rows="10"></textarea>
+                </label>
             </div>
             <div class="form-group">
                 <label>Rating:

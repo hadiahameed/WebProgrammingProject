@@ -14,8 +14,16 @@ router.get('/', async (req, res, next) => {
   
   // For testing the books page with long reviews
   for(var i = 0; i < BookList.length; i++) {
-    var book = BookList[i];
+    let book = BookList[i];
+    let elmt = book.rating;
+    let sum = 0;
+    for( var k = 0; k < elmt.length; k++ ){
+      sum += parseInt( elmt[k], 10 );
+    }
+    var avg = sum/elmt.length;
+    avg = Math.round( avg * 10 ) / 10;
     var reviews = book.review;
+    BookList[i].rating = avg
     for(var j = 0; j < reviews.length; j++) {
       var reviewId = reviews[j];
       
@@ -76,13 +84,19 @@ router.get("/:id", async (req, res) => {
       let ReviewObject = await Review.getById(reviewId);
       reviewArray.push(ReviewObject.props);
     }
-
+    let elmt = BookObject.props.rating;
+    var sum = 0;
+    for( var i = 0; i < elmt.length; i++ ){
+      sum += parseInt( elmt[i], 10 );
+    }
+    var avg = sum/elmt.length;
+    avg = Math.round( avg * 10 ) / 10;
     res.render("books/book", {
       _id: BookObject.props._id,
       title: BookObject.props.title,
       author: BookObject.props.author,
       review: reviewArray,
-      rating: BookObject.props.rating,
+      rating: avg,
       image: BookObject.props.image
     });
   }
@@ -122,7 +136,7 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
   } else {
     var tags = [];
   }
-
+  rating = rating.split();
   let Books = await bookModel()
   let Reviews = await reviewModel();
 
@@ -138,8 +152,11 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
     await book.save()
 
     let bookId = book.props._id;
+    let likes = "0";
     let bookReview = new Reviews({
       bookId,
+      userId,
+      likes,
       reviewBody
     })
     await bookReview.save()

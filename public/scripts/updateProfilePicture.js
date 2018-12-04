@@ -1,13 +1,12 @@
 $(document).ready(function() {
-    var readURL = function(input) {
+    var readURL = async function(input) {
         if (input.files && input.files[0]) {
-            var reader = new FileReader();
 
-            reader.onload = function (e) {
-                $('.profile-pic').attr('src', e.target.result);
-            }
-    
-            reader.readAsDataURL(input.files[0]);
+            let formdata = new FormData()
+            formdata.append('avatar', input.files[0])
+            
+            let res = await axios.patch('/user/profile', formdata);
+            location.reload()
         }
     }
     

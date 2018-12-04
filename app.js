@@ -13,6 +13,8 @@ const passport = require('./middlewares/passport');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
+var multiparty = require('connect-multiparty'),
+  multipartyMiddleware = multiparty({ uploadDir: './public/resources/' });
 
 const app = express();
 
