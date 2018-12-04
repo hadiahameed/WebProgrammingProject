@@ -13,6 +13,8 @@ const passport = require('./middlewares/passport');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
+const helpers = require('./handlebars-helpers')
+
 var multiparty = require('connect-multiparty'),
   multipartyMiddleware = multiparty({ uploadDir: './public/resources/' });
 
@@ -25,7 +27,7 @@ const hbs = exphbs.create({
   defaultLayout: "main",
   partialsDir: [
     'views/partials/'
-  ]
+  ],
 })
 
 hbs.getPartials({
@@ -37,6 +39,7 @@ hbs.getPartials({
 
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
+helpers(hbs.handlebars)
 hbs.handlebars.registerHelper(layouts(hbs.handlebars));
 hbs.handlebars.registerHelper('ifCond', function(v1, options) {
   if(v1 > 2) {
