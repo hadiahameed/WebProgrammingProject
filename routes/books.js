@@ -43,7 +43,6 @@ router.get('/', async (req, res, next) => {
     }
   }
 
-  console.log(BookList)
   res.render("books/books",{books: BookList})
 
 
@@ -236,6 +235,50 @@ router.put('/books/:id', async (req, res, next) => {
     res.send({
       msg: e.message
     })
+  }
+})
+
+router.delete('/',async (req,res) => {
+
+  let User = await userModel(); 
+  let Book = await bookModel();
+  let Review = await reviewModel();
+
+  let userId = req.user._id;
+  try {
+      let user = await User.getById(userId);
+      if (user == null){
+          return res.send({
+              msg: "_id not found"
+          })
+      }
+      let bookId = req.body.book
+      let arr = user.props.bookshelves;
+      console.log(arr)
+      for (var j = 0; j < arr.length; j++) {
+        let books = arr[j].books;
+        console.log(books)
+        for (var k = 0; k < books.length; k++) {
+          if(books[k]._id == bookId){
+            arr[j].books.splice(k, 1);
+            console.log("************************************")
+            console.log(arr[j].books)
+          }
+        } 
+      };  
+      let book = await Book.getById(bookId);
+      let reviewIds = book.props.review;
+      for (var k = 0; k < reviewIds.length; k++) {
+          let rv = await Review.getById(reviewIds[k]);
+          await rv.delete();    
+      }
+      await book.delete();
+      user.props.bookshelves = arr;
+      await user.updateAll()
+      res.json({ success: true })
+  } catch (e) {
+      res.send(e.message)
+      return
   }
 })
 

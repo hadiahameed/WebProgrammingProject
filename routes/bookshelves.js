@@ -70,9 +70,7 @@ router.get('/', async (req, res) => {
 router.delete('/',async (req,res) => {
 
     let User = await userModel(); 
-    let Book = await bookModel();
-    let Review = await reviewModel();
- 
+    
     let userId = req.user._id;
     try {
         let user = await User.getById(userId);
@@ -81,7 +79,11 @@ router.delete('/',async (req,res) => {
                 msg: "_id not found"
             })
         }
-        let books = [];
+        //DELETING BOOKSHELF WILL NO LONGER DELETE BOOKS AND REVIEWS
+        /*let books = [];
+        let Book = await bookModel();
+        let Review = await reviewModel();
+ 
         let arr = user.props.bookshelves;
         for (var j = 0; j < arr.length; j++) {
             if(arr[j].name == req.body.bookshelf){
@@ -97,7 +99,7 @@ router.delete('/',async (req,res) => {
             }
             let bk = await Book.getById(books[j]._id);
             await bk.delete();
-        };
+        };*/
 
         await user.pull('bookshelves', { name: {$eq: req.body.bookshelf} })
         res.json({ success: true })
