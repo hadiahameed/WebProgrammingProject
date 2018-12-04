@@ -26,7 +26,7 @@ router.post('/', async (req, res, next) => {
         content,
         timestamp
     }
-    await user.push('timeline', { uuid, content, timestamp })
+    await user.push('timeline', { uuid, content, timestamp, type: 'timeline' })
     await user.push('feeds', pkg)
     await user.broadcast(pkg)
     res.send({
@@ -43,8 +43,19 @@ router.get('/', async (req, res, next) => {
     })
 })
 
-router.get('/:username', (req, res, next) => {
-
+router.get('/:username', async (req, res, next) => {
+    let User = await userModel()
+    let users = await User.getBy( req.params.username )
+    if (users.length == 0) {
+        return res.send({
+            success: false,
+            msg: 'User Not Found'
+        })
+    }
+    res.send({
+        success: true,
+        timeline: users[0].timeline
+    })
 })
 
 module.exports = router

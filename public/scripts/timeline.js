@@ -1,5 +1,21 @@
+async function loadTimeline(username) {
+    let res = await axios.get(`/api/timeline/${username}`)
+    let template = $('#media-object-template').html()
+    for (let index in res.data.timeline) {
+        let timeline = res.data.timeline[index]
+        let tpl = $(template)
+        tpl.attr('id', `timeline-${index}`).find('.username').eq(0).text(username)
+        $('.feeds-list').prepend(tpl)
+        tpl.find('.time').eq(0).text(moment(timeline.timestamp).fromNow())
+        let q = new Quill(`#timeline-${index} .content`, {
+            readOnly: true
+        })
+        q.setContents(timeline.content)
+    }
+}
 
 $(document).ready(function () {
+    loadTimeline(username)
     $('#followBtn').on('click', async function () {
         let username = $(this).data('username')
         try {

@@ -9,7 +9,7 @@ var quill = new Quill('#editor', {
 async function loadFeeds() {
     let result = await axios.get('/api/timeline')
     let template = $('#media-object-template').html()
-    for(let feed of result.data.feeds) {
+    for (let feed of result.data.feeds) {
         let tpl = $(template)
         tpl.attr('id', `feed-${feed.content_uuid}`).find('.username').eq(0).text(feed.username)
         $('.feeds-list').prepend(tpl)
