@@ -55,6 +55,7 @@ router.post('/', reCaptcha(true), async (req, res, next) => {
       following: [],
       feeds: [],
       timeline: [],
+      image: ''
     })
     
     await user.save()
