@@ -49,6 +49,7 @@ $(document).ready(function () {
     });
 
     $('#getStarted').click(async function () {
+        $('#getStarted').prop('disabled', true);
         let valid = $('#infoModal form').validate().form()
         let captcha = $('.g-recaptcha textarea').val()
 
