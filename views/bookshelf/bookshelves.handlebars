@@ -3,42 +3,37 @@
 {{#content "content"}}
 <div class="container mt-3">
     <div class="row">
-        <a href="/bookshelves/new" class="btn btn-primary"><i class="fas fa-plus"></i> Add bookshelf</a>
         {{#if bookshelves.length}} 
-        <ul class="bookshelves">
+        <div class="bookshelves">
+            <a href="/bookshelves/new" class="btn btn-primary"><i class="fas fa-plus"></i> Add bookshelf</a>
             <h1>Bookshelves:</h1>
-            
-            <div>
             {{#each bookshelves}}
-            <h2>{{this.name}}</h2>
-            <div class="row">
-                
-                <div id="{{this.name}}" class="col-md-12 col-md-offset-1" style="float:right; bottom: 10px;z-index: 999;">
-                    <button class="btn btn-warning glyphicon glyphicon-pencil btnEdit"><i class="fas fa-plus"></i> Add Books</button>
-                    {{#ifCond @index}}
-                        <button class="btn btn-danger glyphicon glyphicon-trash btnExc"><i class="far fa-trash-alt"></i> Delete</button>
-                    {{/ifCond}}
-
-                </div>
-            </div>
-            <div class="bookwrapper">
-                <div class="books">
-                    {{#if this.books.length}}
-                    {{#each books as |book|}}
-                    <div class="book col-2">
-                        <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
-                        <h1><a href="/books/{{this._id}}" id="bookTitle"> {{this.title}} </a></h1>
-                    </div>
-                    {{/each}}
-                    {{/if}}
-            
-                
+            <div class="oneShelf">
+                <h2><a data-toggle="collapse" href="#{{this.name}}" role="button" aria-expanded="false" aria-controls="{{this.name}}">{{this.name}}</a></h2>
+                <div id="{{this.name}}" class="bookwrapper collapse">
+                    {{!-- <div class="books"> --}}
+                        <div class="row buttons">
+                            <div class="col-md-12 col-md-offset-1" style="float:right; bottom: 10px;z-index: 999;">
+                                <button class="btn btn-warning glyphicon glyphicon-pencil btnEdit"><i class="fas fa-plus"></i> Add Books</button>
+                                {{#ifCond @index}}
+                                    <button class="btn btn-danger glyphicon glyphicon-trash btnExc"><i class="far fa-trash-alt"></i> Delete</button>
+                                {{/ifCond}}
+                            </div>
+                        </div>
+                        {{#if this.books.length}}
+                        {{#each books as |book|}}
+                        <div class="book col-2">
+                            <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
+                            <h3><a href="/books/{{this._id}}" class="bookTitle"> {{this.title}} </a></h3>
+                        </div>
+                        {{/each}}
+                        {{/if}} 
+                    {{!-- </div> --}}
                 </div>
             </div>
             {{/each}}
-        </ul>
+        </div>
         {{/if}}
-
     </div>
 </div>
 {{/content}}

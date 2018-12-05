@@ -98,17 +98,35 @@ button#addShelf {
     top: 10%;
 }
 
-ul.bookshelves {
+div.bookshelves {
     width: 100%;
     padding: 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: baseline;
 }
 
-ul.bookshelves > div {
-    border-top: 1px solid grey;
+div.bookshelves > * {
+    flex: 1 100%;
+}
+
+div.bookshelves a.btn {
+    order: 2;
+    flex: 0;
+}
+
+div.bookshelves h1 {
+    order: 1;
+    flex: 0;
+}
+
+div.bookshelves > div {
     margin-top: 10px;
+    order: 3;
 }
 
-ul.bookshelves p .oneTag:not(:last-child):after {
+div.bookshelves p .oneTag:not(:last-child):after {
     content: ",";
 }
 
@@ -125,24 +143,18 @@ ul.bookshelves p .oneTag:not(:last-child):after {
     width: 200px;
 }
 
-.bookshelves .book h1 {
+.bookshelves div h3 {
     font-size: 1rem;
     display: block;
     text-align: center;
 }
 
-.bookshelves .bookwrapper {
-    position: relative;
-    width: 100%;
-    height: 300px;
-    /* outline: 1px solid lime; */
-    overflow: auto;
+.bookshelves .oneShelf > div {
+    margin-top: 30px;
 }
 
-.bookshelves .bookwrapper .books {
-    position: absolute;
-    width: 1300px;
-    height: 100px;
+.bookshelves .oneShelf .buttons {
+    padding-top: 20px;
 }
 
 /* ---------- BOOKS PAGE ---------- */
