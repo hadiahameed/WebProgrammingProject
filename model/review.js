@@ -3,6 +3,8 @@ const Model = require('./model')
 module.exports = async () => {
     let Review = await Model('review', {
         bookId: String,
+        userProfile: Object,
+        likes: String,
         reviewBody: String
     })
 

@@ -6,7 +6,11 @@
                     <div class="small-12 medium-2 large-2 columns">
                         <div class="circle">
                             <!-- User Profile Image -->
+                            {{#if user.image}}
+                              <img class="profile-pic" src="/{{user.image}}">
+                            {{else}}
                             <img class="profile-pic" src="https://placeimg.com/444/444">
+                            {{/if}}
                             <!-- Default Image -->
                             <!-- <i class="fa fa-user fa-5x"></i> -->
                         </div>
@@ -30,11 +34,20 @@
                             <hr>
                             {{#each user.bookshelves}}
                             <ul>
-                                <li><a href="#">{{this.name}}({{this.books.length}})</a></li>
+                                <li>{{this.name}}({{this.books.length}})</li>
                             </ul>
                             {{/each}}
                             </ul>
                             <div class="user-books-details">
+                              <ul><h5><a href="/read">{{firstName}} has finsihed reading</a><h5></h5>
+                              <hr>
+                                {{#each user.bookshelves.[0].books}}    
+                                <ul>
+                                    <li><a href="#"><h5>{{this.title}}</h5></a></li>
+                                    <img class="card-img-top2" src="{{image}}" alt="Card image cap">
+                                </ul>
+                                {{/each}}
+                              </ul>
                             <ul><h5><a href="/currentlyreading">{{firstName}} is currently reading</a><h5></h5>
                             <hr>
                                 {{#each user.bookshelves.[1].books}}    
@@ -43,7 +56,6 @@
                                     <img class="card-img-top2" src="{{image}}" alt="Card image cap">
                                 </ul>
                             {{/each}}
-                        
                             </ul>
                             <ul><h5>{{firstName}}'s Latest Updates</h5>
                             <hr>

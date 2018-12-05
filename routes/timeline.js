@@ -20,7 +20,7 @@ router.get('/:username', async (req, res, next) => {
     res.render('newsfeed/newsfeed', {
         user: req.user,
         feed_user: user,
-        isMe: false,
+        isMe: user._id == req.user._id,
         followed
     })
 })

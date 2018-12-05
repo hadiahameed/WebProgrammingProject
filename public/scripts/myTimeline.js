@@ -3,13 +3,14 @@ var quill = new Quill('#editor', {
         toolbar: { container: '#toolbar-container' }
     },
     theme: 'snow',
-    placeholder: 'What are you reading?'
+    placeholder: 'What\'s happening?'
 });
 
 async function loadFeeds() {
     let result = await axios.get('/api/timeline')
     let template = $('#media-object-template').html()
-    for(let feed of result.data.feeds) {
+    if (!result.data.feeds) return
+    for (let feed of result.data.feeds) {
         let tpl = $(template)
         tpl.attr('id', `feed-${feed.content_uuid}`).find('.username').eq(0).text(feed.username)
         $('.feeds-list').prepend(tpl)

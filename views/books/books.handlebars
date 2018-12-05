@@ -7,7 +7,11 @@
                 Add new book</a></button>
         {{#each books as |book|}}
         <div id="booksList">
+<<<<<<< HEAD
             <a href="/books/{{this._id}}"><img src={{this.image}} alt={{this.title}} class="image"></a>
+=======
+            <img src={{this.image}} alt="/public/resources/no-img-icon.jpeg" class="image">
+>>>>>>> d100816adab877553bea400f213233436a21924d
             <div>
                 <a href="/books/{{this._id}}">
                     <h1 id="bookTitle">Title: {{this.title}} </h1>
@@ -22,14 +26,26 @@
                 </p>
                 {{/if}}
                 {{#if this.tags}}
-                    <p id="tags">Tags: {{#each book.tags}}<span class="oneTag">{{this}}</span> {{/each}} </p>
+                <p id="tags">Tags: {{#each book.tags}}<span class="oneTag">{{this}}</span> {{/each}} </p>
                 {{else}}
-                    <p>No tags</p>
+                <p>No tags</p>
                 {{/if}}
+                <button id="{{book._id}}" class="btn btn-danger glyphicon glyphicon-trash deleteBook"><i class="far fa-trash-alt"></i>
+                    Delete</button>
             </div>
         </div>
         {{/each}}
     </div>
+    {{#if hasErrors}}
+    <div class="alert alert-danger error-list" role="alert">
+        {{error}}
+    </div>
+    {{/if}}
 </div>
+
+{{/content}}
+{{#content "scripts" mode="append"}}
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js"></script>
+<script src="/public/scripts/books.js"></script>
 {{/content}}
 {{/extend}}

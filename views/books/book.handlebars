@@ -14,7 +14,9 @@
                 {{#each review}}
                 <div class="review">
                     <article>{{this.reviewBody}}</article>
-                    <button class="btn btn-outline-primary">Like {{#if this.likes}}{{this.likes}}{{else}}0{{/if}}</button>
+                    <p>by <a href="/user/profile">{{this.userProfile.userFirstName}} {{this.userProfile.userLastName}}</a></p>
+                    
+                    <button id={{this._id}} class="fa fa-thumbs-up reviewLike">{{#if this.likes}}{{this.likes}}{{else}} 0 {{/if}}</button>
                 </div>
                 
                 {{/each}}
@@ -41,5 +43,8 @@
         </div>
     </div>
 </div>
+{{/content}}
+{{#content "scripts" mode="append"}}
+  <script src="/public/scripts/reviewLikes.js"></script>
 {{/content}}
 {{/extend}}
