@@ -3,9 +3,9 @@
 {{#content "content"}}
 <div class="container mt-3">
     <div class="row">
+        <a href="/bookshelves/new" class="btn btn-primary ml-auto"><i class="fas fa-plus"></i> Add bookshelf</a>
         {{#if bookshelves.length}} 
         <div class="bookshelves">
-            <a href="/bookshelves/new" class="btn btn-primary"><i class="fas fa-plus"></i> Add bookshelf</a>
             <h1>Bookshelves:</h1>
             {{#each bookshelves}}
             <div class="oneShelf">

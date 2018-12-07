@@ -25,6 +25,9 @@ module.exports = async () => {
     });
 
     User.prototype.addBookshelf = function (bookshelf) {
+        if (!this.props.bookshelves) {
+            this.props.bookshelves = []
+        }
         this.props.bookshelves.push(bookshelf);
         return this.updateAll();
     }
