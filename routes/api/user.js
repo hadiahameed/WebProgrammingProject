@@ -71,4 +71,23 @@ router.delete('/:username/follower', authenticate(true), async (req, res, next) 
     }
 })
 
+router.get('/:username/avatar', async (req, res, next) => {
+    let User = await userModel()
+    let users = await User.getBy({ username: req.params.username })
+    if (users.length == 0) {
+        return next(new BaseError('User Not Found', 400))
+    }
+    try {
+        let user = users[0]
+
+        res.json({
+            success: true,
+            img_url: user.image
+        })
+    }
+    catch(e) {
+        next(new BaseError(e.message, 500))
+    }
+})
+
 module.exports = router

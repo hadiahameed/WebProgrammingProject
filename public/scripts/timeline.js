@@ -7,6 +7,10 @@ async function loadTimeline(username) {
         tpl.attr('id', `timeline-${index}`).find('.username').eq(0).text(username)
         $('.feeds-list').prepend(tpl)
         tpl.find('.time').eq(0).text(moment(timeline.timestamp).fromNow())
+        axios.get(`/api/user/${username}/avatar`).then(res => {
+            if (!res.data.img_url) return
+            tpl.find('.media-avatar').eq(0).attr('src', `/${res.data.img_url}`)
+        })
         let q = new Quill(`#timeline-${index} .content`, {
             readOnly: true
         })

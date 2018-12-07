@@ -9,8 +9,8 @@
         <div class="container mt-3">
             <div class="row">
                 <div class="col-md-2">
-                    <div class="text-center">
-                        <img class="avatar img-thumbnail rounded-circle" src="https://placeimg.com/480/480/any" alt="Card image cap">
+                    <div class="text-center avatar rounded-circle m-auto">
+                        <img src="{{#if feed_user.image}}/{{feed_user.image}}{{else}}https://placeimg.com/480/480/people{{/if}}" alt="Card image cap">
                     </div>
                     <div class="pl-2 pt-2">
                         {{#with feed_user}}
@@ -84,7 +84,9 @@
         </div>
         <template id="media-object-template">
             <li class="media my-4 p-3 bg-white rounded">
-                <img class="mr-3 rounded avatar" src="https://placeimg.com/480/480/people" alt="Generic placeholder image">
+                <div class="rounded image mr-3">
+                    <img class="media-avatar" src="https://placeimg.com/480/480/people" alt="Generic placeholder image">
+                </div>
                 <div class="media-body">
                     <h5 class="mt-0 mb-1 username"></h5>
                     <div class="content"></div>

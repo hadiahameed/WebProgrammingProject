@@ -1,14 +1,26 @@
 .avatar {
-    max-width: 256px;
-    width: 100%;
+    height: 128px;
+    width: 128px;
+    overflow: hidden;
+    /* width: 100%; */
 }
 
-li.media img.avatar {
+.avatar img {
+    height: 100%;
+}
+
+.media-avatar {
+    height: 100%;
+}
+
+li.media .image {
+    overflow: hidden;
     height: 64px;
     width: 64px;
 }
 
-li.media img {
+li.media .media-body img {
+    /* height: 100%; */
     max-width: 100%;
 }
 

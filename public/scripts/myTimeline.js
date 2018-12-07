@@ -15,6 +15,10 @@ async function loadFeeds() {
         tpl.attr('id', `feed-${feed.content_uuid}`).find('.username').eq(0).text(feed.username)
         $('.feeds-list').prepend(tpl)
         tpl.find('.time').eq(0).text(moment(feed.timestamp).fromNow())
+        axios.get(`/api/user/${feed.username}/avatar`).then(res => {
+            if (!res.data.img_url) return
+            tpl.find('.media-avatar').eq(0).attr('src', `/${res.data.img_url}`)
+        })
         let q = new Quill(`#feed-${feed.content_uuid} .content`, {
             readOnly: true
         })

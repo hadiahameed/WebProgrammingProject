@@ -2,10 +2,12 @@ const express = require("express");
 const router = express.Router();
 const userModel = require('../model/user')
 const cookieMiddleware = require("../middlewares/validateCookie");
+const authenticate = require("../middlewares/authenticate")
+
 var multiparty = require('connect-multiparty'),
   multipartyMiddleware = multiparty({ uploadDir: './public/resources/' });
 
-router.get("/", async(req,res) => {
+router.get("/", authenticate(), async(req,res) => {
     let User = await userModel();
     let user=null;
     try
@@ -29,12 +31,12 @@ router.get("/", async(req,res) => {
     });
 });
 
-router.get('/:username', async (req, res) => {
+router.get('/:username', authenticate(), async (req, res) => {
     let User = await userModel();
     let user = await User.getBy({ username: req.params.username});
 })
 
-router.patch("/", multipartyMiddleware, async(req,res,next) => {
+router.patch("/", authenticate(true), multipartyMiddleware, async(req,res,next) => {
     let User = await userModel();
     let userUpdateProfilePicture={};
     try
