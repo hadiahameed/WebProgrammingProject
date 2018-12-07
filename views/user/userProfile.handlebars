@@ -43,7 +43,7 @@
                               <hr>
                                 {{#each user.bookshelves.[0].books}}    
                                 <ul>
-                                    <li><a href="#"><h5>{{this.title}}</h5></a></li>
+                                    <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a></li>
                                     <img class="card-img-top2" src="{{image}}" alt="Card image cap">
                                 </ul>
                                 {{/each}}
@@ -52,7 +52,7 @@
                             <hr>
                                 {{#each user.bookshelves.[1].books}}    
                                 <ul>
-                                    <li><a href="#"><h5>{{this.title}}</h5></a></li>
+                                    <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a></li>
                                     <img class="card-img-top2" src="{{image}}" alt="Card image cap">
                                 </ul>
                             {{/each}}
@@ -74,7 +74,7 @@
                             {{#each user.bookshelves}}    
                                 {{#each this.books}}
                                 <ul>
-                                    <li><a href="#"><h5>{{this.title}}</h5></a></li>
+                                    <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a></li>
                                 </ul>
                                 {{/each}}
                             {{/each}}
