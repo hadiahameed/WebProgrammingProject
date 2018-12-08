@@ -24,8 +24,10 @@
                         <h4 class="card-title text-left">{{user.firstname}} {{user.lastname}}</h4>
                         <hr>
                         <dl class="text-secondary">
-                            <dd> Username: {{user.username}}</dd>
-                            <dd>Email: {{user.email}}</dd>
+                            <dt> Username: </dt>
+                            <dd>{{user.username}}</dd>
+                            <dt>Email: </dt>
+                            <dd>{{user.email}}</dd>
                         </dl>
                         
                     </div>
@@ -36,46 +38,41 @@
                     <div class="user-data-class">
                         {{#if user.bookshelves.length}}
                         <br>
-                            <ul class="my-bookshelf"><h5><a class="user-bookshelf" href="/bookshelves">{{firstName}}'s Bookshelves</a></h5>
+                            <h5><a class="user-bookshelf" href="/bookshelves">{{firstName}}'s Bookshelves</a></h5>
                             <hr>
+                            <ul class="my-bookshelf">
                             {{#each user.bookshelves}}
-                            <ul>
                                 <li>{{this.name}}({{this.books.length}})</li>
-                            </ul>
                             {{/each}}
                             </ul>
                             <div class="user-books-details">
-                              <ul><h5><a href="/bookshelves">{{firstName}} has finsihed reading</a><h5></h5>
-                              <hr>
+                             <h5><a href="/bookshelves">{{firstName}} has finsihed reading</a></h5>
+                             <hr>
+                              <ul>
                                 {{#each user.bookshelves.[0].books}}    
-                                <ul>
-                                    <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a></li>
-                                    <img class="card-img-top2" src="{{image}}" alt="Card image cap">
-                                </ul>
+                                    <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a>
+                                    <img class="card-img-top2" src="{{image}}" alt="Card image cap"></li>
                                 {{/each}}
                               </ul>
-                            <ul><h5><a href="/bookshelves">{{firstName}} is currently reading</a><h5></h5>
-                            <hr>
-                                {{#each user.bookshelves.[1].books}}    
-                                <ul>
-                                    <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a></li>
-                                    <img class="card-img-top2" src="{{image}}" alt="Card image cap">
-                                </ul>
-                            {{/each}}
-                            </ul>
-                            <ul><h5><a href="/bookshelves">{{firstName}} wants to read</a><h5></h5>
+                              <h5><a href="/bookshelves">{{firstName}} is currently reading</a></h5>
                               <hr>
-                                {{#each user.bookshelves.[2].books}}    
-                                <ul>
-                                    <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a></li>
-                                    <img class="card-img-top2" src="{{image}}" alt="Card image cap">
-                                </ul>
+                              <ul>
+                                {{#each user.bookshelves.[1].books}}    
+                                    <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a>
+                                    <img class="card-img-top2" src="{{image}}" alt="Card image cap"></li>
                                 {{/each}}
-                            </ul>
-                            <ul><h5>{{firstName}}'s Latest Updates</h5>
-                            <hr>
-                                 <h6>{{firstName}} recently followed </h6>
-                            </ul>
+                             </ul>
+                             <h5><a href="/bookshelves">{{firstName}} wants to read</a></h5>
+                             <hr>
+                               <ul>
+                                {{#each user.bookshelves.[2].books}}    
+                                    <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a>
+                                    <img class="card-img-top2" src="{{image}}" alt="Card image cap"></li>
+                                {{/each}}
+                             </ul>
+                             <h5>{{firstName}}'s Latest Updates</h5>
+                             <hr>                            
+                                <h6>{{firstName}} recently followed </h6>
                         </div>
                       {{/if}}
                     </div>
