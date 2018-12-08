@@ -22,7 +22,7 @@
                             <dd><i class="text-secondary fas fa-users"></i> Followers: {{feed_user.followers.length}}</dd>
                         </dl>
                         {{#if isMe}}
-                        <a href="/user/profile" class="btn btn-block btn-outline-primary">Profile</a>
+                        <a href="/user/{{user.username}}" class="btn btn-block btn-outline-primary">Profile</a>
                         {{else}}
 
                         <button id="unfollowBtn" data-username="{{feed_user.username}}" type="button" class="{{#unless followed}}d-none{{/unless}} btn btn-block btn-outline-danger">Unfollow</button>

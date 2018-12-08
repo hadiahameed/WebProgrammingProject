@@ -7,7 +7,7 @@ const authenticate = require("../middlewares/authenticate")
 var multiparty = require('connect-multiparty'),
   multipartyMiddleware = multiparty({ uploadDir: './public/resources/' });
 
-router.get("/", authenticate(), async(req,res) => {
+router.get("/:username", authenticate(), async(req,res) => {
     let User = await userModel();
     let user=null;
     try
@@ -36,7 +36,7 @@ router.get('/:username', authenticate(), async (req, res) => {
     let user = await User.getBy({ username: req.params.username});
 })
 
-router.patch("/", authenticate(true), multipartyMiddleware, async(req,res,next) => {
+router.patch("/:username", authenticate(true), multipartyMiddleware, async(req,res,next) => {
     let User = await userModel();
     let userUpdateProfilePicture={};
     try

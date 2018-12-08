@@ -29,7 +29,7 @@ module.exports = app => {
         '/books': booksRouter,
         '/bookshelves': bookshelfRouter,
         '/profileEdit': profileEditRouter,
-        '/user/profile': userProfileRouter,
+        '/user': userProfileRouter,
         '/review': reviewRouter
     }
 
