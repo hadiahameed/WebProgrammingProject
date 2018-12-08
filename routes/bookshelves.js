@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
             res.redirect('/bookshelves')
         }
         else {
-            res.render('bookshelf/new',{error: "Bookshelf already exists."})
+            res.render('bookshelf/new',{error: "Bookshelf already exists.", title: "Error"})
         }
 
         
@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/new', async (req, res) => {
-    res.render("bookshelf/new");
+    res.render("bookshelf/new"),{title: "New bookshelf"};
   })
 
 router.get('/', async (req, res) => {
@@ -59,7 +59,7 @@ router.get('/', async (req, res) => {
         }
         let bookshelves = user.props.bookshelves;
         console.log(bookshelves)
-        res.render("bookshelf/bookshelves",{bookshelves});
+        res.render("bookshelf/bookshelves",{bookshelves, title: "Bookshelves"});
     } catch (e) {
         res.send(e.message)
         return

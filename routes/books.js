@@ -37,13 +37,14 @@ router.get('/', async (req, res, next) => {
       catch (e) {
         res.status(500).render("books/books", {
           errors: e,
-          hasErrors: true
+          hasErrors: true,
+          title: "Error"
         });
       }
     }
   }
 
-  res.render("books/books",{books: BookList})
+  res.render("books/books",{books: BookList, title: "Books"})
 
 
 })
@@ -61,7 +62,7 @@ router.get('/new', async (req, res, next) => {
       })
     }
     let bookshelves = user.props.bookshelves;
-    res.render("books/new", {bookshelves:bookshelves});
+    res.render("books/new", {bookshelves:bookshelves, title: "New book"});
   } catch (e) {
     res.send(e.message)
     return
@@ -106,7 +107,8 @@ router.get("/:id", async (req, res) => {
       author: BookObject.props.author,
       review: reviewArray,
       rating: avg,
-      image: BookObject.props.image
+      image: BookObject.props.image,
+      title: "Book: " + BookObject.props.title
     });
   }
   catch (e) {
