@@ -11,6 +11,7 @@ const userProfileRouter = require('./userProfile');
 const profileEditRouter = require('./profileEdit');
 const timelineRouter = require('./timeline')
 const reviewRouter = require('./review');
+const searchRouter = require('./search');
 
 /* API Routes */
 const api = require('./api')
@@ -30,7 +31,8 @@ module.exports = app => {
         '/bookshelves': bookshelfRouter,
         '/profileEdit': profileEditRouter,
         '/user/profile': userProfileRouter,
-        '/review': reviewRouter
+        '/review': reviewRouter,
+        '/search': searchRouter
     }
 
     for(let route in requireAuthenticationRoutes) {
