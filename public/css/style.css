@@ -93,7 +93,7 @@ main {
 }
 
 button#addShelf {
-    position: absolute;
+    position: fixed;
     right: 10%;
     top: 10%;
 }
@@ -281,8 +281,8 @@ form#newuser span {
 
 .p-image {
     position: absolute;
-    top: 250px;
-    right: 100px;
+    top: 180px;
+    right: 110px;
     color: #666666;
     transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
   }

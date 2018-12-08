@@ -4,12 +4,12 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="small-12 medium-2 large-2 columns">
-                        <div class="circle">
+                        <div class="text-center avatar rounded-circle m-auto">
                             <!-- User Profile Image -->
                             {{#if user.image}}
-                              <img class="profile-pic" src="/{{user.image}}">
+                              <img class="profile-pic" src="/{{user.image}}" alt="Card image cap">
                             {{else}}
-                            <img class="profile-pic" src="https://placeimg.com/444/444">
+                            <img class="profile-pic" src="https://placeimg.com/444/444" alt="Card image cap">
                             {{/if}}
                             <!-- Default Image -->
                             <!-- <i class="fa fa-user fa-5x"></i> -->
@@ -19,10 +19,16 @@
                         <i class="fa fa-camera upload-button"></i>
                             <input class="file-upload" type="file" accept="image/*"/>
                     </div>
-                    <dl class="text-secondary">
-                        <dd>Username: {{user.username}}</dd>
-                        <dd>Email: {{user.email}}</dd>
-                    </dl>
+                    <div class="pl-2 pt-2">
+                        <br>
+                        <h4 class="card-title text-left">{{user.firstname}} {{user.lastname}}</h4>
+                        <hr>
+                        <dl class="text-secondary">
+                            <dd> Username: {{user.username}}</dd>
+                            <dd>Email: {{user.email}}</dd>
+                        </dl>
+                        
+                    </div>
                 </div>
                 <div class="col-md-5 px-2 mt-7">
                     <h1>Welcome {{user.firstname}}</h1>
@@ -39,7 +45,7 @@
                             {{/each}}
                             </ul>
                             <div class="user-books-details">
-                              <ul><h5><a href="/read">{{firstName}} has finsihed reading</a><h5></h5>
+                              <ul><h5><a href="/bookshelves">{{firstName}} has finsihed reading</a><h5></h5>
                               <hr>
                                 {{#each user.bookshelves.[0].books}}    
                                 <ul>
@@ -48,7 +54,7 @@
                                 </ul>
                                 {{/each}}
                               </ul>
-                            <ul><h5><a href="/currentlyreading">{{firstName}} is currently reading</a><h5></h5>
+                            <ul><h5><a href="/bookshelves">{{firstName}} is currently reading</a><h5></h5>
                             <hr>
                                 {{#each user.bookshelves.[1].books}}    
                                 <ul>
@@ -57,19 +63,28 @@
                                 </ul>
                             {{/each}}
                             </ul>
+                            <ul><h5><a href="/bookshelves">{{firstName}} wants to read</a><h5></h5>
+                              <hr>
+                                {{#each user.bookshelves.[2].books}}    
+                                <ul>
+                                    <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a></li>
+                                    <img class="card-img-top2" src="{{image}}" alt="Card image cap">
+                                </ul>
+                                {{/each}}
+                            </ul>
                             <ul><h5>{{firstName}}'s Latest Updates</h5>
                             <hr>
                                  <h6>{{firstName}} recently followed </h6>
                             </ul>
-                            
+                        </div>
+                      {{/if}}
                     </div>
-                        {{/if}}
-                    </div>
+                </div>
+                <div class="col-md-3 mt-2">
                     <button type="button" class="btn btn-primary" id="addShelf">
                     Add bookshelf
-                    </button>       
-                </div>
-                <div class="col-md-4 mt-2">
+                    </button> 
+                    <br>
                     <h5><a href="/bookshelves">Books uploaded by {{firstName}}</h5></a>
                             {{#each user.bookshelves}}    
                                 {{#each this.books}}
