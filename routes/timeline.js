@@ -21,7 +21,8 @@ router.get('/:username', async (req, res, next) => {
         user: req.user,
         feed_user: user,
         isMe: user._id == req.user._id,
-        followed
+        followed,
+        title: "Newsfeed"
     })
 })
 

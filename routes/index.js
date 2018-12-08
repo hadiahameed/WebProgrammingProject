@@ -11,6 +11,7 @@ const userProfileRouter = require('./userProfile');
 const profileEditRouter = require('./profileEdit');
 const timelineRouter = require('./timeline')
 const reviewRouter = require('./review');
+const searchRouter = require('./search');
 
 /* API Routes */
 const api = require('./api')
@@ -48,8 +49,8 @@ module.exports = app => {
      */
     app.use('/api', api)
 
-    // Please ignore this, this is just for easy testing purposes for the handlebars
-    app.get('/', function(req, res, next) {
-        res.render("books/books", { firstName: 'Sanne' });
-    })
+    // // Please ignore this, this is just for easy testing purposes for the handlebars
+    // app.get('/', function(req, res, next) {
+    //     res.render("books/books", { firstName: 'Sanne' });
+    // })
 }

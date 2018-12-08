@@ -27,7 +27,8 @@ router.get("/:username", authenticate(), async(req,res) => {
         user: req.user,
         "user": user.props,
         "title"     : "You're viewing user profile page",
-        "firstName" : req.user.firstname,   
+        "firstName" : req.user.firstname,
+        title: "Profile" 
     });
 });
 

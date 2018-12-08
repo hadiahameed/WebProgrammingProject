@@ -13,6 +13,7 @@ router.get('/', function (req, res, next) {
       user: req.user,
       feed_user: req.user,
       isMe: true,
+      title: "Newsfeed"
     })
   }
 });

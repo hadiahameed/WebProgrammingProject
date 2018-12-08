@@ -9,8 +9,8 @@
             <h1>Bookshelves:</h1>
             {{#each bookshelves}}
             <div class="oneShelf">
-                <h2><a data-toggle="collapse" href="#{{@key}}" role="button" aria-expanded="false" aria-controls="{{@key}}">{{this.name}}</a></h2>
-                <div id="{{@key}}" class="bookwrapper collapse">
+                <h2><a data-toggle="collapse" href="#id-{{@key}}" role="button" aria-expanded="false" aria-controls="id-{{@key}}">{{this.name}}</a></h2>
+                <div id="id-{{@key}}" class="bookwrapper collapse">
                     {{!-- <div class="books"> --}}
                         <div class="row buttons">
                             <div class="col-md-12 col-md-offset-1" style="float:right; bottom: 10px;z-index: 999;">
@@ -27,6 +27,8 @@
                             <h3><a href="/books/{{this._id}}" class="bookTitle"> {{this.title}} </a></h3>
                         </div>
                         {{/each}}
+                        {{else}}
+                        <p>No books yet! Try adding one.</p>
                         {{/if}} 
                     {{!-- </div> --}}
                 </div>
