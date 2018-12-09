@@ -20,9 +20,9 @@
             <hr class="my-4">
             <ul class="list-unstyled">
             {{#each books}}
-                <li class="media bg-white shadow rounded p-2">
-                    <div class="img-thumbnail mr-3">
-                        <img class="book-cover" src="{{this.image}}" alt="Generic placeholder image">
+                <li class="media bg-white shadow rounded p-2 mt-3">
+                    <div class="img-thumbnail mr-3 book-cover d-flex align-items-center">
+                        <img class="img-fluid mt-auto mb-auto ml-0 mr-0" src="{{#if this.image}}{{this.image}}{{else}}https://placeimg.com/480/480/any{{/if}}" alt="Generic placeholder image">
                     </div>
                     <div class="media-body">
                         <h5 class="mt-0 mb-1">{{this.title}}</h5>
@@ -48,9 +48,9 @@
             <hr class="my-4">
             <ul class="list-unstyled">
             {{#each users}}
-                <li class="media bg-white shadow rounded p-2">
-                    <div class="img-thumbnail mr-3">
-                        <img class="user-avatar" src="{{this.image}}" alt="Generic placeholder image">
+                <li class="media bg-white shadow rounded p-2 mt-3">
+                    <div class="img-thumbnail mr-3 user-avatar d-flex align-items-center">
+                        <img class="img-fluid mt-auto mb-auto ml-0 mr-0" src="{{#if this.image}}{{this.image}}{{else}}https://placeimg.com/480/480/any{{/if}}" alt="Generic placeholder image">
                     </div>
                     <div class="media-body">
                         <h5 class="mt-0 mb-1">{{this.username}}</h5>
