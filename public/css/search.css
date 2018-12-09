@@ -1,0 +1,9 @@
+.book-cover {
+    max-width: 256px;
+    height: auto;
+}
+
+.user-avatar {
+    max-width: 128px;
+    height: auto
+}

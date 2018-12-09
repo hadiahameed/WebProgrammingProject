@@ -1,0 +1,69 @@
+{{#extend "loggedIn"}}
+{{#content 'styles' mode='append'}}
+<link rel="stylesheet" href="/public/css/search.css">
+{{/content}}
+{{#content 'content'}}
+<div class="container">
+    {{#if empty}}
+    <div class="jumbotron mt-3">
+        <h1 class="display-4">No Result</h1>
+        <p class="lead">Sorry, nothing found related to "{{query_str}}"</p>
+        <hr class="my-4">
+        <p>Please try to search with other key words.</p>
+        <a class="btn btn-primary" href="/" role="button">Home</a>
+    </div>
+    {{else}}
+        {{#if books}}
+        <div class="jumbotron mt-3">
+            <h1 class="display-4">Books</h1>
+            <p class="lead">Result of "{{query_str}}"</p>
+            <hr class="my-4">
+            <ul class="list-unstyled">
+            {{#each books}}
+                <li class="media bg-white shadow rounded p-2">
+                    <div class="img-thumbnail mr-3">
+                        <img class="book-cover" src="{{this.image}}" alt="Generic placeholder image">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1">{{this.title}}</h5>
+                        <div>
+                            <p>
+                                Author: {{this.author}}
+                            </p>
+                        </div>
+                        <div>
+                            <a href="/books/{{this._id}}" class="btn btn-outline-primary">Detail</a>
+                        </div>
+                    </div>
+                </li>
+            {{/each}}
+            </ul>
+        </div>
+        {{/if}}
+
+        {{#if users}}
+        <div class="jumbotron mt-3">
+            <h1 class="display-4">Users</h1>
+            <p class="lead">Result of {{query_str}}</p>
+            <hr class="my-4">
+            <ul class="list-unstyled">
+            {{#each users}}
+                <li class="media bg-white shadow rounded p-2">
+                    <div class="img-thumbnail mr-3">
+                        <img class="user-avatar" src="{{this.image}}" alt="Generic placeholder image">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1">{{this.username}}</h5>
+                        <div>
+                            <a href="/timeline/{{this.username}}" class="btn btn-outline-primary">View</a>
+                        </div>
+                    </div>
+                </li>
+            {{/each}}
+            </ul>
+        </div>
+        {{/if}}
+    {{/if}}
+</div>
+{{/content}}
+{{/extend}}

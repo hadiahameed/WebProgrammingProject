@@ -10,6 +10,7 @@ module.exports = (api=false) => {
                 res.status('400').redirect('/')
             }    
         }
+        res.locals.user = req.user
         next()
     }
 }

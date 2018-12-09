@@ -17,6 +17,14 @@ module.exports = async () => {
         image:String
     });
 
+    try {
+        await User.collection.createIndex({ username: 'text', firstname: 'text', lastname: 'text' })
+    }
+    catch(e) {
+        console.error('Error in creating index for users')
+        console.log(e.message)
+    }
+
     User.getAllUsers = User.getAll.bind({
         projection: {
             _id: 1,

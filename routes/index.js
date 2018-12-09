@@ -22,7 +22,8 @@ module.exports = app => {
      */
     app.use('/', homeRouter)
     app.use('/validate', vlaidateRouter)
-
+    app.use('/search', searchRouter)
+    
     /**
      * Authentication required
      */
@@ -49,8 +50,4 @@ module.exports = app => {
      */
     app.use('/api', api)
 
-    // // Please ignore this, this is just for easy testing purposes for the handlebars
-    // app.get('/', function(req, res, next) {
-    //     res.render("books/books", { firstName: 'Sanne' });
-    // })
 }

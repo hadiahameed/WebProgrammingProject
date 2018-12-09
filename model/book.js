@@ -17,5 +17,13 @@ module.exports = async () => {
         }
     })
 
+    try {
+        await Book.collection.createIndex({ title: 'text', author: 'text' })
+    }
+    catch(e) {
+        console.error('Error in creating index for books')
+        console.log(e.message)
+    }
+
     return Book
 }
