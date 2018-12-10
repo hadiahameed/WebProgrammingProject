@@ -98,6 +98,7 @@ router.get("/:id", async (req, res) => {
       } 
 
     let bookshelves = user.props.bookshelves;
+    console.log(bookshelves)
     let arr = BookObject.props.review;
     let reviewArray = [];
     for (var j = 0; j < arr.length; j++){
