@@ -11,12 +11,15 @@ $(".deleteBook").click(async function () {
     }
 })
 
-$("#addBook").click(async function () {
+$("#addBook").click(async function (event) {
+    event.preventDefault();
     let bookId = $('.bookTitle').attr('id')
     try {
         let response = await axios.post(`/books/${bookId}`, {
-            bookshelf: $('#selectedBookshelf').val()
+            
+            bookshelf: $('input[name=selectedBookshelf]:radio:checked').val()
         });
+        console.log(response)
         if (response.data.msg){
             $.alert(response.data.msg)
         }
