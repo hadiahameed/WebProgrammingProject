@@ -5,7 +5,7 @@ const cookieMiddleware = require("../middlewares/validateCookie");
 const authenticate = require("../middlewares/authenticate")
 
 var multiparty = require('connect-multiparty'),
-  multipartyMiddleware = multiparty({ uploadDir: '.\public\resources\/' });
+  multipartyMiddleware = multiparty({ uploadDir: './public/resources/' });
 
 router.get("/:username", authenticate(), async(req,res) => {
     let User = await userModel();
