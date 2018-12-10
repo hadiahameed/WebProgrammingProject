@@ -87,6 +87,17 @@ router.get("/:id", async (req, res) => {
     let Book = await bookModel()
     let Review = await reviewModel()
     let BookObject = await Book.getById(req.params.id);
+    let User = await userModel()
+    let userId = req.user._id;
+    
+      let user = await User.getById(userId);
+      if (user == null) {
+        return res.send({
+          msg: "_id not found"
+        })
+      } 
+
+    let bookshelves = user.props.bookshelves;
     let arr = BookObject.props.review;
     let reviewArray = [];
     for (var j = 0; j < arr.length; j++){
@@ -108,6 +119,7 @@ router.get("/:id", async (req, res) => {
       review: reviewArray,
       rating: avg,
       image: BookObject.props.image,
+      bookshelves: bookshelves,
       title: "Book: " + BookObject.props.title
     });
   }
