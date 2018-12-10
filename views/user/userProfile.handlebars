@@ -33,7 +33,11 @@
                     </div>
                 </div>
                 <div class="col-md-5 px-2 mt-7">
-                    <h1>Welcome {{feed_user.firstname}}</h1>
+                    {{#if isMe}}
+                        <h1>Welcome {{feed_user.firstname}}</h1>
+                    {{else}}
+                        <h1>You are viewing {{feed_user.firstname}}'s profile</h1>
+                    {{/if}}
                     <br>
                     <div class="user-data-class">
                         {{#if feed_user.bookshelves.length}}
@@ -91,8 +95,7 @@
                                     <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a></li>
                                 </ul>
                                 {{/each}}
-                            {{/each}}
-                        
+                            {{/each}} 
                 </div>
             </div>
 
