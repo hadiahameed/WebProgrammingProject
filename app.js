@@ -47,6 +47,12 @@ hbs.handlebars.registerHelper('ifCond', function(v1, options) {
   }
   return options.inverse(this);
 });
+hbs.handlebars.registerHelper('ifTrue', function(v1, options) {
+  if(v1 == true) {
+    return options.fn(this);
+  }
+  return options.inverse(this);
+});
 
 /**
  * Set static/public folder

@@ -20,6 +20,11 @@ router.get('/', async (req, res, next) => {
     for (var k = 0; k < elmt.length; k++) {
       sum += parseInt(elmt[k], 10);
     }
+    let addedBy = false;
+    if (book.addedBy == req.user._id){
+      addedBy = true;
+    }
+    BookList[i].addedBy = addedBy;
     var avg = sum / elmt.length;
     avg = Math.round(avg * 10) / 10;
     var reviews = book.review;
@@ -35,11 +40,9 @@ router.get('/', async (req, res, next) => {
         BookList[i].review[j] = long_review;
       }
       catch (e) {
-        res.status(500).render("books/books", {
-          errors: e,
-          hasErrors: true,
-          title: "Error"
-        });
+        return res.send({
+          msg: e
+        })
       }
     }
   }
@@ -190,15 +193,6 @@ router.post('/:id', multipartyMiddleware, async (req, res, next) => {
 router.post('/', multipartyMiddleware, async (req, res, next) => {
   let User = await userModel()
   let userId = req.user._id;
-  /*
-  let userFirstName = req.user.firstname;
-  let userLastName = req.user.lastname;
-
-  let userProfile = {
-    userId,
-    userFirstName,
-    userLastName
-  }*/
 
   try {
     let user = await User.getById(userId);
@@ -240,6 +234,7 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
           review: [],
           rating: [],
           tags,
+          addedBy: userId,
           image: "/" + image
         })
         await book.save()
