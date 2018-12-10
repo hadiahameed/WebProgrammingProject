@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/new', async (req, res) => {
-    res.render("bookshelf/new"),{title: "New bookshelf"};
+    res.render("bookshelf/new", {title: "New bookshelf"});
   })
 
 router.get('/', async (req, res) => {
