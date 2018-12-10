@@ -42,7 +42,6 @@ router.post('/:username', async (req, res) => {
     }
 })
 
-<<<<<<< HEAD
 router.get('/:username/new', async (req, res) => {
     let User = await userModel()
     let user=null;
@@ -60,11 +59,6 @@ router.get('/:username/new', async (req, res) => {
         return
     }
 });
-=======
-router.get('/new', async (req, res) => {
-    res.render("bookshelf/new", {title: "New bookshelf"});
-  })
->>>>>>> 9d4565970f9601a0d240c3606ea799dc09121945
 
 router.get('/:username', async (req, res) => {
     let User = await userModel()
