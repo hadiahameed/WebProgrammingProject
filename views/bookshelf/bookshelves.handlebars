@@ -18,7 +18,7 @@
                             <div id="{{@key}}" class="col-md-12 col-md-offset-1" style="float:right; bottom: 10px;z-index: 999;">
                                 <button class="btn btn-warning glyphicon glyphicon-pencil btnEdit"><i class="fas fa-plus"></i> Add Books</button>
                                 {{#ifCond @index}}
-                                    <button class="btn btn-danger glyphicon glyphicon-trash btnExc"><i class="far fa-trash-alt"></i> Delete</button>
+                                    <button id = {{this.name}} class="btn btn-danger glyphicon glyphicon-trash btnExc"><i class="far fa-trash-alt"></i> Delete</button>
                                 {{/ifCond}}
                             </div>
                         </div>

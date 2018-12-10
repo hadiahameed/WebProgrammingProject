@@ -11,7 +11,7 @@ $(document).ready(function () {
     $(".btnExc").click(async function () {
         try {
             let result = await axios.delete('/bookshelves', {
-                data: {bookshelf: $(this).parent().attr('id')}
+                data: {bookshelf: $(this).attr('id')}
               });
             location.reload(true)    
         }

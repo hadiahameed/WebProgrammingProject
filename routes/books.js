@@ -152,13 +152,11 @@ router.post('/:id', multipartyMiddleware, async (req, res, next) => {
 
       let arr = user.props.bookshelves;
       let bookshelf = req.body.bookshelf;
-      console.log(bookshelf)
       let obj = arr.find(o => o.name === bookshelf);
       let books = obj.books;
-      console.log(books)
+
       for (var k = 0; k < books.length; k++) {
         if (books[k]._id == bookId) {
-          console.log(books[k]._id)
           return res.send({
             msg: `Book already present in ${obj.name} bookshelf`
           })
@@ -169,7 +167,6 @@ router.post('/:id', multipartyMiddleware, async (req, res, next) => {
         books = arr[j].books;
         for (var k = 0; k < books.length; k++) {
           if (books[k]._id == bookId) {
-            console.log(books[k]._id)
             return res.send({
               msg: `Book already present in ${arr[j].name} bookshelf`
             })
