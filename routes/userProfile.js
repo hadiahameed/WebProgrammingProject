@@ -11,6 +11,8 @@ router.get("/:username", authenticate(), async(req,res) => {
     let User = await userModel();
     let user=null;
     let current_user =null;
+    let followingUser;
+    let followingUserArray=[];
     try
     {
         //user = await User.getById(req.user._id);
@@ -21,6 +23,14 @@ router.get("/:username", authenticate(), async(req,res) => {
         
         user = users[0]
         current_user = new User({ _id: req.user._id })
+        followingUser = user.following.slice(-3);
+        followingUser.forEach( async (fUser) => {
+            let userInfo = await User.getById(fUser);
+            if(users.length == 0) {
+                return next(createError(404, 'User Not Found'));
+            }
+            followingUserArray.push(userInfo.props.username);
+        })
     }catch(error)
     {
         res.send(error.message)
@@ -32,7 +42,8 @@ router.get("/:username", authenticate(), async(req,res) => {
         title: "Profile",
         user: req.user,
         feed_user: user,
-        isMe: user._id == req.user._id, 
+        isMe: user._id == req.user._id,
+        followingUserArray 
     });
 });
 

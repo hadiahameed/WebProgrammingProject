@@ -75,8 +75,14 @@
                                 {{/each}}
                              </ul>
                              <h5>{{feed_user.firstname}}'s Latest Updates</h5>
-                             <hr>                            
-                                <h6>{{feed_user.firstname}} recently followed </h6>
+                             <hr>
+                             <h6>{{feed_user.firstname}} recently followed </h6>
+                             <ul>
+                                 {{#each followingUserArray}}
+                                  <li><a href="/user/{{this}}">{{this}}</a></li>
+                                {{/each}}
+                             </ul>                            
+                                
                         </div>
                       {{/if}}
                     </div>
