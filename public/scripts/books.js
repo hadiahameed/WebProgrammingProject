@@ -6,6 +6,6 @@ $(".deleteBook").click(async function () {
         location.reload(true)
     }
     catch (e) {
-        console.log(e)
+        $.alert(`Oops! ${e.message}`)
     }
 })
