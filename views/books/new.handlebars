@@ -26,11 +26,11 @@
                 </div> -->
                 <div class="form-group">
                     <label>Rating:
-                        <input type="radio" name="book-rating" value="1" checked/> 1
-                        <input type="radio" name="book-rating" value="2" /> 2
-                        <input type="radio" name="book-rating" value="3" /> 3
-                        <input type="radio" name="book-rating" value="4" /> 4
-                        <input type="radio" name="book-rating" value="5" /> 5
+                        <input type="radio" name="book-rating" value="1" required/> 1
+                        <input type="radio" name="book-rating" value="2" required/> 2
+                        <input type="radio" name="book-rating" value="3" required/> 3
+                        <input type="radio" name="book-rating" value="4" required/> 4
+                        <input type="radio" name="book-rating" value="5" required/> 5
                     </label>
                 </div>
 
@@ -38,7 +38,7 @@
                 <div class="form-group">
                     <label>Bookshelf:
                         {{#each bookshelves}}
-                        <input type="radio" name="bookshelf" value="{{this.name}}" checked>{{this.name}}
+                        <input type="radio" name="bookshelf" value="{{this.name}}" required>{{this.name}}
                         {{/each}}
                     </label>
                 </div>

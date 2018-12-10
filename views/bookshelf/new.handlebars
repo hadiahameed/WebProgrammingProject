@@ -4,11 +4,11 @@
 <div class="container mt-3">
     <div class="row">
         <form id="newbookshelf" action="/bookshelves" method="post">
-            <div>
-                <label>Bookshelf name: <input type="name" name="name"></label>
+            <div class="form-group">
+                <label>Bookshelf name: <input type="name" name="name" required></label>
             </div>
             <div>
-                <input id="newbookshelf-submit" type="submit" value="SUBMIT" class="btn btn-primary" />
+                <input id="newbookshelf-submit" type="submit" value="SUBMIT" class="btn btn-primary"/>
             </div>
         </form>
         {{#if error }}

@@ -18,7 +18,6 @@
                     
                     <button id={{this._id}} class="fa fa-thumbs-up reviewLike">{{#if this.likes}}{{this.likes}}{{else}} 0 {{/if}}</button>
                 </div>
-                
                 {{/each}}
                 
                 <form id="newreview" action="/review" method="POST">
@@ -40,8 +39,38 @@
                 </form>
             </div>
             <img src="{{image}}" alt="Card image cap">
-            <button type="button" class="btn btn-primary">Add Book to bookshelf</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Book to bookshelf</button>
 
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Select the bookshelf to add the book to</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="/new" method="POST">
+                <div class="modal-body">
+                        {{#if bookshelves.length}}
+                        
+                                {{#each bookshelves}}
+                                <div class="form-group">
+                                    <label><input type="radio" name="bookshelf" value="{{this.name}}" required/> {{this.name}}</label>
+                                </div>
+                                {{/each}}
+                        
+                        {{/if}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" type="submit" value="submit">Save changes</button>
+                </div>
+                </form>
+                </div>
+            </div>
+            </div>
+            
         </div>
     </div>
 </div>
