@@ -120,13 +120,15 @@ router.get("/:id", async (req, res) => {
 router.post('/', multipartyMiddleware, async (req, res, next) => {
   let User = await userModel()
   let userId = req.user._id;
+  /*
   let userFirstName = req.user.firstname;
   let userLastName = req.user.lastname;
+
   let userProfile = {
     userId,
     userFirstName,
     userLastName
-  }
+  }*/
 
   try {
     let user = await User.getById(userId);
@@ -139,7 +141,7 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
   let image = req.files.image.path;
   let title = req.body.title;
   let author = req.body.author;
-  let reviewBody = req.body.review;
+  //let reviewBody = req.body.review;
   let rating = req.body["book-rating"];
   if(!req.body.bookshelf){
     res.send("User does not have bookshelves!")
@@ -156,7 +158,7 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
   }
   rating = rating.split();
   let Books = await bookModel()
-  let Reviews = await reviewModel();
+  //let Reviews = await reviewModel();
 
   try {
     let book = new Books({
@@ -168,8 +170,9 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
       image: "/" + image
     })
     await book.save()
-
+    
     let bookId = book.props._id;
+    /*
     let likes = "0";
     let bookReview = new Reviews({
       bookId,
@@ -177,11 +180,12 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
       likes,
       reviewBody
     })
-    await bookReview.save()
+    await bookReview.save()*/
     
     let savedBook = await Books.getById(bookId);
+    /*
     savedBook.props.review.push(bookReview.props._id);
-    savedBook.updateAll();
+    savedBook.updateAll();*/
 
     await user.addBook(bookshelf,savedBook)
     res.redirect(`/bookshelves`)
@@ -256,15 +260,11 @@ router.delete('/',async (req,res) => {
       }
       let bookId = req.body.book
       let arr = user.props.bookshelves;
-      console.log(arr)
       for (var j = 0; j < arr.length; j++) {
         let books = arr[j].books;
-        console.log(books)
         for (var k = 0; k < books.length; k++) {
           if(books[k]._id == bookId){
             arr[j].books.splice(k, 1);
-            console.log("************************************")
-            console.log(arr[j].books)
           }
         } 
       };  
