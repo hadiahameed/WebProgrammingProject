@@ -4,31 +4,35 @@
 <div class="container mt-3">
     <div class="row">
         <a href="/books"><i class="fas fa-arrow-left"></i> To all books</a>
-        {{!-- <button type="button" class="btn btn-primary" id="addNewBook"><a href="/books/new" class="text-white">Add new book</a></button> --}}
+        {{!-- <button type="button" class="btn btn-primary" id="addNewBook"><a href="/books/new" class="text-white">Add
+                new book</a></button> --}}
         <div class="bookInfo">
             <div class="bookText">
                 <h1 class="bookTitle" id={{_id}}> {{title}} </h1>
                 <h2 id="author"> {{author}} </h2>
+                {{#if rating}}
                 <p id="bookRating">Rating: {{rating}}</p>
+                {{/if}}
                 <h3>Reviews:</h3>
                 {{#each review}}
                 <div class="review">
                     <div>{{this.reviewBody}}</div>
                     <p>by <a href="/user/profile">{{this.userProfile.userFirstName}} {{this.userProfile.userLastName}}</a></p>
-                    
-                    <button id={{this._id}} class="fa fa-thumbs-up reviewLike">{{#if this.likes}}{{this.likes}}{{else}} 0 {{/if}}</button>
+
+                    <button id={{this._id}} class="fa fa-thumbs-up reviewLike">{{#if this.likes}}{{this.likes}}{{else}}
+                        0 {{/if}}</button>
                 </div>
                 {{/each}}
-                
+
                 <form id="newreview" action="/review" method="POST">
                     <h3>Write your own review:</h3>
                     <div class="form-group">
                         <span>Rating:</span>
-                            <label><input type="radio" name="book-rating" value="1" required/> 1</label>
-                            <label><input type="radio" name="book-rating" value="2" required/> 2</label>
-                            <label><input type="radio" name="book-rating" value="3" required/> 3</label>
-                            <label><input type="radio" name="book-rating" value="4" required/> 4</label>
-                            <label><input type="radio" name="book-rating" value="5" required/> 5</label>
+                        <label><input type="radio" name="book-rating" value="1" required /> 1</label>
+                        <label><input type="radio" name="book-rating" value="2" required /> 2</label>
+                        <label><input type="radio" name="book-rating" value="3" required /> 3</label>
+                        <label><input type="radio" name="book-rating" value="4" required /> 4</label>
+                        <label><input type="radio" name="book-rating" value="5" required /> 5</label>
                     </div>
                     <div class="form-group">
                         <input type="hidden" value={{_id}} name="bookId" />
@@ -38,42 +42,45 @@
                 </form>
             </div>
             <img class="bookImage" src="{{image}}" alt="Card image cap">
-            
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Book to bookshelf</button>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Select the bookshelf to add the book to</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form>
-                <div class="modal-body">
-                        {{#if bookshelves.length}}
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Book to
+                bookshelf</button>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Select the bookshelf to add the book to</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form>
+                            <div class="modal-body">
+                                {{#if bookshelves.length}}
                                 {{#each bookshelves}}
                                 <div class="form-group">
-                                    <label><input type="radio" name="selectedBookshelf" value="{{this.name}}" required/> {{this.name}}</label>
+                                    <label><input type="radio" name="selectedBookshelf" value="{{this.name}}" required />
+                                        {{this.name}}</label>
                                 </div>
                                 {{/each}}
-                        {{/if}}
+                                {{/if}}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button id="addBook" class="btn btn-primary" type="submit" value="submit">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button id="addBook" class="btn btn-primary" type="submit" value="submit">Save changes</button>
-                </div>
-                </form>
-                </div>
-            </div>
             </div>
         </div>
     </div>
 </div>
 {{/content}}
 {{#content "scripts" mode="append"}}
-  <script src="/public/scripts/reviewLikes.js"></script>
-  <script src="/public/scripts/books.js"></script>
+<script src="/public/scripts/reviewLikes.js"></script>
+<script src="/public/scripts/books.js"></script>
 {{/content}}
 {{/extend}}

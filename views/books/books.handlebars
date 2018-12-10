@@ -28,10 +28,10 @@
                 {{else}}
                 <p>No tags</p>
                 {{/if}}
-                {{#ifTrue this.addedBy}}
+                {{#ifCompare this.addedBy true}}
                 <button id="{{book._id}}" class="btn btn-danger glyphicon glyphicon-trash deleteBook"><i class="far fa-trash-alt"></i>
                     Delete</button>
-                {{/ifTrue}}
+                {{/ifCompare}}
             </div>
         </div>
         {{/each}}
