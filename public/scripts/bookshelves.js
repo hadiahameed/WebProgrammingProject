@@ -5,7 +5,7 @@ $(document).ready(function () {
     })
 
     $("#addShelf").click(function(){
-        window.location.href = '/bookshelves/new'
+        window.location.href = `/bookshelves/${username}/new`
     })
 
     $(".btnExc").click(async function () {
