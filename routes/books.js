@@ -215,7 +215,7 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
       let title = req.body.title;
       let author = req.body.author;
       //let reviewBody = req.body.review;
-      let rating = req.body["book-rating"];
+      // let rating = req.body["book-rating"];
       if (!req.body.bookshelf) {
         res.status(500).render("books/books", {
           errors: "User does not have bookshelves yet!",
@@ -232,7 +232,7 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
       } else {
         var tags = [];
       }
-      rating = rating.split();
+      // rating = rating.split();
       let Books = await bookModel()
       //let Reviews = await reviewModel();
 
@@ -241,7 +241,7 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
           title,
           author,
           review: [],
-          rating,
+          rating: [],
           tags,
           image: "/" + image
         })
@@ -264,7 +264,7 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
         savedBook.updateAll();*/
 
         await user.addBook(bookshelf, savedBook)
-        res.redirect(`/bookshelves`)
+        res.redirect(`/books`)
       } catch (e) {
         res.status(500).render("books/books", {
           errors: e,
