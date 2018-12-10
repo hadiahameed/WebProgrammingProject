@@ -7,18 +7,27 @@
         {{!-- <button type="button" class="btn btn-primary" id="addNewBook"><a href="/books/new" class="text-white">Add new book</a></button> --}}
         <div class="bookInfo">
             <div class="bookText">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Book to bookshelf</button>
                 <h1 class="bookTitle" id={{_id}}> {{title}} </h1>
                 <h2 id="author"> {{author}} </h2>
-                <p id="bookRating">Rating: {{rating}}</p>
-                <h3>Reviews:</h3>
-                {{#each review}}
-                <div class="review">
-                    <div>{{this.reviewBody}}</div>
-                    <p>by <a href="/user/profile">{{this.userProfile.userFirstName}} {{this.userProfile.userLastName}}</a></p>
-                    
-                    <button id={{this._id}} class="fa fa-thumbs-up reviewLike">{{#if this.likes}}{{this.likes}}{{else}} 0 {{/if}}</button>
-                </div>
-                {{/each}}
+                {{#if rating}}
+                    <p id="bookRating">Rating: {{rating}}</p>
+                {{else}}
+                    <p id="bookRating">No rating yet for this book</p>
+                {{/if}}
+                {{#if review}}
+                    <h3>Reviews:</h3>
+                    {{#each review}}
+                    <div class="review">
+                        <div>{{this.reviewBody}}</div>
+                        <p>by <a href="/user/profile">{{this.userProfile.userFirstName}} {{this.userProfile.userLastName}}</a></p>
+                        
+                        <button id={{this._id}} class="fa fa-thumbs-up reviewLike">{{#if this.likes}}{{this.likes}}{{else}} 0 {{/if}}</button>
+                    </div>
+                    {{/each}}
+                {{else}}
+                <p>No reviews for this book yet.</p>
+                {{/if}}
                 
                 <form id="newreview" action="/review" method="POST">
                     <h3>Write your own review:</h3>
@@ -32,14 +41,12 @@
                     </div>
                     <div class="form-group">
                         <input type="hidden" value={{_id}} name="bookId" />
-                        <textarea name="reviewText" cols="50" rows="10"></textarea>
+                        <textarea name="reviewText" cols="50" rows="10" required></textarea>
                     </div>
-                    <button type="submit" value="submit">Write review</button>
+                    <button type="submit" value="submit" class="btn btn-secondary">Write review</button>
                 </form>
             </div>
             <img class="bookImage" src="{{image}}" alt="Card image cap">
-            
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Book to bookshelf</button>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -52,13 +59,13 @@
                 </div>
                 <form>
                 <div class="modal-body">
-                        {{#if bookshelves.length}}
-                                {{#each bookshelves}}
-                                <div class="form-group">
-                                    <label><input type="radio" name="selectedBookshelf" value="{{this.name}}" required/> {{this.name}}</label>
-                                </div>
-                                {{/each}}
-                        {{/if}}
+                    {{#if bookshelves.length}}
+                            {{#each bookshelves}}
+                            <div class="form-group">
+                                <label><input type="radio" name="selectedBookshelf" value="{{this.name}}" required/> {{this.name}}</label>
+                            </div>
+                            {{/each}}
+                    {{/if}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
