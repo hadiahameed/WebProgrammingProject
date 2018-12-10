@@ -13,7 +13,9 @@
                     <h1 class="bookTitle">Title: {{this.title}} </h1>
                 </a>
                 <h2 class="author">Author: {{this.author}} </h2>
+                {{#if book.rating}}
                 <p class="rating">Rating: {{this.rating}} </p>
+                {{/if}}
                 {{#if book.review}}
                 <p class="review">Latest Review:
                     {{#each book.review}}
