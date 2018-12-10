@@ -3,7 +3,7 @@
 <!-- Modal -->
 <div class="container mt-3">
     <div class="row">
-        <form id="newbookshelf" action="/bookshelves" method="post">
+        <form id="newbookshelf" action="/bookshelves/{{feed_user.username}}" method="post">
             <div>
                 <label>Bookshelf name: <input type="name" name="name"></label>
             </div>

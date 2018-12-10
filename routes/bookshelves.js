@@ -4,7 +4,7 @@ const bookModel = require('../model/book')
 const reviewModel = require('../model/review')
 
 
-router.post('/', async (req, res) => {
+router.post('/:username', async (req, res) => {
     let User = await userModel()
     let userId = req.user._id;
     let name = req.body.name;
@@ -16,6 +16,7 @@ router.post('/', async (req, res) => {
             books
         };
         let user = await User.getById(userId);
+        let username = user.props.username;
         if (user == null){
             return res.send({
                 msg: "_id not found"
@@ -29,12 +30,11 @@ router.post('/', async (req, res) => {
         });
         if(result.length == 0){
             await user.addBookshelf(bookshelf);
-            res.redirect('/bookshelves')
+            res.redirect(`/bookshelves/${username}`)
         }
         else {
             res.render('bookshelf/new',{error: "Bookshelf already exists.", title: "Error"})
         }
-
         
     } catch (e) {
         res.send(e.message)
@@ -42,23 +42,41 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.get('/new', async (req, res) => {
-    res.render("bookshelf/new"),{title: "New bookshelf"};
-  })
+router.get('/:username/new', async (req, res) => {
+    let User = await userModel()
+    let user=null;
+    try {
+        let users = await User.getBy({ username: req.params.username })
+        if (users.length == 0){
+            return next(createError(404, 'User Not Found'));
+        }
+        user = users[0];
+        res.render("bookshelf/new",{title: "New bookshelf",
+                                    user: req.user,
+                                    feed_user: user});
+    }catch (e) {
+        res.send(e.message)
+        return
+    }
+});
 
-router.get('/', async (req, res) => {
+router.get('/:username', async (req, res) => {
     let User = await userModel()
     let userId = req.user._id;
-
+    let user=null;
     try {
-        let user = await User.getById(userId);
-        if (user == null){
-            return res.send({
-                msg: "_id not found"
-            })
+        let users = await User.getBy({ username: req.params.username })
+        if (users.length == 0){
+            return next(createError(404, 'User Not Found'));
         }
-        let bookshelves = user.props.bookshelves;
-        res.render("bookshelf/bookshelves",{bookshelves, title: "Bookshelves"});
+        user = users[0];
+        let bookshelves = user.bookshelves;
+        res.render("bookshelf/bookshelves",{bookshelves, 
+                                            title: "Bookshelves",
+                                            user: req.user,
+                                            feed_user: user,
+                                            isMe: user._id == req.user._id
+                                        });
     } catch (e) {
         res.send(e.message)
         return
