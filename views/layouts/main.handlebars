@@ -1,5 +1,23 @@
 {{!-- SETUP FOR HANDLEBARS --}}
 <!DOCTYPE html>
+
+
 <html lang="en">
-    {{{body}}}
+
+<body>
+    <main class="container">
+        <div class="row">
+            <div>
+                {{{body}}}
+            </div>
+            {{#if hasErrors}}
+            <div class="alert alert-danger error-list" role="alert">
+                {{error}}
+            </div>
+            {{/if}}
+
+        </div>
+    </main>
+</body>
+
 </html>

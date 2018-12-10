@@ -9,7 +9,7 @@
             <div class="bookText">
                 <h1 class="bookTitle" id={{_id}}> {{title}} </h1>
                 <h2 id="author"> {{author}} </h2>
-                <p>Rating: {{rating}}</p>
+                <p id="bookRating">Rating: {{rating}}</p>
                 <h3>Reviews:</h3>
                 {{#each review}}
                 <div class="review">
@@ -37,7 +37,8 @@
                     <button type="submit" value="submit">Write review</button>
                 </form>
             </div>
-            <img src="{{image}}" alt="Card image cap">
+            <img class="bookImage" src="{{image}}" alt="Card image cap">
+            
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Book to bookshelf</button>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -49,19 +50,19 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/new" method="POST">
+                <form>
                 <div class="modal-body">
                         {{#if bookshelves.length}}
                                 {{#each bookshelves}}
                                 <div class="form-group">
-                                    <label><input type="radio" name="bookshelf" value="{{this.name}}" required/> {{this.name}}</label>
+                                    <label><input id="selectedBookshelf" type="radio" name="selectedBookshelf" value="{{this.name}}" required/> {{this.name}}</label>
                                 </div>
                                 {{/each}}
                         {{/if}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button class="btn btn-primary" type="submit" value="submit">Save changes</button>
+                    <button id="addBook" class="btn btn-primary" type="submit" value="submit">Save changes</button>
                 </div>
                 </form>
                 </div>
@@ -73,5 +74,6 @@
 {{/content}}
 {{#content "scripts" mode="append"}}
   <script src="/public/scripts/reviewLikes.js"></script>
+  <script src="/public/scripts/books.js"></script>
 {{/content}}
 {{/extend}}
