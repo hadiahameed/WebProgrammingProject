@@ -58,7 +58,6 @@ router.get('/', async (req, res) => {
             })
         }
         let bookshelves = user.props.bookshelves;
-        console.log(bookshelves)
         res.render("bookshelf/bookshelves",{bookshelves, title: "Bookshelves"});
     } catch (e) {
         res.send(e.message)
@@ -100,7 +99,6 @@ router.delete('/',async (req,res) => {
             let bk = await Book.getById(books[j]._id);
             await bk.delete();
         };*/
-
         await user.pull('bookshelves', { name: {$eq: req.body.bookshelf} })
         res.json({ success: true })
     } catch (e) {

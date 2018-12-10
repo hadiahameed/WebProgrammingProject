@@ -10,7 +10,7 @@ $(document).ready(function () {
             $(this).text(" "+likes)
         }
         catch (e) {
-            console.log(e)
+            $.alert(`Oops! ${e.message}`)
         }
     })
 })
