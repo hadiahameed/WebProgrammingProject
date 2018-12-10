@@ -5,30 +5,34 @@ const cookieMiddleware = require("../middlewares/validateCookie");
 const authenticate = require("../middlewares/authenticate")
 
 var multiparty = require('connect-multiparty'),
-  multipartyMiddleware = multiparty({ uploadDir: './public/resources/' });
+  multipartyMiddleware = multiparty({ uploadDir: '.\public\resources\/' });
 
 router.get("/:username", authenticate(), async(req,res) => {
     let User = await userModel();
     let user=null;
+    let current_user =null;
     try
     {
-        user = await User.getById(req.user._id);
-        if (user == null){
-            return res.send({
-                msg: "_id not found"
-            })
+        //user = await User.getById(req.user._id);
+        let users = await User.getBy({ username: req.params.username })
+        if(users.length == 0) {
+            return next(createError(404, 'User Not Found'));
         }
+        
+        user = users[0]
+        current_user = new User({ _id: req.user._id })
     }catch(error)
     {
         res.send(error.message)
         return
     }
     res.render("user/userProfile",{
-        user: req.user,
-        "user": user.props,
         "title"     : "You're viewing user profile page",
         "firstName" : req.user.firstname,
-        title: "Profile" 
+        title: "Profile",
+        user: req.user,
+        feed_user: user,
+        isMe: user._id == req.user._id, 
     });
 });
 

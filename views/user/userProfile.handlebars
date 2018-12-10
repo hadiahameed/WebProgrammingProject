@@ -6,8 +6,8 @@
                     <div class="small-12 medium-2 large-2 columns">
                         <div class="text-center avatar rounded-circle m-auto">
                             <!-- User Profile Image -->
-                            {{#if user.image}}
-                              <img class="profile-pic" src="/{{user.image}}" alt="Card image cap">
+                            {{#if feed_user.image}}
+                              <img class="profile-pic" src="/{{feed_user.image}}" alt="Card image cap">
                             {{else}}
                             <img class="profile-pic" src="https://placeimg.com/444/444" alt="Card image cap">
                             {{/if}}
@@ -21,69 +21,71 @@
                     </div>
                     <div class="pl-2 pt-2">
                         <br>
-                        <h4 class="card-title text-left">{{user.firstname}} {{user.lastname}}</h4>
+                        <h4 class="card-title text-left">{{feed_user.firstname}} {{feed_user.lastname}}</h4>
                         <hr>
                         <dl class="text-secondary">
                             <dt> Username: </dt>
-                            <dd>{{user.username}}</dd>
+                            <dd>{{feed_user.username}}</dd>
                             <dt>Email: </dt>
-                            <dd>{{user.email}}</dd>
+                            <dd>{{feed_user.email}}</dd>
                         </dl>
                         
                     </div>
                 </div>
                 <div class="col-md-5 px-2 mt-7">
-                    <h1>Welcome {{user.firstname}}</h1>
+                    <h1>Welcome {{feed_user.firstname}}</h1>
                     <br>
                     <div class="user-data-class">
-                        {{#if user.bookshelves.length}}
+                        {{#if feed_user.bookshelves.length}}
                         <br>
-                            <h5><a class="user-bookshelf" href="/bookshelves">{{firstName}}'s Bookshelves</a></h5>
+                            <h5><a class="user-bookshelf" href="/bookshelves">{{feed_user.firstname}}'s Bookshelves</a></h5>
                             <hr>
                             <ul class="my-bookshelf">
-                            {{#each user.bookshelves}}
+                            {{#each feed_user.bookshelves}}
                                 <li>{{this.name}}({{this.books.length}})</li>
                             {{/each}}
                             </ul>
                             <div class="user-books-details">
-                             <h5><a href="/bookshelves">{{firstName}} has finsihed reading</a></h5>
+                             <h5><a href="/bookshelves">{{feed_user.firstname}} has finsihed reading</a></h5>
                              <hr>
                               <ul>
-                                {{#each user.bookshelves.[0].books}}    
+                                {{#each feed_user.bookshelves.[0].books}}    
                                     <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a>
                                     <img class="card-img-top2" src="{{image}}" alt="Card image cap"></li>
                                 {{/each}}
                               </ul>
-                              <h5><a href="/bookshelves">{{firstName}} is currently reading</a></h5>
+                              <h5><a href="/bookshelves">{{feed_user.firstname}} is currently reading</a></h5>
                               <hr>
                               <ul>
-                                {{#each user.bookshelves.[1].books}}    
+                                {{#each feed_user.bookshelves.[1].books}}    
                                     <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a>
                                     <img class="card-img-top2" src="{{image}}" alt="Card image cap"></li>
                                 {{/each}}
                              </ul>
-                             <h5><a href="/bookshelves">{{firstName}} wants to read</a></h5>
+                             <h5><a href="/bookshelves">{{feed_user.firstname}} wants to read</a></h5>
                              <hr>
                                <ul>
-                                {{#each user.bookshelves.[2].books}}    
+                                {{#each feed_user.bookshelves.[2].books}}    
                                     <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a>
                                     <img class="card-img-top2" src="{{image}}" alt="Card image cap"></li>
                                 {{/each}}
                              </ul>
-                             <h5>{{firstName}}'s Latest Updates</h5>
+                             <h5>{{feed_user.firstname}}'s Latest Updates</h5>
                              <hr>                            
-                                <h6>{{firstName}} recently followed </h6>
+                                <h6>{{feed_user.firstname}} recently followed </h6>
                         </div>
                       {{/if}}
                     </div>
                 </div>
                 <div class="col-md-3 mt-2">
+                    {{#if isMe}}
                     <button type="button" class="btn btn-primary" id="addShelf">
                     Add bookshelf
                     </button> 
+                    {{/if}}
                     <br>
-                    <h5><a href="/bookshelves">Books uploaded by {{firstName}}</h5></a>
-                            {{#each user.bookshelves}}    
+                    <h5><a href="/bookshelves">Books uploaded by {{feed_user.firstname}}</h5></a>
+                            {{#each feed_user.bookshelves}}    
                                 {{#each this.books}}
                                 <ul>
                                     <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a></li>

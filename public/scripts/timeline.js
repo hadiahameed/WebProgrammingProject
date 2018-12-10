@@ -20,6 +20,11 @@ async function loadTimeline(username) {
 
 $(document).ready(function () {
     loadTimeline(username)
+
+    $('#viewProfile').on('click', async function() {
+        window.location.href = `/user/${username}`
+    }),
+
     $('#followBtn').on('click', async function () {
         let username = $(this).data('username')
         try {
