@@ -25,27 +25,25 @@
                     </label>
                 </div> -->
                 <div class="form-group">
-                    <label>Rating:
-                        <input type="radio" name="book-rating" value="1" checked/> 1
-                        <input type="radio" name="book-rating" value="2" /> 2
-                        <input type="radio" name="book-rating" value="3" /> 3
-                        <input type="radio" name="book-rating" value="4" /> 4
-                        <input type="radio" name="book-rating" value="5" /> 5
-                    </label>
+                    <span>Rating:</span>
+                        <label><input type="radio" name="book-rating" value="1" required/> 1</label>
+                        <label><input type="radio" name="book-rating" value="2" required/> 2</label>
+                        <label><input type="radio" name="book-rating" value="3" required/> 3</label>
+                        <label><input type="radio" name="book-rating" value="4" required/> 4</label>
+                        <label><input type="radio" name="book-rating" value="5" required/> 5</label>
                 </div>
 
                 {{#if bookshelves.length}}
                 <div class="form-group">
-                    <label>Bookshelf:
+                    <span>Bookshelf:</span>
                         {{#each bookshelves}}
-                        <input type="radio" name="bookshelf" value="{{this.name}}" checked>{{this.name}}
+                        <label><input type="radio" name="bookshelf" value="{{this.name}}" required>{{this.name}}</label>
                         {{/each}}
-                    </label>
                 </div>
                 {{/if}}
 
                 <div class="form-group">
-                    <label>Genres:
+                    <span>>Genres:</span>
                         <label><input type="checkbox" name="genre" value="Thriller">Non-fiction</label>
                         <label><input type="checkbox" name="genre" value="Horror">Fiction</label>
                         <label><input type="checkbox" name="genre" value="Comedy">Drama</label>
@@ -56,15 +54,9 @@
                         <label><input type="checkbox" name="genre" value="Childrens">Children's</label>
                         <label><input type="checkbox" name="genre" value="Poetry">Poetry</label>
                         <label><input type="checkbox" name="genre" value="Biography">Biography</label>
-                    </label>
                 </div>
                 <div class="form-group"><label>Cover: <input name="image" type="file" required></label></div>
-
-
-                <!---<label>Tags:</label>
-                    <label><input name="book-tags" type="checkbox" value="Thriller"> Thriller </label>
-                    <label><input name="book-tags" type="checkbox" value="Comedy"> Comedy </label>
-                    <--->
+                
                 <button class="btn btn-primary" type="submit" value="submit">Add book</button>
             </form>
         </div>

@@ -3,17 +3,19 @@
 {{#content "content"}}
 <div class="container mt-3">
     <div class="row">
-        <a href="/bookshelves/new" class="btn btn-primary ml-auto"><i class="fas fa-plus"></i> Add bookshelf</a>
+        {{#if isMe}}
+        <a href="/bookshelves/{{feed_user.username}}/new" class="btn btn-primary ml-auto"><i class="fas fa-plus"></i> Add bookshelf</a>
+        {{/if}}
         {{#if bookshelves.length}} 
         <div class="bookshelves">
             <h1>Bookshelves:</h1>
-            {{#each bookshelves}}
+            {{#each bookshelves }}
             <div class="oneShelf">
                 <h2><a data-toggle="collapse" href="#id-{{@key}}" role="button" aria-expanded="false" aria-controls="id-{{@key}}">{{this.name}}</a></h2>
                 <div id="id-{{@key}}" class="bookwrapper collapse">
                     {{!-- <div class="books"> --}}
                         <div class="row buttons">
-                            <div id="{{this.name}}" class="col-md-12 col-md-offset-1" style="float:right; bottom: 10px;z-index: 999;">
+                            <div id="{{@key}}" class="col-md-12 col-md-offset-1" style="float:right; bottom: 10px;z-index: 999;">
                                 <button class="btn btn-warning glyphicon glyphicon-pencil btnEdit"><i class="fas fa-plus"></i> Add Books</button>
                                 {{#ifCond @index}}
                                     <button class="btn btn-danger glyphicon glyphicon-trash btnExc"><i class="far fa-trash-alt"></i> Delete</button>

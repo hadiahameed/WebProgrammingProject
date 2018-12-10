@@ -15,7 +15,7 @@ $("#addBook").click(async function () {
     let bookId = $('.bookTitle').attr('id')
     try {
         let response = await axios.post(`/books/${bookId}`, {
-            bookshelf: "Good"
+            bookshelf: $('#selectedBookshelf').val()
         });
         if (response.data.msg){
             $.alert(response.data.msg)

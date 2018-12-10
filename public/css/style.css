@@ -86,6 +86,10 @@ main {
     display: inline-block;
 }
 
+.p-image:hover {
+    cursor: pointer;
+}
+
 /* ---------- BOOKSHELF PAGE ---------- */
 
 .go-back {
@@ -168,37 +172,37 @@ input[type='checkbox'] {
     margin-right: 5px;
 }
 
-#booksList {
+.booksList {
     margin: 5px 0 5px 0;
     padding: 5px;
     border-radius: 5px;
     width: 100%;
 }
 
-#booksList:nth-of-type(2n+1){
+.booksList:nth-of-type(2n+1){
     background-color: #edfbff;
 }
 
-#booksList div {
+.booksList div {
     display: inline-block;
     margin-left: 2%;
     width: 80%;
 }
 
-#booksList .image {
+.booksList .image {
     width: 15%;
     vertical-align: top;
 }
 
-#booksList h1 {
+.booksList h1 {
     font-size: 1.5rem;
 }
 
-#booksList h2 {
+.booksList h2 {
     font-size: 1.2rem;
 }
 
-#booksList p .oneTag:not(:last-child):after {
+.booksList p .oneTag:not(:last-child):after {
     content: ",";
 }
 

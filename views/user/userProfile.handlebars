@@ -42,7 +42,7 @@
                     <div class="user-data-class">
                         {{#if feed_user.bookshelves.length}}
                         <br>
-                            <h5><a class="user-bookshelf" href="/bookshelves">{{feed_user.firstname}}'s Bookshelves</a></h5>
+                            <h5><a class="user-bookshelf" href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}}'s Bookshelves</a></h5>
                             <hr>
                             <ul class="my-bookshelf">
                             {{#each feed_user.bookshelves}}
@@ -50,7 +50,7 @@
                             {{/each}}
                             </ul>
                             <div class="user-books-details">
-                             <h5><a href="/bookshelves">{{feed_user.firstname}} has finsihed reading</a></h5>
+                             <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} has finsihed reading</a></h5>
                              <hr>
                               <ul>
                                 {{#each feed_user.bookshelves.[0].books}}    
@@ -58,7 +58,7 @@
                                     <img class="card-img-top2" src="{{image}}" alt="Card image cap"></li>
                                 {{/each}}
                               </ul>
-                              <h5><a href="/bookshelves">{{feed_user.firstname}} is currently reading</a></h5>
+                              <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} is currently reading</a></h5>
                               <hr>
                               <ul>
                                 {{#each feed_user.bookshelves.[1].books}}    
@@ -66,7 +66,7 @@
                                     <img class="card-img-top2" src="{{image}}" alt="Card image cap"></li>
                                 {{/each}}
                              </ul>
-                             <h5><a href="/bookshelves">{{feed_user.firstname}} wants to read</a></h5>
+                             <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} wants to read</a></h5>
                              <hr>
                                <ul>
                                 {{#each feed_user.bookshelves.[2].books}}    
@@ -95,7 +95,7 @@
                     </button> 
                     {{/if}}
                     <br>
-                    <h5><a href="/bookshelves">Books uploaded by {{feed_user.firstname}}</h5></a>
+                    <h5><a href="/bookshelves">Books uploaded by {{feed_user.firstname}}</a></h5>
                             {{#each feed_user.bookshelves}}    
                                 {{#each this.books}}
                                 <ul>
