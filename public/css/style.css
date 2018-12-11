@@ -214,6 +214,18 @@ div.bookInfo img {
     margin-right: 10%;
 }
 
+div.bookInfo {
+    width: 100%
+}
+
+div.bookInfo div.bookText button.btn-primary {
+    float: right
+}
+
+div.bookInfo div.bookText button:hover {
+    cursor: pointer;
+}
+
 div.bookInfo div.bookText {
     width: 54%;
     display: inline-block;
