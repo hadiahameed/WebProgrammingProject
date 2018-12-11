@@ -7,10 +7,10 @@ var bcrypt = require('bcrypt');
 
 router.get("/:username", async(req,res) => {
     res.render("user/userAccountSetting", {title : "AccountSettings", 
-                                          'firstname' :req.user.firstname, 
-                                          'lastname' : req.user.lastname,
-                                          'username' : req.user.username,
-                                          'password' : req.user.password,
+                                          //'firstname' :req.user.firstname, 
+                                          //'lastname' : req.user.lastname,
+                                          //'username' : req.user.username,
+                                          //'password' : req.user.password,
                                           user: req.user,
                                             });
                                         });
@@ -22,12 +22,8 @@ router.patch("/:username", async (req,res,next) => {
     try
     {
         userId = req.user._id;
-
-        
         let firstname = req.body.firstname;
-  
         let lastname = req.body.lastname;
-
         let username = req.body.username;
         let password = req.body.password;
         if(firstname) userUpdateData.firstname = firstname;
@@ -56,7 +52,7 @@ router.patch("/:username", async (req,res,next) => {
 
         let updateCount = await user.update(userUpdateData);
 
-        res.json({msg:'User data is updated successfully'});
+        res.json({msg:`User data is updated successfully. Please login again if you've updated the username and password.`});
     } catch (e) {
         res.send(e.message)
         return

@@ -21,7 +21,7 @@
                                     <button  class="btn btn-danger glyphicon glyphicon-trash btnExc"><i class="far fa-trash-alt"></i> Delete</button>
                                 {{/ifCond}}
                             </div>
-                        </div>
+                        </div>                    
                         {{#if this.books.length}}
                         {{#each books as |book|}}
                         <div class="book col-2">
@@ -30,7 +30,7 @@
                         </div>
                         {{/each}}
                         {{else}}
-                        <p>No books yet! Try adding one.</p>
+                            <p>No books yet! Try adding one.</p>
                         {{/if}} 
                     {{!-- </div> --}}
                 </div>

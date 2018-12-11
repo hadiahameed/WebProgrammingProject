@@ -15,10 +15,12 @@
                             <!-- <i class="fa fa-user fa-5x"></i> -->
                         </div>
                     </div>
+                    {{#if isMe}}
                     <div class="p-image">
                         <i class="fa fa-camera upload-button"></i>
                             <input class="file-upload" type="file" accept="image/*"/>
                     </div>
+                    {{/if}}
                     <div class="pl-2 pt-2">
                         <br>
                         <h4 class="card-title text-left">{{feed_user.firstname}} {{feed_user.lastname}}</h4>
@@ -36,7 +38,7 @@
                     {{#if isMe}}
                         <h1>Welcome {{feed_user.firstname}}</h1>
                     {{else}}
-                        <h1>You are viewing {{feed_user.firstname}}'s profile</h1>
+                        <h1>You Are Viewing {{feed_user.firstname}}'s Profile</h1>
                     {{/if}}
                     <br>
                     <div class="user-data-class">
@@ -50,40 +52,55 @@
                             {{/each}}
                             </ul>
                             <div class="user-books-details">
-                             <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} has finsihed reading</a></h5>
-                             <hr>
-                              <ul>
-                                {{#each feed_user.bookshelves.[0].books}}    
-                                    <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a>
-                                    <img class="card-img-top2" src="{{image}}" alt="Card image cap"></li>
-                                {{/each}}
-                              </ul>
-                              <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} is currently reading</a></h5>
-                              <hr>
-                              <ul>
-                                {{#each feed_user.bookshelves.[1].books}}    
-                                    <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a>
-                                    <img class="card-img-top2" src="{{image}}" alt="Card image cap"></li>
-                                {{/each}}
-                             </ul>
-                             <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} wants to read</a></h5>
-                             <hr>
-                               <ul>
-                                {{#each feed_user.bookshelves.[2].books}}    
-                                    <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a>
-                                    <img class="card-img-top2" src="{{image}}" alt="Card image cap"></li>
-                                {{/each}}
-                             </ul>
-                             <h5>{{feed_user.firstname}}'s Latest Updates</h5>
-                             <hr>
-                             {{#if followingUserArray.length}}
-                                <h6>{{feed_user.firstname}} Recently Followed </h6>
-                                <ul>
-                                    {{#each followingUserArray}}
-                                        <li><a href="/timeline/{{this}}">{{this}}</a></li>
+                            <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} has finsihed reading</a></h5>
+                            <hr>
+                                <div class="row">
+                                    {{#if readBooks.length}}
+                                    {{#each readBooks as |book|}}
+                                        <div class="book col-3">
+                                            <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
+                                            <h6><a href="/books/{{this._id}}" class="bookTitle"> {{this.title}} </a></h6>
+                                        </div>
                                     {{/each}}
-                                </ul>                            
-                             {{/if}}   
+                                    {{/if}}
+                                </div>
+                            <br>
+                            <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} is currently reading</a></h5>
+                            <hr>
+                                <div class="row">
+                                    {{#if currentlyReadingBooks.length}}
+                                    {{#each currentlyReadingBooks as |book|}}
+                                        <div class="book col-3">
+                                            <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
+                                            <h6><a href="/books/{{this._id}}" class="bookTitle"> {{this.title}} </a></h6>
+                                        </div>
+                                    {{/each}}
+                                    {{/if}}
+                                </div>
+                            <br>
+                            <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} wants to read</a></h5>
+                            <hr>
+                                <div class="row">
+                                    {{#if wantToReadBooks.length}}
+                                    {{#each wantToReadBooks as |book|}}
+                                        <div class="book col-3">
+                                            <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
+                                            <h6><a href="/books/{{this._id}}" class="bookTitle"> {{this.title}} </a></h6>
+                                        </div>
+                                    {{/each}}
+                                    {{/if}}
+                                </div>
+                            <br>
+                            <h5>{{feed_user.firstname}}'s Latest Updates</h5>
+                            <hr>
+                                {{#if followingUserArray.length}}
+                                    <h6>{{feed_user.firstname}} Recently Followed </h6>
+                                    <ul>
+                                        {{#each followingUserArray}}
+                                            <li><a href="/timeline/{{this}}">{{this}}</a></li>
+                                        {{/each}}
+                                    </ul>                            
+                                {{/if}}   
                         </div>
                       {{/if}}
                     </div>
@@ -112,7 +129,6 @@
   <script>
     var username = "{{feed_user.username}}"
   </script>
-  <script src="/public/scripts/bookshelf.js"></script>
   <script src="/public/scripts/bookshelves.js"></script>
   <script src="/public/scripts/updateProfilePicture.js"></script>
 {{/content}}
