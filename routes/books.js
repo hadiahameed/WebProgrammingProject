@@ -58,7 +58,6 @@ router.get('/new', async (req, res, next) => {
   let User = await userModel()
   let userId = req.user._id;
   let name = req.query.bookshelf
-  console.log(name)
 
   try {
     let user = await User.getById(userId);
@@ -121,7 +120,7 @@ router.get("/:id", async (req, res) => {
       let reviewId = arr[j];
       let ReviewObject = await Review.getById(reviewId);
       ReviewObject = ReviewObject.props
-      
+
       let reviewer = ReviewObject.userProfile.userId;
       if (reviewer == userId) {
         ReviewObject.userProfile.userId = true;
@@ -132,11 +131,11 @@ router.get("/:id", async (req, res) => {
 
       let reviewerArr = ReviewObject.likes.userId;
       for (var ij = 0; ij < reviewerArr.length; ij++) {
-        if(reviewerArr[ij]==userId){
+        if (reviewerArr[ij] == userId) {
           ReviewObject.userProfile.userId = true;
         }
       }
-      
+
       reviewArray.push(ReviewObject);
     }
     let elmt = BookObject.props.rating;
@@ -289,11 +288,9 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
       await user.addBook(bookshelf, savedBook)
       res.redirect(`/books`)
     } catch (e) {
-      res.status(500).render("books/books", {
-        errors: e,
-        hasErrors: true,
-        title: "Error"
-      });
+      return res.send({
+        msg: e
+      })
     }
   } catch (e) {
     res.status(500).render("books/books", {
@@ -302,15 +299,13 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
       title: "Error"
     });
   }
-
-
-
 })
 
 router.delete('/books/:id', async (req, res, next) => {
   let id = req.params.id
-  let Books = await bookModel()
+
   try {
+    let Books = await bookModel()
     let book = await Books.getById(id)
     if (book == null) {
       return res.send({
@@ -320,74 +315,94 @@ router.delete('/books/:id', async (req, res, next) => {
     let result = await book.delete()
     res.send(result)
   } catch (e) {
-    res.send(e.message)
+    return res.send({
+      msg: e
+    })
   }
 })
 
-router.put('/books/:id', async (req, res, next) => {
+/*router.put('/books/:id', async (req, res, next) => {
   /**
    * body: { "_id": "6efd0903-4db7-4d4b-912f-346eab19b8f9", "name": "changed" }
    */
-  let data = req.body
-  let Books = await bookModel()
-  let _id = req.params.id
-  try {
-    let book = await Books.getById(_id)
-    if (book == null) {
-      return res.send({
-        msg: '_id not found'
-      })
-    }
-    book.props = data
-    let result = await book.updateAll()
+/*let data = req.body
+let Books = await bookModel()
+let _id = req.params.id
+try {
+  let book = await Books.getById(_id)
+  if (book == null) {
     return res.send({
-      result
-    })
-  } catch (e) {
-    res.send({
-      msg: e.message
+      msg: '_id not found'
     })
   }
-})
+  book.props = data
+  let result = await book.updateAll()
+  return res.send({
+    result
+  })
+} catch (e) {
+  res.send({
+    msg: e.message
+  })
+}
+})*/
 
 router.delete('/', async (req, res) => {
 
   let User = await userModel();
   let Book = await bookModel();
   let Review = await reviewModel();
-
-  let userId = req.user._id;
-  try {
-    let user = await User.getById(userId);
-    if (user == null) {
-      return res.send({
-        msg: "_id not found"
-      })
-    }
-    let bookId = req.body.book
-    let arr = user.props.bookshelves;
-    for (var j = 0; j < arr.length; j++) {
-      let books = arr[j].books;
-      for (var k = 0; k < books.length; k++) {
-        if (books[k]._id == bookId) {
-          arr[j].books.splice(k, 1);
-        }
-      }
-    };
-    let book = await Book.getById(bookId);
-    let reviewIds = book.props.review;
-    for (var k = 0; k < reviewIds.length; k++) {
+  let UserList = await User.getAll();
+  let bookId = req.body.book;
+  let book = await Book.getById(bookId);
+  let reviewIds = book.props.review;
+  for (var k = 0; k < reviewIds.length; k++) {
+    try {
       let rv = await Review.getById(reviewIds[k]);
       await rv.delete();
     }
-    await book.delete();
-    user.props.bookshelves = arr;
-    await user.updateAll()
-    res.json({ success: true })
-  } catch (e) {
-    res.send(e.message)
-    return
+    catch (e) {
+      return res.send({
+        msg: e
+      })
+
+    }
   }
+  try {
+    await book.delete();
+  }
+  catch (e) {
+    return res.send({
+      msg: e
+    })
+
+  }
+  for (var ik = 0; ik < UserList.length; ik++) {
+    let u = UserList[ik];
+    let userId = u._id;
+    //let userId = req.user._id;
+    try {
+      let user = await User.getById(userId);
+      let arr = user.props.bookshelves;
+      for (var j = 0; j < arr.length; j++) {
+        let books = arr[j].books;
+        for (var k = 0; k < books.length; k++) {
+          if (books[k]._id == bookId) {
+            arr[j].books.splice(k, 1);
+          }
+        }
+      };
+      user.props.bookshelves = arr;
+      await user.updateAll()
+
+
+    } catch (e) {
+      return res.send({
+        msg: e
+      })
+    }
+  }
+  res.json({ success: true })
 })
 
 module.exports = router;

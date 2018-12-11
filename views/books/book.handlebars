@@ -21,7 +21,8 @@
                 {{#each review}}
                 <div class="review">
                     <div>{{this.reviewBody}}</div>
-                    <p>by <a href="/user/profile">{{this.userProfile.userFirstName}} {{this.userProfile.userLastName}}</a></p>
+                    
+                    <p>by <a href="/user/{{this.userProfile.userUsername}}">{{this.userProfile.userFirstName}} {{this.userProfile.userLastName}}</a></p>
                     {{#ifCompare this.userProfile.userId false}}
                     <button id={{this._id}} class="fa fa-thumbs-up reviewLike">{{#if this.likes}}{{this.likes.count}}{{else}}
                         0 {{/if}}</button>
