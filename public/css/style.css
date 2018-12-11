@@ -321,3 +321,8 @@ form#newuser span {
       width: 100px;
       height: 100px;
   }
+
+  .user_upate_text_style
+  {
+      color: green;
+  }

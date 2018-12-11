@@ -31,7 +31,6 @@ router.patch("/:username", async (req,res,next) => {
         if(username) userUpdateData.username= username;
         if(password)
         {
-          console.log(password)
          const saltRounds = 16;
          const hashedPassword = await bcrypt.hash(password, saltRounds);
          userUpdateData.password = hashedPassword;
@@ -53,7 +52,7 @@ router.patch("/:username", async (req,res,next) => {
 
         let updateCount = await user.update(userUpdateData);
 
-        res.json({msg:'User data is updated successfully'});
+        res.json({msg:`User data is updated successfully. Please login again if you've updated the username and password.`});
     } catch (e) {
         res.send(e.message)
         return
