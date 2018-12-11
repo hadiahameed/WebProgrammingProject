@@ -1,14 +1,13 @@
 {{#extend "loggedIn"}}
 {{#content "content"}}
-<!-- Modal -->
 <div class="container mt-3">
     <div class="row">
-        <form id="newbookshelf" action="/bookshelves" method="post">
+        <form id="newbookshelf" action="/bookshelves/{{feed_user.username}}" method="post">
             <div>
                 <label>Bookshelf name: <input type="name" name="name"></label>
             </div>
             <div>
-                <input id="newbookshelf-submit" type="submit" value="SUBMIT" class="btn btn-primary" />
+                <input id="newbookshelf-submit" type="submit" value="SUBMIT" class="btn btn-primary"/>
             </div>
         </form>
         {{#if error }}
@@ -17,8 +16,8 @@
                     <p>{{ error }}</p>  
                 </div>
             </div>
+        {{/if}}
     </div>
 </div>
-{{/if}}
 {{/content}}
 {{/extend}}

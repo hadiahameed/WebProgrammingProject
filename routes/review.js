@@ -1,15 +1,13 @@
-
 var express = require('express');
 var router = express.Router();
 
 const reviewModel = require('../model/review');
 const bookModel = require('../model/book');
 
-router.get('/reviews', async (req, res, next) => {
+/*router.get('/reviews', async (req, res, next) => {
     let Reviews = await reviewModel()
     res.send(await Reviews.getAll())
-    // res.render('/books/review')
-})
+})*/
 
 router.post('/', async (req, res, next) => {
     let reviewBody = req.body.reviewText;
@@ -18,43 +16,57 @@ router.post('/', async (req, res, next) => {
     let userId = req.user._id;
     let userFirstName = req.user.firstname;
     let userLastName = req.user.lastname;
+    let userUsername = req.user.username;
     let userProfile = {
         userId,
         userFirstName,
-        userLastName
+        userLastName,
+        userUsername
     }
-    let likes = "0";
-    let Reviews = await reviewModel()
-    let bookReview = new Reviews({
-      bookId,
-      userProfile,
-      likes,
-      reviewBody
-    });
-    await bookReview.save();
-    let Books = await bookModel();
-    let savedBook = await Books.getById(bookId);
-    savedBook.props.review.push(bookReview.props._id);
-    savedBook.props.rating.push(rating);
-    savedBook.updateAll();
-    res.redirect(`/books/${bookId}`)
+    let likes = {
+        count: "0",
+        userId: []
+    }
+    try {
+        let Reviews = await reviewModel()
+        let bookReview = new Reviews({
+            bookId,
+            userProfile,
+            likes,
+            reviewBody
+        });
+        await bookReview.save();
+        let Books = await bookModel();
+        let savedBook = await Books.getById(bookId);
+        savedBook.props.review.push(bookReview.props._id);
+        savedBook.props.rating.push(rating);
+        savedBook.updateAll();
+        res.redirect(`/books/${bookId}`)
+    }
+    catch (e) {
+        return res.send({
+            msg: e
+        })
+    }
 })
 
-router.patch("/", async (req,res,next) => {
+router.patch("/", async (req, res, next) => {
     let reviewId = req.body.reviewId;
-    let Review = await reviewModel() 
-    try
-    {
+
+    try {
+        let Review = await reviewModel()
         let review = await Review.getById(reviewId);
-        let likes = review.props.likes;
+        let likes = review.props.likes.count;
         likes = parseInt(likes) + 1;
-        review.props.likes = ""+likes;
+        review.props.likes.count = "" + likes;
+        review.props.likes.userId.push(req.user._id);
         review.updateAll();
         res.json({ success: true })
     } catch (e) {
-        res.send(e.message)
-        return
-    }   
+        return res.send({
+            msg: e
+        })
+    }
 
 });
 

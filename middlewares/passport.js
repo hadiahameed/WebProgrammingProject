@@ -30,9 +30,8 @@ passport.use('local', new LocalStrategy({
     user = await User.getBy({
         username
     });
-    //console.log(user);
+
     if (user.length == 0) {
-        //console.log("No user")
         // return done(null,false, {message : 'Incorrect username'});
         return done(new BaseError('Incorrect username'), false);
     }
@@ -41,7 +40,6 @@ passport.use('local', new LocalStrategy({
         // return done(null,false,{message : 'Please validate your account'})
         return done(new BaseError('Please validate your account'), false)
     }
-    //console.log("No error")
 
     if (!await bcrypt.compare(password, user.password)) {
         // return done(null, false, {message:'Password do not match'});

@@ -11,40 +11,44 @@ router.get('/', async (req, res, next) => {
   let BookList = await Book.getAll();
   let ReviewList = await reviewModel();
   // res.send(BookList);
-  
+
   // For testing the books page with long reviews
-  for(var i = 0; i < BookList.length; i++) {
+  for (var i = 0; i < BookList.length; i++) {
     let book = BookList[i];
     let elmt = book.rating;
     let sum = 0;
-    for( var k = 0; k < elmt.length; k++ ){
-      sum += parseInt( elmt[k], 10 );
+    for (var k = 0; k < elmt.length; k++) {
+      sum += parseInt(elmt[k], 10);
     }
-    var avg = sum/elmt.length;
-    avg = Math.round( avg * 10 ) / 10;
+    let addedBy = false;
+    if (book.addedBy == req.user._id) {
+      addedBy = true;
+    }
+    BookList[i].addedBy = addedBy;
+    var avg = sum / elmt.length;
+    avg = Math.round(avg * 10) / 10;
     var reviews = book.review;
     BookList[i].rating = avg
-    for(var j = 0; j < reviews.length; j++) {
+    for (var j = 0; j < reviews.length; j++) {
       var reviewId = reviews[j];
-      
-      try{
+
+      try {
         let reviewObject = await ReviewList.getById(reviewId);
         let reviewBody = reviewObject.props.reviewBody;
+
         var long_review = reviewBody.slice(0, 500);
         long_review = long_review + " ...";
         BookList[i].review[j] = long_review;
       }
       catch (e) {
-        res.status(500).render("books/books", {
-          errors: e,
-          hasErrors: true,
-          title: "Error"
-        });
+        return res.send({
+          msg: e
+        })
       }
     }
   }
-    
-  res.render("books/books",{books: BookList, title: "Books"})
+
+  res.render("books/books", { books: BookList, title: "Books" })
 
 
 })
@@ -53,6 +57,7 @@ router.get('/', async (req, res, next) => {
 router.get('/new', async (req, res, next) => {
   let User = await userModel()
   let userId = req.user._id;
+  let name = req.query.bookshelf
 
   try {
     let user = await User.getById(userId);
@@ -61,13 +66,24 @@ router.get('/new', async (req, res, next) => {
         msg: "_id not found"
       })
     }
-    let bookshelves = user.props.bookshelves;
-    res.render("books/new", {bookshelves:bookshelves, title: "New book"});
+    let bookshelves = [];
+    if (req.query.bookshelf) {
+      bookshelves = [req.query.bookshelf];
+    }
+    else {
+      let arr = user.props.bookshelves;
+      for (var j = 0; j < arr.length; j++) {
+        bookshelves[j] = arr[j].name;
+      };
+
+    }
+    res.render("books/new", { bookshelves: bookshelves, title: "New book" });
   } catch (e) {
-    res.send(e.message)
-    return
+    return res.send({
+      msg: e
+    })
   }
-  
+
 })
 /*
 router.get('/books', async (req, res, next) => {
@@ -87,20 +103,48 @@ router.get("/:id", async (req, res) => {
     let Book = await bookModel()
     let Review = await reviewModel()
     let BookObject = await Book.getById(req.params.id);
+    let User = await userModel()
+    let userId = req.user._id;
+
+    let user = await User.getById(userId);
+    if (user == null) {
+      return res.send({
+        msg: "_id not found"
+      })
+    }
+
+    let bookshelves = user.props.bookshelves;
     let arr = BookObject.props.review;
     let reviewArray = [];
-    for (var j = 0; j < arr.length; j++){
+    for (var j = 0; j < arr.length; j++) {
       let reviewId = arr[j];
       let ReviewObject = await Review.getById(reviewId);
-      reviewArray.push(ReviewObject.props);
+      ReviewObject = ReviewObject.props
+
+      let reviewer = ReviewObject.userProfile.userId;
+      if (reviewer == userId) {
+        ReviewObject.userProfile.userId = true;
+      }
+      else {
+        ReviewObject.userProfile.userId = false;
+      }
+
+      let reviewerArr = ReviewObject.likes.userId;
+      for (var ij = 0; ij < reviewerArr.length; ij++) {
+        if (reviewerArr[ij] == userId) {
+          ReviewObject.userProfile.userId = true;
+        }
+      }
+
+      reviewArray.push(ReviewObject);
     }
     let elmt = BookObject.props.rating;
     var sum = 0;
-    for( var i = 0; i < elmt.length; i++ ){
-      sum += parseInt( elmt[i], 10 );
+    for (var i = 0; i < elmt.length; i++) {
+      sum += parseInt(elmt[i], 10);
     }
-    var avg = sum/elmt.length;
-    avg = Math.round( avg * 10 ) / 10;
+    var avg = sum / elmt.length;
+    avg = Math.round(avg * 10) / 10;
     res.render("books/book", {
       _id: BookObject.props._id,
       title: BookObject.props.title,
@@ -108,6 +152,7 @@ router.get("/:id", async (req, res) => {
       review: reviewArray,
       rating: avg,
       image: BookObject.props.image,
+      bookshelves: bookshelves,
       title: "Book: " + BookObject.props.title
     });
   }
@@ -116,17 +161,10 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-
-router.post('/', multipartyMiddleware, async (req, res, next) => {
+router.post('/:id', multipartyMiddleware, async (req, res, next) => {
   let User = await userModel()
+  let Books = await bookModel()
   let userId = req.user._id;
-  let userFirstName = req.user.firstname;
-  let userLastName = req.user.lastname;
-  let userProfile = {
-    userId,
-    userFirstName,
-    userLastName
-  }
 
   try {
     let user = await User.getById(userId);
@@ -136,71 +174,138 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
       })
     }
 
-  let image = req.files.image.path;
-  let title = req.body.title;
-  let author = req.body.author;
-  let reviewBody = req.body.review;
-  let rating = req.body["book-rating"];
-  if(!req.body.bookshelf){
-    res.send("User does not have bookshelves!")
-    return
-  }
+    if (req.params.id) {
+      let bookId = req.params.id;
+      let foundBook = await Books.getById(req.params.id);
+      if (foundBook == null) {
+        return res.send({
+          msg: `Book not found`
+        })
+      }
 
-  let bookshelf = req.body.bookshelf;
+      let arr = user.props.bookshelves;
+      let bookshelf = req.body.bookshelf;
+      let obj = arr.find(o => o.name === bookshelf);
+      let books = obj.books;
 
-  if (req.body.genre) {
-    var tags = req.body.genre;
-    if(typeof tags === "string") tags = tags.split();
-  } else {
-    var tags = [];
-  }
-  rating = rating.split();
-  let Books = await bookModel()
-  let Reviews = await reviewModel();
+      for (var k = 0; k < books.length; k++) {
+        if (books[k]._id == bookId) {
+          return res.send({
+            msg: `Book already present in ${obj.name} bookshelf`
+          })
+        }
+      }
+      if (bookshelf == "Read" || bookshelf == "Currently Reading" || bookshelf == "Want to Read") {
+        for (var j = 0; j < 3; j++) {
+          books = arr[j].books;
+          for (var k = 0; k < books.length; k++) {
+            if (books[k]._id == bookId) {
+              return res.send({
+                msg: `Book already present in ${arr[j].name} bookshelf`
+              })
+            }
+          }
+        };
+      }
 
-  try {
-    let book = new Books({
-      title,
-      author,
-      review: [],
-      rating,
-      tags,
-      image: "/" + image
-    })
-    await book.save()
-
-    let bookId = book.props._id;
-    let likes = "0";
-    let bookReview = new Reviews({
-      bookId,
-      userProfile,
-      likes,
-      reviewBody
-    })
-    await bookReview.save()
-    
-    let savedBook = await Books.getById(bookId);
-    savedBook.props.review.push(bookReview.props._id);
-    savedBook.updateAll();
-
-    await user.addBook(bookshelf,savedBook)
-    res.redirect(`/bookshelves`)
+      let result = await user.addBook(bookshelf, foundBook)
+      res.send(result)
+    }
   } catch (e) {
     res.send(e.message)
     return
   }
-} catch (e) {
-  res.send(e.message)
-  return
-}
+})
 
 
+
+
+router.post('/', multipartyMiddleware, async (req, res, next) => {
+  let User = await userModel()
+  let userId = req.user._id;
+
+  try {
+    let user = await User.getById(userId);
+    if (user == null) {
+      return res.send({
+        msg: "_id not found"
+      })
+    }
+
+    let image = req.files.image.path;
+    let title = req.body.title;
+    let author = req.body.author;
+    //let reviewBody = req.body.review;
+    // let rating = req.body["book-rating"];
+    if (!req.body.bookshelf) {
+      res.status(500).render("books/books", {
+        errors: "User does not have bookshelves yet!",
+        hasErrors: true,
+        title: "Error"
+      });
+    }
+
+    let bookshelf = req.body.bookshelf;
+
+    if (req.body.genre) {
+      var tags = req.body.genre;
+      if (typeof tags === "string") tags = tags.split();
+    } else {
+      var tags = [];
+    }
+    // rating = rating.split();
+    let Books = await bookModel()
+    //let Reviews = await reviewModel();
+
+    try {
+      let book = new Books({
+        title,
+        author,
+        review: [],
+        rating: [],
+        tags,
+        addedBy: userId,
+        image: "/" + image
+      })
+      await book.save()
+
+      let bookId = book.props._id;
+      /*
+      let likes = "0";
+      let bookReview = new Reviews({
+        bookId,
+        userProfile,
+        likes,
+        reviewBody
+      })
+      await bookReview.save()*/
+
+      let savedBook = await Books.getById(bookId);
+      /*
+      savedBook.props.review.push(bookReview.props._id);
+      savedBook.updateAll();*/
+
+      await user.addBook(bookshelf, savedBook)
+      res.redirect(`/books`)
+    } catch (e) {
+      return res.send({
+        msg: e
+      })
+    }
+  } catch (e) {
+    res.status(500).render("books/books", {
+      errors: e,
+      hasErrors: true,
+      title: "Error"
+    });
+  }
 })
 
 router.delete('/books/:id', async (req, res, next) => {
   let id = req.params.id
-  let Books = await bookModel()
+
   try {
+    let Books = await bookModel()
     let book = await Books.getById(id)
     if (book == null) {
       return res.send({
@@ -210,78 +315,94 @@ router.delete('/books/:id', async (req, res, next) => {
     let result = await book.delete()
     res.send(result)
   } catch (e) {
-    res.send(e.message)
+    return res.send({
+      msg: e
+    })
   }
 })
 
-router.put('/books/:id', async (req, res, next) => {
+/*router.put('/books/:id', async (req, res, next) => {
   /**
    * body: { "_id": "6efd0903-4db7-4d4b-912f-346eab19b8f9", "name": "changed" }
    */
-  let data = req.body
-  let Books = await bookModel()
-  let _id = req.params.id
-  try {
-    let book = await Books.getById(_id)
-    if (book == null) {
-      return res.send({
-        msg: '_id not found'
-      })
-    }
-    book.props = data
-    let result = await book.updateAll()
+/*let data = req.body
+let Books = await bookModel()
+let _id = req.params.id
+try {
+  let book = await Books.getById(_id)
+  if (book == null) {
     return res.send({
-      result
-    })
-  } catch (e) {
-    res.send({
-      msg: e.message
+      msg: '_id not found'
     })
   }
-})
+  book.props = data
+  let result = await book.updateAll()
+  return res.send({
+    result
+  })
+} catch (e) {
+  res.send({
+    msg: e.message
+  })
+}
+})*/
 
-router.delete('/',async (req,res) => {
+router.delete('/', async (req, res) => {
 
-  let User = await userModel(); 
+  let User = await userModel();
   let Book = await bookModel();
   let Review = await reviewModel();
+  let UserList = await User.getAll();
+  let bookId = req.body.book;
+  let book = await Book.getById(bookId);
+  let reviewIds = book.props.review;
+  for (var k = 0; k < reviewIds.length; k++) {
+    try {
+      let rv = await Review.getById(reviewIds[k]);
+      await rv.delete();
+    }
+    catch (e) {
+      return res.send({
+        msg: e
+      })
 
-  let userId = req.user._id;
+    }
+  }
   try {
+    await book.delete();
+  }
+  catch (e) {
+    return res.send({
+      msg: e
+    })
+
+  }
+  for (var ik = 0; ik < UserList.length; ik++) {
+    let u = UserList[ik];
+    let userId = u._id;
+    //let userId = req.user._id;
+    try {
       let user = await User.getById(userId);
-      if (user == null){
-          return res.send({
-              msg: "_id not found"
-          })
-      }
-      let bookId = req.body.book
       let arr = user.props.bookshelves;
-      console.log(arr)
       for (var j = 0; j < arr.length; j++) {
         let books = arr[j].books;
-        console.log(books)
         for (var k = 0; k < books.length; k++) {
-          if(books[k]._id == bookId){
+          if (books[k]._id == bookId) {
             arr[j].books.splice(k, 1);
-            console.log("************************************")
-            console.log(arr[j].books)
           }
-        } 
-      };  
-      let book = await Book.getById(bookId);
-      let reviewIds = book.props.review;
-      for (var k = 0; k < reviewIds.length; k++) {
-          let rv = await Review.getById(reviewIds[k]);
-          await rv.delete();    
-      }
-      await book.delete();
+        }
+      };
       user.props.bookshelves = arr;
       await user.updateAll()
-      res.json({ success: true })
-  } catch (e) {
-      res.send(e.message)
-      return
+
+
+    } catch (e) {
+      return res.send({
+        msg: e
+      })
+    }
   }
+  res.json({ success: true })
 })
 
 module.exports = router;

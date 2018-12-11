@@ -13,6 +13,11 @@
     </header>
     
     <main>
+        {{#if hasErrors}}
+            <div class="alert alert-danger error-list" role="alert">
+                {{error}}
+            </div>
+        {{/if}}
         {{#block "content"}}
         {{/block}}
         {{>spinner}}
