@@ -37,13 +37,13 @@
                 <div class="form-group">
                     <span>Bookshelf:</span>
                         {{#each bookshelves}}
-                        <label><input type="radio" name="bookshelf" value="{{this.name}}" required>{{this.name}}</label>
+                        <label><input type="radio" name="bookshelf" value="{{this}}" required>{{this}}</label>
                         {{/each}}
                 </div>
                 {{/if}}
 
                 <div class="form-group">
-                    <span>>Genres:</span>
+                    <span>Genres:</span>
                         <label><input type="checkbox" name="genre" value="Thriller">Non-fiction</label>
                         <label><input type="checkbox" name="genre" value="Horror">Fiction</label>
                         <label><input type="checkbox" name="genre" value="Comedy">Drama</label>

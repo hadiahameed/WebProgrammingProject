@@ -56,6 +56,8 @@ router.get('/', async (req, res, next) => {
 router.get('/new', async (req, res, next) => {
   let User = await userModel()
   let userId = req.user._id;
+  let name = req.query.bookshelf
+  console.log(name)
 
   try {
     let user = await User.getById(userId);
@@ -64,11 +66,22 @@ router.get('/new', async (req, res, next) => {
         msg: "_id not found"
       })
     }
-    let bookshelves = user.props.bookshelves;
+    let bookshelves = [];
+    if(req.query.bookshelf){
+      bookshelves = [req.query.bookshelf];
+    }
+    else {
+      let arr = user.props.bookshelves;
+      for (var j = 0; j < arr.length; j++) {
+        bookshelves[j] = arr[j].name;
+      };
+      
+    }
     res.render("books/new", { bookshelves: bookshelves, title: "New book" });
   } catch (e) {
-    res.send(e.message)
-    return
+    return res.send({
+      msg: e
+    })
   }
 
 })

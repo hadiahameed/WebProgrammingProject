@@ -19,7 +19,6 @@ $("#addBook").click(async function (event) {
             
             bookshelf: $('input[name=selectedBookshelf]:radio:checked').val()
         });
-        console.log(response)
         if (response.data.msg){
             $.alert(response.data.msg)
         }

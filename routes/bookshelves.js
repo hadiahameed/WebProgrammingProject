@@ -62,6 +62,7 @@ router.get('/:username/new', async (req, res) => {
 
 router.get('/:username', async (req, res) => {
     let User = await userModel()
+    console.log(req.body.bookshelf)
     let userId = req.user._id;
     let user=null;
     try {
@@ -117,6 +118,7 @@ router.delete('/',async (req,res) => {
             let bk = await Book.getById(books[j]._id);
             await bk.delete();
         };*/
+        
         await user.pull('bookshelves', { name: {$eq: req.body.bookshelf} })
         res.json({ success: true })
     } catch (e) {
