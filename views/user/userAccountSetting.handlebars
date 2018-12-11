@@ -10,22 +10,22 @@
     <br>
     <div class="profile-group">
         <label>First Name:</label>
-        <input class="form-control" name="firstname" type="text" value="{{firstname}}">
+        <input class="form-control" name="firstname" type="text" value="{{user.firstname}}">
     </div>
     <br>
     <div class="profile-group">
         <label>Last Name:</label>
-            <input class="form-control" name="lastname" type="text" value="{{lastname}}" >
+            <input class="form-control" name="lastname" type="text" value="{{user.lastname}}" >
     </div>
     <br>
     <div class="profile-group">
         <label>Username:</label>
-            <input class="form-control" name="username" type="text" value="{{username}}">
+            <input class="form-control" name="username" type="text" value="{{user.username}}">
     </div>
     <br>
     <div class="profile-group">
         <label>Password:</label>
-        <input class="form-control" name="password" type="password" value="{{password}}">
+        <input class="form-control" name="password" type="password" value="">
     </div>
     <br>
     <button class="profile-submit" id="submitUpdate" value="submit">Save Profile Settings</button>
@@ -34,6 +34,6 @@
 </div>
 {{/content}}
  {{#content "scripts" mode="append"}}
-        <script src="public/scripts/updateProfile.js"></script>
+        <script src="/public/scripts/updateProfile.js"></script>
     {{/content}}
 {{/extend}}

@@ -7,10 +7,10 @@ var bcrypt = require('bcrypt');
 
 router.get("/:username", async(req,res) => {
     res.render("user/userAccountSetting", {title : "AccountSettings", 
-                                          'firstname' :req.user.firstname, 
-                                          'lastname' : req.user.lastname,
-                                          'username' : req.user.username,
-                                          'password' : req.user.password,
+                                          //'firstname' :req.user.firstname, 
+                                          //'lastname' : req.user.lastname,
+                                          //'username' : req.user.username,
+                                          //'password' : req.user.password,
                                           user: req.user,
                                             });
                                         });
@@ -22,12 +22,8 @@ router.patch("/:username", async (req,res,next) => {
     try
     {
         userId = req.user._id;
-
-        
         let firstname = req.body.firstname;
-  
         let lastname = req.body.lastname;
-
         let username = req.body.username;
         let password = req.body.password;
         if(firstname) userUpdateData.firstname = firstname;
@@ -35,6 +31,7 @@ router.patch("/:username", async (req,res,next) => {
         if(username) userUpdateData.username= username;
         if(password)
         {
+          console.log(password)
          const saltRounds = 16;
          const hashedPassword = await bcrypt.hash(password, saltRounds);
          userUpdateData.password = hashedPassword;

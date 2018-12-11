@@ -3,13 +3,13 @@ $("#submitUpdate").click(async function () {
    var lastname = $("input[name='lastname']").val()
    var username = $("input[name='username']").val();
    var password = $("input[name='password']").val();
-   console.log(firstname);
-   let res = await axios.patch('/profileEdit', {
+   console.log("Inside script")
+   console.log(password)
+   let res = await axios.patch(`/profileEdit/${username}`, {
         firstname : firstname,
         lastname : lastname,
         username:username,
         password:password
     });
-    console.log(res);
     $.alert(res.data.msg);
 })
