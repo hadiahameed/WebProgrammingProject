@@ -48,3 +48,10 @@ main {
 .error {
     color: rgb(173, 48, 48)
 }
+
+.help_text_style {
+    font-size: 11px;
+    color: green;
+    margin-top:0;
+    clear:both;
+}
