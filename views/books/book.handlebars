@@ -8,8 +8,9 @@
                 new book</a></button> --}}
         <div class="bookInfo">
             <div class="bookText">
-                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Book to
-                bookshelf</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Book
+                    to
+                    bookshelf</button>
                 <h1 class="bookTitle" id={{_id}}> {{title}} </h1>
                 <h2 id="author"> {{author}} </h2>
                 {{#if rating}}
@@ -21,9 +22,14 @@
                 <div class="review">
                     <div>{{this.reviewBody}}</div>
                     <p>by <a href="/user/profile">{{this.userProfile.userFirstName}} {{this.userProfile.userLastName}}</a></p>
-
-                    <button id={{this._id}} class="fa fa-thumbs-up reviewLike">{{#if this.likes}}{{this.likes}}{{else}}
+                    {{#ifCompare this.userProfile.userId false}}
+                    <button id={{this._id}} class="fa fa-thumbs-up reviewLike">{{#if this.likes}}{{this.likes.count}}{{else}}
                         0 {{/if}}</button>
+                    {{/ifCompare}}
+                    {{#ifCompare this.userProfile.userId true}}
+                    <button id={{this._id}} disabled="true" class="fa fa-thumbs-up reviewLike">{{#if this.likes}}{{this.likes.count}}{{else}}
+                        0 {{/if}}</button>
+                    {{/ifCompare}}
                 </div>
                 {{/each}}
                 {{else}}
@@ -49,7 +55,7 @@
             </div>
             <img class="bookImage" src="{{image}}" alt="Card image cap">
 
-           
+
 
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">

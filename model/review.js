@@ -4,7 +4,7 @@ module.exports = async () => {
     let Review = await Model('review', {
         bookId: String,
         userProfile: Object,
-        likes: String,
+        likes: Object,
         reviewBody: String
     })
 

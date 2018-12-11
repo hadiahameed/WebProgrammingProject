@@ -23,7 +23,10 @@ router.post('/', async (req, res, next) => {
         userFirstName,
         userLastName
     }
-    let likes = "0";
+    let likes = {
+        count: "0",
+        userId: []
+    }
     let Reviews = await reviewModel()
     let bookReview = new Reviews({
       bookId,
@@ -46,9 +49,10 @@ router.patch("/", async (req,res,next) => {
     try
     {
         let review = await Review.getById(reviewId);
-        let likes = review.props.likes;
+        let likes = review.props.likes.count;
         likes = parseInt(likes) + 1;
-        review.props.likes = ""+likes;
+        review.props.likes.count = ""+likes;
+        review.props.likes.userId.push(req.user._id);
         review.updateAll();
         res.json({ success: true })
     } catch (e) {
