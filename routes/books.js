@@ -58,7 +58,6 @@ router.get('/new', async (req, res, next) => {
   let User = await userModel()
   let userId = req.user._id;
   let name = req.query.bookshelf
-  console.log(name)
 
   try {
     let user = await User.getById(userId);
@@ -289,11 +288,9 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
       await user.addBook(bookshelf, savedBook)
       res.redirect(`/books`)
     } catch (e) {
-      res.status(500).render("books/books", {
-        errors: e,
-        hasErrors: true,
-        title: "Error"
-      });
+      return res.send({
+        msg: e
+      })
     }
   } catch (e) {
     res.status(500).render("books/books", {
@@ -302,15 +299,13 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
       title: "Error"
     });
   }
-
-
-
 })
 
 router.delete('/books/:id', async (req, res, next) => {
   let id = req.params.id
-  let Books = await bookModel()
+
   try {
+    let Books = await bookModel()
     let book = await Books.getById(id)
     if (book == null) {
       return res.send({
@@ -320,7 +315,9 @@ router.delete('/books/:id', async (req, res, next) => {
     let result = await book.delete()
     res.send(result)
   } catch (e) {
-    res.send(e.message)
+    return res.send({
+      msg: e
+    })
   }
 })
 
@@ -371,7 +368,7 @@ router.delete('/', async (req, res) => {
 
     }
   }
-  try{
+  try {
     await book.delete();
   }
   catch (e) {
@@ -396,7 +393,6 @@ router.delete('/', async (req, res) => {
         }
       };
       user.props.bookshelves = arr;
-      console.log(user.props.bookshelves)
       await user.updateAll()
 
 

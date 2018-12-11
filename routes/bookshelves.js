@@ -62,7 +62,6 @@ router.get('/:username/new', async (req, res) => {
 
 router.get('/:username', async (req, res) => {
     let User = await userModel()
-    console.log(req.body.bookshelf)
     let userId = req.user._id;
     let user=null;
     try {
