@@ -71,11 +71,13 @@ router.get('/:username', async (req, res) => {
         }
         user = users[0];
         let bookshelves = user.bookshelves;
+        console.log("Check if isMe true")
+        console.log(user._id == req.user._id)
         res.render("bookshelf/bookshelves",{bookshelves, 
-                                            title: "Bookshelves",
                                             user: req.user,
                                             feed_user: user,
-                                            isMe: user._id == req.user._id
+                                            isMe: user._id == req.user._id,
+                                            title: "Bookshelves"
                                         });
     } catch (e) {
         res.send(e.message)
