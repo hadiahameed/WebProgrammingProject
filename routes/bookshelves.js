@@ -71,8 +71,6 @@ router.get('/:username', async (req, res) => {
         }
         user = users[0];
         let bookshelves = user.bookshelves;
-        console.log("Check if isMe true")
-        console.log(user._id == req.user._id)
         res.render("bookshelf/bookshelves",{bookshelves, 
                                             user: req.user,
                                             feed_user: user,
