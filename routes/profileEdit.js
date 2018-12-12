@@ -27,8 +27,8 @@ router.patch("/:username", async (req,res,next) => {
         let username = req.body.username;
         let password = req.body.password;
         if(firstname) userUpdateData.firstname = firstname;
-        if(lastname) userUpdateData.lastname = lastname;
-        if(username) userUpdateData.username= username;
+        if(lastname)  userUpdateData.lastname = lastname;
+        if(username)  userUpdateData.username= username;
         if(password)
         {
          const saltRounds = 16;

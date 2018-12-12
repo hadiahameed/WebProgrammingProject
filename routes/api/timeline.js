@@ -45,7 +45,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:username', async (req, res, next) => {
     let User = await userModel()
-    let users = await User.getBy( req.params.username )
+    let users = await User.getBy( { username: req.params.username } )
     if (users.length == 0) {
         return res.send({
             success: false,

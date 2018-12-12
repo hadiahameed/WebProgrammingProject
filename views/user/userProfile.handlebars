@@ -30,9 +30,15 @@
                             <dd>{{feed_user.username}}</dd>
                             <dt>Email: </dt>
                             <dd>{{feed_user.email}}</dd>
-                        </dl>
-                        
+                        </dl> 
                     </div>
+                    <div class="col-8">
+                        {{#if isMe}}
+                            <a class="btn btn-block btn-outline-primary" href="/" >Timeline</a>
+                        {{else}}
+                            <a class="btn btn-block btn-outline-primary" href="/timeline/{{feed_user.username}}" >Timeline</a>
+                        {{/if}}  
+                    </div> 
                 </div>
                 <div class="col-md-5 px-2 mt-7">
                     {{#if isMe}}
@@ -108,7 +114,7 @@
                 <div class="col-md-3 mt-2">
                     {{#if isMe}}
                     <button type="button" data-username="{{feed_user.username}}" class="btn btn-primary" id="addShelf">
-                    Add bookshelf
+                    <i class="fas fa-plus"></i> Add bookshelf
                     </button> 
                     {{/if}}
                     <br>
