@@ -326,3 +326,8 @@ form#newuser span {
   {
       color: green;
   }
+
+  .disabledRating
+  {
+    opacity: 0.4;
+  }
