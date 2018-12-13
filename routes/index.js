@@ -18,6 +18,18 @@ const xss = require('../middlewares/xss');
 const api = require('./api')
 
 module.exports = app => {
+    app.use((req, res, next) => {
+        let route = req.url.split('/')
+        if(route.length > 1) {
+            res.locals.navbar_active = route[1]
+        }
+        else {
+            res.locals.navbar_active = 'home'
+        }
+        console.log(route)
+        next()
+    })
+    
     /**
      * Fully accessible
      */
