@@ -1,0 +1,39 @@
+{{#extend "loggedIn"}}
+{{#content 'styles' mode='append'}}
+<link rel="stylesheet" href="/public/css/search.css">
+{{/content}}
+{{#content 'content'}}
+<div class="container">
+    {{#if empty}}
+    <div class="jumbotron mt-3">
+        <h1 class="display-4">No Followers</h1>
+        <hr class="my-4">
+        <p>Please try to search for users to follow and interact with them.</p>
+        <a class="btn btn-primary" href="/" role="button">Home</a>
+    </div>
+    {{else}}
+        {{#if followers}}
+        <div class="jumbotron mt-3">
+            <h1 class="display-4">Followers</h1>
+            <hr class="my-4">
+            <ul class="list-unstyled">
+            {{#each followers}}
+                <li class="media bg-white shadow rounded p-2 mt-3">
+                    <div class="img-thumbnail mr-3 user-avatar d-flex align-items-center">
+                        <img class="img-fluid mt-auto mb-auto ml-0 mr-0" src="{{#if this.image}}/{{this.image}}{{else}}https://placeimg.com/480/480/any{{/if}}" alt="Generic placeholder image">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1">{{this.username}}</h5>
+                        <div>
+                            <a href="/timeline/{{this.username}}" class="btn btn-outline-primary">View</a>
+                        </div>
+                    </div>
+                </li>
+            {{/each}}
+            </ul>
+        </div>
+        {{/if}}
+    {{/if}}
+</div>
+{{/content}}
+{{/extend}}

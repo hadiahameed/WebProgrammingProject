@@ -18,8 +18,8 @@
                         {{/with}}
                         <hr>
                         <dl class="text-secondary">
-                            <dd><i class="text-secondary fas fa-user-friends"></i> Following: {{feed_user.following.length}}</dd>
-                            <dd><i class="text-secondary fas fa-users"></i> Followers: {{feed_user.followers.length}}</dd>
+                            <dd><a href="/users/{{feed_user.username}}/following" class="text-dark"><i class="text-secondary fas fa-user-friends"></i> Following: {{feed_user.following.length}}</a></dd>
+                            <dd><a href="/users/{{feed_user.username}}/followers" class="text-dark"><i class="text-secondary fas fa-users"></i> Followers: {{feed_user.followers.length}}</a></dd>
                         </dl>
                         {{#if isMe}}
                         <a href="/user/{{user.username}}" class="btn btn-block btn-outline-primary">Profile</a>
