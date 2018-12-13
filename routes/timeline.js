@@ -21,7 +21,7 @@ router.get('/:username', async (req, res, next) => {
     res.render('newsfeed/newsfeed', {
         user: xss(req.user),
         feed_user: user,
-        isMe: user._id == xss(req.user._id),
+        isMe: user._id == req.user._id,
         followed,
         title: "Newsfeed"
     })

@@ -22,7 +22,7 @@ router.get('/', async (req, res, next) => {
       sum += parseInt(elmt[k], 10);
     }
     let addedBy = false;
-    if (book.addedBy == xss(req.user._id)) {
+    if (book.addedBy == req.user._id) {
       addedBy = true;
     }
     BookList[i].addedBy = addedBy;
