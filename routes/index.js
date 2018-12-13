@@ -12,6 +12,7 @@ const profileEditRouter = require('./profileEdit');
 const timelineRouter = require('./timeline')
 const reviewRouter = require('./review');
 const searchRouter = require('./search');
+const xss = require('../middlewares/xss');
 
 /* API Routes */
 const api = require('./api')
@@ -20,9 +21,9 @@ module.exports = app => {
     /**
      * Fully accessible
      */
-    app.use('/', homeRouter)
-    app.use('/validate', vlaidateRouter)
-    app.use('/search', searchRouter)
+    app.use('/', xss, homeRouter)
+    app.use('/validate', xss, vlaidateRouter)
+    app.use('/search', xss, searchRouter)
     
     /**
      * Authentication required
@@ -36,18 +37,18 @@ module.exports = app => {
     }
 
     for(let route in requireAuthenticationRoutes) {
-        app.use(route, authenticate(), requireAuthenticationRoutes[route])
+        app.use(route, xss, authenticate(), requireAuthenticationRoutes[route])
     }
 
     /**
      * Access Control in routes
      */
-    app.use('/users', usersRouter)
+    app.use('/users', xss, usersRouter)
     app.use('/timeline', timelineRouter)
 
     /**
      * Load API Route
      */
-    app.use('/api', api)
+    app.use('/api', xss, api)
 
 }
