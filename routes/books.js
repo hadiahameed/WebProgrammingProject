@@ -237,7 +237,9 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
     }
 
     let image = xss(req.files.image.path);
+    console.log(req.body.title)
     let title = xss(req.body.title);
+    console.log(title)
     let author = xss(req.body.author);
     //let reviewBody = req.body.review;
     // let rating = req.body["book-rating"];
