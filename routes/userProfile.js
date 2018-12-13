@@ -53,7 +53,7 @@ router.get("/:username", authenticate(), async(req,res) => {
         title: "Profile",
         user: req.user,
         feed_user: user,
-        isMe: user._id == xss(req.user._id),
+        isMe: user._id == req.user._id,
         followingUserArray,
         readBooks,
         currentlyReadingBooks,
