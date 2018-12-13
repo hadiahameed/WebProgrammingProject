@@ -2,12 +2,13 @@ const router = require('express').Router()
 const userModel = require('../model/user')
 const bookModel = require('../model/book')
 const reviewModel = require('../model/review')
+const xss = require('xss');
 
 
 router.post('/:username', async (req, res) => {
     let User = await userModel()
-    let userId = req.user._id;
-    let name = req.body.name;
+    let userId = xss(req.user._id);
+    let name = xss(req.body.name);
     let books = [];
 
     try {
@@ -16,7 +17,7 @@ router.post('/:username', async (req, res) => {
             books
         };
         let user = await User.getById(userId);
-        let username = user.props.username;
+        let username = xss(user.props.username);
         if (user == null){
             return res.send({
                 msg: "_id not found"
@@ -46,13 +47,13 @@ router.get('/:username/new', async (req, res) => {
     let User = await userModel()
     let user=null;
     try {
-        let users = await User.getBy({ username: req.params.username })
+        let users = await User.getBy({ username: xss(req.params.username) })
         if (users.length == 0){
             return next(createError(404, 'User Not Found'));
         }
         user = users[0];
         res.render("bookshelf/new",{title: "New bookshelf",
-                                    user: req.user,
+                                    user: xss(req.user),
                                     feed_user: user});
     }catch (e) {
         res.send(e.message)
@@ -62,19 +63,19 @@ router.get('/:username/new', async (req, res) => {
 
 router.get('/:username', async (req, res) => {
     let User = await userModel()
-    let userId = req.user._id;
+    let userId = xss(req.user._id);
     let user=null;
     try {
-        let users = await User.getBy({ username: req.params.username })
+        let users = await User.getBy({ username: xss(req.params.username) })
         if (users.length == 0){
             return next(createError(404, 'User Not Found'));
         }
         user = users[0];
         let bookshelves = user.bookshelves;
         res.render("bookshelf/bookshelves",{bookshelves, 
-                                            user: req.user,
+                                            user: xss(req.user),
                                             feed_user: user,
-                                            isMe: user._id == req.user._id,
+                                            isMe: user._id == xss(req.user._id),
                                             title: "Bookshelves"
                                         });
     } catch (e) {
@@ -87,11 +88,11 @@ router.get('/:username', async (req, res) => {
 router.get('/:username/:bookshelf', async (req, res, next) => {
     let User = await userModel()
     let users = await User.getBy(
-        { username: req.params.username },
+        { username: xss(req.params.username) },
         {
             projection: { 
                 bookshelves: {
-                    $elemMatch:  {name: req.params.bookshelf }
+                    $elemMatch:  {name: xss(req.params.bookshelf) }
                 }
             }
         }
@@ -110,10 +111,10 @@ router.get('/:username/:bookshelf', async (req, res, next) => {
     }
     
     res.render('bookshelf/search', {
-        query_str: req.params.bookshelf,
+        query_str: xss(req.params.bookshelf),
         empty: !user.bookshelves || user.bookshelves[0].books.length == 0,
         books: user.bookshelves[0].books,
-        isMe: req.user.username == req.params.username
+        isMe: xss(req.user.username) == xss(req.params.username)
     })
 })
 
@@ -121,7 +122,7 @@ router.delete('/',async (req,res) => {
 
     let User = await userModel(); 
     
-    let userId = req.user._id;
+    let userId = xss(req.user._id);
     try {
         let user = await User.getById(userId);
         if (user == null){
@@ -151,7 +152,7 @@ router.delete('/',async (req,res) => {
             await bk.delete();
         };*/
         
-        await user.pull('bookshelves', { name: {$eq: req.body.bookshelf} })
+        await user.pull('bookshelves', { name: {$eq: xss(req.body.bookshelf)} })
         res.json({ success: true })
     } catch (e) {
         res.send(e.message)
