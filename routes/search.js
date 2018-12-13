@@ -10,19 +10,34 @@ const authenticate = require('../middlewares/authenticate')
 
 router.get('/', authenticate(), async (req, res, next) => {
     let q = xss(req.query.q)
+    let tags = req.query.tags
+    if(tags) {
+        tags = tags.split('|')
+    }
+    else {
+        tags = []
+    }
     // if (!q) {
     //     return next(new Error('search content cannot be empty'))
     // }
 
     let Book = await bookModel()
     let User = await userModel()
-    let book_result = await Book.getBy({ $text: { $search: q} })
-    let user_result = await User.getBy({ $text: { $search: q} }, { projection: ['username', 'lastname', 'firstname', 'image'] })
+    let book_result = []
+    if(tags.length != 0) {
+        book_result = await Book.getBy({ $text: { $search: q }, tags: { $in: tags } })
+    }
+    else {
+        book_result = await Book.getBy({ $text: { $search: q }})
+    }
+    let user_result = await User.getBy({ $text: { $search: q } }, { projection: ['username', 'lastname', 'firstname', 'image'] })
+    
     res.render('pages/search', {
         books: book_result,
         users: user_result,
         empty: user_result.length == 0 && book_result == 0,
-        query_str: q
+        query_str: q,
+        tags: tags,
     })
 });
 
