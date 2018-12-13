@@ -5,7 +5,7 @@ $(document).ready(function() {
             let formdata = new FormData()
             formdata.append('avatar', input.files[0])
             
-            let res = await axios.patch('/user/:username', formdata);
+            let res = await axios.patch(`/user/${username}`, formdata);
             location.reload()
         }
     }
