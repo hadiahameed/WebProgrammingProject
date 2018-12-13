@@ -7,7 +7,7 @@
                 Add new book</a>
         {{#each books as |book|}}
         <div class="booksList">
-            <a href="/books/{{this._id}}"><img src={{this.image}} alt={{this.title}} class="image"></a>
+            <a href="/books/{{this._id}}"><img src={{this.image}} alt={{this._id}} class="image"></a>
             <div>
                 <a href="/books/{{this._id}}">
                     <h1 class="bookTitle">Title: {{this.title}} </h1>

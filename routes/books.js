@@ -4,6 +4,7 @@ const userModel = require('../model/user')
 const reviewModel = require('../model/review')
 var multiparty = require('connect-multiparty'),
   multipartyMiddleware = multiparty({ uploadDir: './public/resources/' });
+const xss = require('xss');
 
 
 router.get('/', async (req, res, next) => {
@@ -21,7 +22,7 @@ router.get('/', async (req, res, next) => {
       sum += parseInt(elmt[k], 10);
     }
     let addedBy = false;
-    if (book.addedBy == req.user._id) {
+    if (book.addedBy == xss(req.user._id)) {
       addedBy = true;
     }
     BookList[i].addedBy = addedBy;
@@ -56,8 +57,8 @@ router.get('/', async (req, res, next) => {
 
 router.get('/new', async (req, res, next) => {
   let User = await userModel()
-  let userId = req.user._id;
-  let name = req.query.bookshelf
+  let userId = xss(req.user._id);
+  let name = xss(req.query.bookshelf)
 
   try {
     let user = await User.getById(userId);
@@ -67,8 +68,8 @@ router.get('/new', async (req, res, next) => {
       })
     }
     let bookshelves = [];
-    if (req.query.bookshelf) {
-      bookshelves = [req.query.bookshelf];
+    if (xss(req.query.bookshelf)) {
+      bookshelves = [xss(req.query.bookshelf)];
     }
     else {
       let arr = user.props.bookshelves;
@@ -102,9 +103,9 @@ router.get("/:id", async (req, res) => {
   try {
     let Book = await bookModel()
     let Review = await reviewModel()
-    let BookObject = await Book.getById(req.params.id);
+    let BookObject = await Book.getById(xss(req.params.id));
     let User = await userModel()
-    let userId = req.user._id;
+    let userId = xss(req.user._id);
 
     let user = await User.getById(userId);
     if (user == null) {
@@ -168,7 +169,7 @@ router.get("/:id", async (req, res) => {
 router.post('/:id', multipartyMiddleware, async (req, res, next) => {
   let User = await userModel()
   let Books = await bookModel()
-  let userId = req.user._id;
+  let userId = xss(req.user._id);
 
   try {
     let user = await User.getById(userId);
@@ -178,9 +179,9 @@ router.post('/:id', multipartyMiddleware, async (req, res, next) => {
       })
     }
 
-    if (req.params.id) {
-      let bookId = req.params.id;
-      let foundBook = await Books.getById(req.params.id);
+    if (xss(req.params.id)) {
+      let bookId = xss(req.params.id);
+      let foundBook = await Books.getById(xss(req.params.id));
       if (foundBook == null) {
         return res.send({
           msg: `Book not found`
@@ -188,7 +189,7 @@ router.post('/:id', multipartyMiddleware, async (req, res, next) => {
       }
 
       let arr = user.props.bookshelves;
-      let bookshelf = req.body.bookshelf;
+      let bookshelf = xss(req.body.bookshelf);
       let obj = arr.find(o => o.name === bookshelf);
       let books = obj.books;
 
@@ -225,7 +226,7 @@ router.post('/:id', multipartyMiddleware, async (req, res, next) => {
 
 router.post('/', multipartyMiddleware, async (req, res, next) => {
   let User = await userModel()
-  let userId = req.user._id;
+  let userId = xss(req.user._id);
 
   try {
     let user = await User.getById(userId);
@@ -235,12 +236,14 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
       })
     }
 
-    let image = req.files.image.path;
-    let title = req.body.title;
-    let author = req.body.author;
+    let image = xss(req.files.image.path);
+    console.log(req.body.title)
+    let title = xss(req.body.title);
+    console.log(title)
+    let author = xss(req.body.author);
     //let reviewBody = req.body.review;
     // let rating = req.body["book-rating"];
-    if (!req.body.bookshelf) {
+    if (!xss(req.body.bookshelf)) {
       res.status(500).render("books/books", {
         errors: "User does not have bookshelves yet!",
         hasErrors: true,
@@ -248,10 +251,10 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
       });
     }
 
-    let bookshelf = req.body.bookshelf;
+    let bookshelf = xss(req.body.bookshelf);
 
-    if (req.body.genre) {
-      var tags = req.body.genre;
+    if (xss(req.body.genre)) {
+      var tags = xss(req.body.genre);
       if (typeof tags === "string") tags = tags.split();
     } else {
       var tags = [];
@@ -305,7 +308,7 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
 })
 
 router.delete('/books/:id', async (req, res, next) => {
-  let id = req.params.id
+  let id = xss(req.params.id)
 
   try {
     let Books = await bookModel()
@@ -356,7 +359,7 @@ router.delete('/', async (req, res) => {
   let Book = await bookModel();
   let Review = await reviewModel();
   let UserList = await User.getAll();
-  let bookId = req.body.book;
+  let bookId = xss(req.body.book);
   let book = await Book.getById(bookId);
   let reviewIds = book.props.review;
   for (var k = 0; k < reviewIds.length; k++) {

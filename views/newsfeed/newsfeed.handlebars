@@ -18,8 +18,8 @@
                         {{/with}}
                         <hr>
                         <dl class="text-secondary">
-                            <dd><i class="text-secondary fas fa-user-friends"></i> Following: {{feed_user.following.length}}</dd>
-                            <dd><i class="text-secondary fas fa-users"></i> Followers: {{feed_user.followers.length}}</dd>
+                            <dd><a href="/users/{{feed_user.username}}/following" class="text-dark"><i class="text-secondary fas fa-user-friends"></i> Following: {{feed_user.following.length}}</a></dd>
+                            <dd><a href="/users/{{feed_user.username}}/followers" class="text-dark"><i class="text-secondary fas fa-users"></i> Followers: {{feed_user.followers.length}}</a></dd>
                         </dl>
                         {{#if isMe}}
                         <a href="/user/{{user.username}}" class="btn btn-block btn-outline-primary">Profile</a>
@@ -27,7 +27,7 @@
 
                         <button id="unfollowBtn" data-username="{{feed_user.username}}" type="button" class="{{#unless followed}}d-none{{/unless}} btn btn-block btn-outline-danger">Unfollow</button>
                         <button id="followBtn" data-username="{{feed_user.username}}" type="button" class="{{#if followed}}d-none{{/if}} btn btn-block btn-outline-primary">Follow</button>
-                        <button id="sendMsgBtn" type="button" class="btn btn-block btn-outline-dark">Send Message</button>
+                        {{!-- <button id="sendMsgBtn" type="button" class="btn btn-block btn-outline-dark">Send Message</button> --}}
                         <button id="viewProfile" data-username="{{feed_user.username}}" type="button" class="btn btn-block btn-outline-dark">View Profile</button>
                         {{/if}}
                     </div>
@@ -70,15 +70,15 @@
                                 <h5 class="mt-0 mb-1">List-based media object</h5>
                                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                                 </div> --}}
-                            </li>
+                            {{!-- </li> --}}
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-3 mt-2">
                     <div id="list-example" class="list-group">
-                        <a class="list-group-item list-group-item-action" href="###"> <i class="far fa-comments"></i> Reviews</a>
-                        <a class="list-group-item list-group-item-action" href="###"> <i class="far fa-heart"></i> Favorites</a>
-                        <a class="list-group-item list-group-item-action" href="###"> <i class="fas fa-book"></i> Readings</a>
+                        <a class="list-group-item list-group-item-action" href="/bookshelves/{{feed_user.username}}/Read"> <i class="fas fa-check-square"></i> Read</a>
+                        <a class="list-group-item list-group-item-action" href="/bookshelves/{{feed_user.username}}/Currently Reading"> <i class="fas fa-book"></i> Currently Reading</a>
+                        <a class="list-group-item list-group-item-action" href="/bookshelves/{{feed_user.username}}/Want to Read"> <i class="far fa-heart"></i> Want to Read</a>
                     </div>
                 </div>
             </div>
@@ -86,10 +86,14 @@
         <template id="media-object-template">
             <li class="media my-4 p-3 bg-white rounded">
                 <div class="rounded image mr-3">
-                    <img class="media-avatar" src="https://placeimg.com/480/480/people" alt="Generic placeholder image">
+                    <a class="user-link">
+                        <img class="media-avatar" src="https://placeimg.com/480/480/people" alt="Generic placeholder image">
+                    </a>
                 </div>
                 <div class="media-body">
-                    <h5 class="mt-0 mb-1 username"></h5>
+                    <a class="user-link">
+                        <h5 class="mt-0 mb-1 username"></h5>
+                    </a>
                     <div class="content"></div>
                 </div>
                 <small class="time"></small>

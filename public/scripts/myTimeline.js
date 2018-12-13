@@ -12,6 +12,7 @@ async function loadFeeds() {
     if (!result.data.feeds) return
     for (let feed of result.data.feeds) {
         let tpl = $(template)
+        tpl.find('.user-link').attr('href', `/timeline/${feed.username}`)
         tpl.attr('id', `feed-${feed.content_uuid}`).find('.username').eq(0).text(feed.username)
         $('.feeds-list').prepend(tpl)
         tpl.find('.time').eq(0).text(moment(feed.timestamp).fromNow())

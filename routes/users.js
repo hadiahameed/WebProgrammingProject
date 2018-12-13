@@ -7,14 +7,15 @@ const validator = require('validator')
 const config = require('config')
 const url = require('url')
 const bcrypt = require("bcrypt");
-const autheticate = require('../middlewares/authenticate')
+const authenticate = require('../middlewares/authenticate')
+const xss = require('xss');
 
 router.post('/', reCaptcha(true), async (req, res, next) => {
-  let firstname = req.body.firstname,
-      lastname  = req.body.lastname,
-      username  = req.body.username,
-      email     = req.body.email,
-      password  = req.body.password
+  let firstname = xss(req.body.firstname),
+      lastname  = xss(req.body.lastname),
+      username  = xss(req.body.username),
+      email     = xss(req.body.email),
+      password  = xss(req.body.password)
   
   if (!firstname || !lastname || !username || !email || !password) {
     res.status(400).json({ success: false, msg: 'missing parameter(s)'})
@@ -91,13 +92,49 @@ router.post('/', reCaptcha(true), async (req, res, next) => {
   }
 })
 
-// router.get("/:id", async (req, res) => {
-//   try {
-//     let User = await userModel()
-//     res.send(await User.getById(req.params.id))
-//   } catch (e) {
-//     res.status(404).json({ error: "User not found" });
-//   }
-// })
+router.get("/:username/following", authenticate(), async (req, res) => {
+  try {
+    let User = await userModel()
+    let result = (await User.getBy({ username: xss(req.params.username) }, {
+      projection: ['following']
+    }))
+    if(result.length == 0) {
+      return next(new Error('User Not Found'))
+    }
+    let following_id = result[0].following
+    let following = await User.getBy({ _id: {$in: following_id }})
+
+    res.render('user/following.handlebars', {
+      empty: !following || following.length == 0,
+      following,
+    })
+
+  } catch (e) {
+    res.status(404).json({ error: "User not found" });
+  }
+})
+
+router.get("/:username/followers", authenticate(), async (req, res) => {
+  try {
+    let User = await userModel()
+    let result = (await User.getBy({ username: xss(req.params.username) }, {
+      projection: ['followers']
+    }))
+    if(result.length == 0) {
+      return next(new Error('User Not Found'))
+    }
+    let followers_id = result[0].followers
+
+    let followers = await User.getBy({ _id: {$in: followers_id }})
+
+    res.render('user/followers.handlebars', {
+      empty: !followers || followers.length == 0,
+      followers
+    })
+
+  } catch (e) {
+    res.status(404).json({ error: "User not found" });
+  }
+})
 
 module.exports = router;

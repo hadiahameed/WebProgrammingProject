@@ -15,7 +15,7 @@ passport.deserializeUser(async function (_id, done) {
     let User = await userModel()
     let user = await User.getById(_id)
     if (user == null) {
-        done(new Error('user not foudn'), false)
+        done(new Error('user not found'), false)
         return
     }
     done(null, user.props);

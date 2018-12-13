@@ -1,9 +1,10 @@
 const router = require('express').Router()
 const userModel = require('../model/user')
+const xss = require('xss');
 
 router.get('/', async (req, res, next) => {
-    let code = req.query.code
-    let email = req.query.email
+    let code = xss(req.query.code)
+    let email = xss(req.query.email)
     if (!code || !email) {
         return res.status(400).render('pages/error', {
             message: "Missing paramter code or email",

@@ -4,11 +4,12 @@ const userModel = require('../model/user')
 const reviewModel = require('../model/review')
 var multiparty = require('connect-multiparty'),
 multipartyMiddleware = multiparty({ uploadDir: './public/resources/' });
+const xss = require('xss');
 
 const authenticate = require('../middlewares/authenticate')
 
 router.get('/', authenticate(), async (req, res, next) => {
-    let q = req.query.q
+    let q = xss(req.query.q)
     // if (!q) {
     //     return next(new Error('search content cannot be empty'))
     // }
