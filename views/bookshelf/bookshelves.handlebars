@@ -16,7 +16,7 @@
                     {{!-- <div class="books"> --}}
                      {{#if ../isMe}}
                         <div class="row buttons">
-                            <div id="{{this.name}}" class="col-md-12 col-md-offset-1" style="float:right; bottom: 10px;z-index: 999;">
+                            <div data-options="{{this.name}}" class="col-md-12 col-md-offset-1" style="float:right; bottom: 10px;z-index: 999;">
                                 <button class="btn btn-warning glyphicon glyphicon-pencil btnEdit"><i class="fas fa-plus"></i> Add Books</button>
                                 {{#ifCond @index}}
                                     <button  class="btn btn-danger glyphicon glyphicon-trash btnExc"><i class="far fa-trash-alt"></i> Delete</button>
