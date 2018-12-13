@@ -19,11 +19,12 @@
             <input required class="form-control" name="lastname" type="text" value="{{user.lastname}}" >
         </div>
         <br>
+        
         <div class="profile-group">
             <label>Username:</label>
-            <input name="username" required minlength="3" class="form-control" type="text" value="{{user.username}}">
-            <p class="user_upate_text_style"><small>Username should be at least 3 characters long.</small></p>
-        </div>
+            <input name="username" required minlength="3" class="form-control" type="text" readonly value="{{user.username}}">
+        </div> 
+        <br>
         <div class="profile-group">
             <label>Password:</label>
             <input name="password" minlength="8" class="form-control" type="password" placeholder="Enter only if you want to change">
