@@ -9,13 +9,18 @@
         <h1 class="display-4">No Books</h1>
         <p class="lead">Sorry, no book found in "{{query_str}}"</p>
         <hr class="my-4">
+        {{#if isMe}}
         <p>Please try to add some books here.</p>
         <a class="btn btn-primary" href="/books/new?bookshelf={{query_str}}" role="button">Add Books</a>
+        {{/if}}
     </div>
     {{else}}
         {{#if books}}
         <div class="jumbotron mt-3">
             <h1 class="display-4">Books</h1>
+            {{#if isMe}}
+            <a class="btn btn-primary float-right" href="/books/new?bookshelf={{query_str}}" role="button">Add Books</a>
+            {{/if}}
             <p class="lead"> In "{{query_str}}"</p>
             <hr class="my-4">
             <ul class="list-unstyled">
