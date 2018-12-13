@@ -53,7 +53,7 @@ router.get('/:username/new', async (req, res) => {
         }
         user = users[0];
         res.render("bookshelf/new",{title: "New bookshelf",
-                                    user: xss(req.user),
+                                    user: req.user,
                                     feed_user: user});
     }catch (e) {
         res.send(e.message)
