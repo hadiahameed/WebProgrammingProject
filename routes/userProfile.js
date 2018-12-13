@@ -51,7 +51,7 @@ router.get("/:username", authenticate(), async(req,res) => {
         "title"     : "You're viewing user profile page",
         "firstName" : xss(req.user.firstname),
         title: "Profile",
-        user: xss(req.user),
+        user: req.user,
         feed_user: user,
         isMe: user._id == xss(req.user._id),
         followingUserArray,
