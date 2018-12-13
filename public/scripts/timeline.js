@@ -4,6 +4,7 @@ async function loadTimeline(username) {
     for (let index in res.data.timeline) {
         let timeline = res.data.timeline[index]
         let tpl = $(template)
+        tpl.find('.user-link').attr('href', `/timeline/${username}`)
         tpl.attr('id', `timeline-${index}`).find('.username').eq(0).text(username)
         $('.feeds-list').prepend(tpl)
         tpl.find('.time').eq(0).text(moment(timeline.timestamp).fromNow())
