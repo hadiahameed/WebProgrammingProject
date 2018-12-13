@@ -53,7 +53,6 @@ router.get('/:username/new', async (req, res) => {
         }
         user = users[0];
         res.render("bookshelf/new",{title: "New bookshelf",
-                                    user: req.user,
                                     feed_user: user});
     }catch (e) {
         res.send(e.message)
@@ -73,7 +72,6 @@ router.get('/:username', async (req, res) => {
         user = users[0];
         let bookshelves = user.bookshelves;
         res.render("bookshelf/bookshelves",{bookshelves, 
-                                            user: req.user,
                                             feed_user: user,
                                             isMe: user._id == req.user._id,
                                             title: "Bookshelves"
