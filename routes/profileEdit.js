@@ -50,7 +50,7 @@ router.patch("/:username", async (req,res,next) => {
 
         let updateCount = await user.update(userUpdateData);
 
-        res.json({msg:`User data is updated successfully. Please login again if you've updated the username and password.`});
+        res.json({msg:`User data is updated successfully. Please login again if you've updated the password.`});
     } catch (e) {
         res.send(e.message)
         return

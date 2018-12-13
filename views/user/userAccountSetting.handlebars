@@ -11,15 +11,14 @@
     <form>
         <div class="profile-group">
             <label>First Name:</label>
-            <input required class="form-control" name="firstname" type="text" value="{{user.firstname}}">
+            <input required minlength="2" class="form-control" name="firstname" type="text" value="{{user.firstname}}">
+            <p class="user_upate_text_style"><small>First name should be at least 2 characters long.</small></p>
         </div>
-        <br>
         <div class="profile-group">
             <label>Last Name:</label>
-            <input required class="form-control" name="lastname" type="text" value="{{user.lastname}}" >
+            <input required minlength="2" class="form-control" name="lastname" type="text" value="{{user.lastname}}">
+            <p class="user_upate_text_style"><small>Last name should be at least 2 characters long.</small></p>
         </div>
-        <br>
-        
         <div class="profile-group">
             <label>Username:</label>
             <input name="username" required minlength="3" class="form-control" type="text" readonly value="{{user.username}}">
