@@ -113,7 +113,7 @@ router.get("/:id", async (req, res) => {
         msg: "_id not found"
       })
     }
-
+    let alreadyRated = false;
     let bookshelves = user.props.bookshelves;
     let arr = BookObject.props.review;
     let reviewArray = [];
@@ -121,10 +121,11 @@ router.get("/:id", async (req, res) => {
       let reviewId = arr[j];
       let ReviewObject = await Review.getById(reviewId);
       ReviewObject = ReviewObject.props
-
+      
       let reviewer = ReviewObject.userProfile.userId;
       if (reviewer == userId) {
         ReviewObject.userProfile.userId = true;
+        alreadyRated = true;
       }
       else {
         ReviewObject.userProfile.userId = false;
@@ -146,19 +147,22 @@ router.get("/:id", async (req, res) => {
     }
     var avg = sum / elmt.length;
     avg = Math.round(avg * 10) / 10;
+    console.log(BookObject.props)
+    console.log(BookObject.props.title)
     res.render("books/book", {
       _id: BookObject.props._id,
-      title: BookObject.props.title,
+      bookTitle: BookObject.props.title,
       author: BookObject.props.author,
       review: reviewArray,
       rating: avg,
       image: BookObject.props.image,
       bookshelves: bookshelves,
+      alreadyRated: alreadyRated,
       title: "Book: " + BookObject.props.title
     });
   }
   catch (e) {
-    res.status(404).json({ error: "Book not found" });
+    res.status(404).json({ msg: e });
   }
 });
 
@@ -213,8 +217,7 @@ router.post('/:id', multipartyMiddleware, async (req, res, next) => {
       res.send(result)
     }
   } catch (e) {
-    res.send(e.message)
-    return
+    res.status(500).json({ msg: e });
   }
 })
 
@@ -287,7 +290,7 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
       savedBook.updateAll();*/
 
       await user.addBook(bookshelf, savedBook)
-      res.redirect(`/books`)
+      res.redirect(`/books/${bookId}`)
     } catch (e) {
       return res.send({
         msg: e

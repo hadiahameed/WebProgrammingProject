@@ -3,7 +3,7 @@
 {{#content "content"}}
 <div class="container mt-3">
     <div class="row">
-        <a href="/books"><i class="fas fa-arrow-left"></i> To all books</a>
+        <p><a href="/books">Books</a>  <i class="fas fa-angle-right"> <i>{{bookTitle}}</i></i></p>
         {{!-- <button type="button" class="btn btn-primary" id="addNewBook"><a href="/books/new" class="text-white">Add
                 new book</a></button> --}}
         <div class="bookInfo">
@@ -11,8 +11,10 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Book
                     to
                     bookshelf</button>
-                <h1 class="bookTitle" id={{_id}}> {{title}} </h1>
-                <h2 id="author"> {{author}} </h2>
+                <br>
+                <br>
+                <h1 class="bookTitle" id={{_id}}> {{bookTitle}} </h1>
+                <h5 id="author"> by {{author}} </h5>
                 {{#if rating}}
                 <p id="bookRating">Rating: {{rating}}</p>
                 {{/if}}
@@ -21,14 +23,17 @@
                 {{#each review}}
                 <div class="review">
                     <div>{{this.reviewBody}}</div>
-                    
-                    <p>by <a href="/user/{{this.userProfile.userUsername}}">{{this.userProfile.userFirstName}} {{this.userProfile.userLastName}}</a></p>
+
+                    <p>by <a href="/user/{{this.userProfile.userUsername}}">{{this.userProfile.userFirstName}}
+                            {{this.userProfile.userLastName}}</a></p>
                     {{#ifCompare this.userProfile.userId false}}
-                    <button id={{this._id}} class="fa fa-thumbs-up reviewLike">{{#if this.likes}}{{this.likes.count}}{{else}}
+                    <button id={{this._id}} class="fa fa-thumbs-up reviewLike">{{#if
+                        this.likes}}{{this.likes.count}}{{else}}
                         0 {{/if}}</button>
                     {{/ifCompare}}
                     {{#ifCompare this.userProfile.userId true}}
-                    <button id={{this._id}} disabled="true" class="fa fa-thumbs-up reviewLike">{{#if this.likes}}{{this.likes.count}}{{else}}
+                    <button id={{this._id}} disabled="true" class="fa fa-thumbs-up reviewLike">{{#if
+                        this.likes}}{{this.likes.count}}{{else}}
                         0 {{/if}}</button>
                     {{/ifCompare}}
                 </div>
@@ -39,7 +44,9 @@
 
                 <form id="newreview" action="/review" method="POST">
                     <h3>Write your own review:</h3>
-                    <div class="form-group">
+                    {{#if review}}
+                    {{#ifCompare alreadyRated false}}
+                    <div class="form-group reviewsPresent">
                         <span>Rating:</span>
                         <label><input type="radio" name="book-rating" value="1" required /> 1</label>
                         <label><input type="radio" name="book-rating" value="2" required /> 2</label>
@@ -47,6 +54,27 @@
                         <label><input type="radio" name="book-rating" value="4" required /> 4</label>
                         <label><input type="radio" name="book-rating" value="5" required /> 5</label>
                     </div>
+                    {{/ifCompare}}
+                    {{#ifCompare alreadyRated true}}
+                    <div class="form-group disabledRating">
+                        <span>Rating:</span>
+                        <label><input type="radio" name="book-rating" value="1" disabled=true /> 1</label>
+                        <label><input type="radio" name="book-rating" value="2" disabled=true /> 2</label>
+                        <label><input type="radio" name="book-rating" value="3" disabled=true /> 3</label>
+                        <label><input type="radio" name="book-rating" value="4" disabled=true /> 4</label>
+                        <label><input type="radio" name="book-rating" value="5" disabled=true /> 5</label>
+                    </div>
+                    {{/ifCompare}}
+                    {{else}}
+                    <div class="form-group reviewsAbsent">
+                        <span>Rating:</span>
+                        <label><input type="radio" name="book-rating" value="1" required /> 1</label>
+                        <label><input type="radio" name="book-rating" value="2" required /> 2</label>
+                        <label><input type="radio" name="book-rating" value="3" required /> 3</label>
+                        <label><input type="radio" name="book-rating" value="4" required /> 4</label>
+                        <label><input type="radio" name="book-rating" value="5" required /> 5</label>
+                    </div>
+                    {{/if}}
                     <div class="form-group">
                         <input type="hidden" value={{_id}} name="bookId" />
                         <textarea name="reviewText" cols="50" rows="10" required></textarea>
@@ -90,6 +118,10 @@
         </div>
     </div>
 </div>
+{{/content}}
+{{#content "styles" mode="append"}}
+<!-- private styles -->
+<link rel="stylesheet" href="/public/css/style.css">
 {{/content}}
 {{#content "scripts" mode="append"}}
 <script src="/public/scripts/reviewLikes.js"></script>
