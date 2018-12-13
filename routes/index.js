@@ -26,7 +26,6 @@ module.exports = app => {
         else {
             res.locals.navbar_active = 'home'
         }
-        console.log(route)
         next()
     })
     
