@@ -331,3 +331,9 @@ form#newuser span {
   {
     opacity: 0.4;
   }
+  .block {
+    width: 90px;
+    flex: 0 0 50px;
+    margin: 5px;
+    background-color: red;
+  }
