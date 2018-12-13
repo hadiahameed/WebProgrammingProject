@@ -84,6 +84,34 @@ router.get('/:username', async (req, res) => {
     
 })
 
+router.get('/:username/:bookshelf', async (req, res, next) => {
+    let User = await userModel()
+    let users = await User.getBy(
+        { username: req.params.username },
+        {
+            projection: { 
+                bookshelves: {
+                    $elemMatch:  {name: req.params.bookshelf }
+                }
+            }
+        }
+    )
+
+    if (users.length == 0) {
+        return next(new Error('User not Found'))
+    }
+
+    user = users[0]
+
+    console.log(user)
+    
+    res.render('bookshelf/search', {
+        query_str: req.params.bookshelf,
+        empty: !user.bookshelves || user.bookshelves[0].books.length == 0,
+        books: user.bookshelves[0].books,
+    })
+})
+
 router.delete('/',async (req,res) => {
 
     let User = await userModel(); 
