@@ -66,14 +66,14 @@ router.get('/:username', async (req, res) => {
     let userId = xss(req.user._id);
     let user=null;
     try {
-        let users = await User.getBy({ username: xss(req.params.username) })
+        let users = await User.getBy({ username: req.params.username })
         if (users.length == 0){
             return next(createError(404, 'User Not Found'));
         }
         user = users[0];
         let bookshelves = user.bookshelves;
         res.render("bookshelf/bookshelves",{bookshelves, 
-                                            user: xss(req.user),
+                                            user: req.user,
                                             feed_user: user,
                                             isMe: user._id == req.user._id,
                                             title: "Bookshelves"
