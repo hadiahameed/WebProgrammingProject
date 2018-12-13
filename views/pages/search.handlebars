@@ -4,7 +4,7 @@
 {{/content}}
 {{#content 'content'}}
 <div class="container">
-    {{#if empty}}
+    {{!-- {{#if empty}}
     <div class="jumbotron mt-3">
         <h1 class="display-4">No Result</h1>
         <p class="lead">Sorry, nothing found related to "{{query_str}}"</p>
@@ -12,12 +12,58 @@
         <p>Please try to search with other key words.</p>
         <a class="btn btn-primary" href="/" role="button">Home</a>
     </div>
-    {{else}}
-        {{#if books}}
+    {{else}} --}}
         <div class="jumbotron mt-3">
             <h1 class="display-4">Books</h1>
             <p class="lead">Result of "{{query_str}}"</p>
+            <div class="p-3 bg-white rounded form form-inline" id="check-form" data-query="{{query_str}}">
+                <div class="custom-control custom-checkbox mr-4">
+                    <input type="checkbox" class="custom-control-input tag-check" value="all" id="all" {{#unless tags.length}} checked disabled{{/unless}}>
+                    <label class="custom-control-label" for="all">All</label>
+                </div>
+                <div class="custom-control custom-checkbox mr-4">
+                    <input type="checkbox" class="custom-control-input tag-check" value="Thriller" id="Thriller" {{#inArray tags "Thriller"}} checked {{/inArray}}>
+                    <label class="custom-control-label" for="Thriller">Non-fiction</label>
+                </div>
+                <div class="custom-control custom-checkbox mr-4">
+                    <input type="checkbox" class="custom-control-input tag-check" value="Horror" id="Horror" {{#inArray tags "Horror"}} checked {{/inArray}}>
+                    <label class="custom-control-label" for="Horror">Fiction</label>
+                </div>
+                <div class="custom-control custom-checkbox mr-4">
+                    <input type="checkbox" class="custom-control-input tag-check" value="Comedy" id="Comedy" {{#inArray tags "Comedy"}} checked {{/inArray}}>
+                    <label class="custom-control-label" for="Comedy">Drama</label>
+                </div>
+                <div class="custom-control custom-checkbox mr-4">
+                    <input type="checkbox" class="custom-control-input tag-check" value="Sci-Fi" id="Sci-Fi" {{#inArray tags "Sci-Fi"}} checked {{/inArray}}>
+                    <label class="custom-control-label" for="Sci-Fi">Sci-Fi</label>
+                </div>
+                <div class="custom-control custom-checkbox mr-4">
+                    <input type="checkbox" class="custom-control-input tag-check" value="Romance" id="Romance" {{#inArray tags "Romance"}} checked {{/inArray}}>
+                    <label class="custom-control-label" for="Romance">Romance</label>
+                </div>
+                <div class="custom-control custom-checkbox mr-4">
+                    <input type="checkbox" class="custom-control-input tag-check" value="Mystery" id="Mystery" {{#inArray tags "Mystery"}} checked {{/inArray}}>
+                    <label class="custom-control-label" for="Mystery">Mystery</label>
+                </div>
+                <div class="custom-control custom-checkbox mr-4">
+                    <input type="checkbox" class="custom-control-input tag-check" value="Religion" id="Religion" {{#inArray tags "Religion"}} checked {{/inArray}}>
+                    <label class="custom-control-label" for="Religion">Religion</label>
+                </div>
+                <div class="custom-control custom-checkbox mr-4">
+                    <input type="checkbox" class="custom-control-input tag-check" value="Childrens" id="Childrens" {{#inArray tags "Childrens"}} checked {{/inArray}}>
+                    <label class="custom-control-label" for="Childrens">Children's</label>
+                </div>
+                <div class="custom-control custom-checkbox mr-4">
+                    <input type="checkbox" class="custom-control-input tag-check" value="Poetry" id="Poetry" {{#inArray tags "Poetry"}} checked {{/inArray}}>
+                    <label class="custom-control-label" for="Poetry">Poetry</label>
+                </div>
+                <div class="custom-control custom-checkbox mr-4">
+                    <input type="checkbox" class="custom-control-input tag-check" value="Biography" id="Biography" {{#inArray tags "Biography"}} checked {{/inArray}}>
+                    <label class="custom-control-label" for="Biography">Biography</label>
+                </div>
+            </div>
             <hr class="my-4">
+            {{#if books}}
             <ul class="list-unstyled">
             {{#each books}}
                 <li class="media bg-white shadow rounded p-2 mt-3">
@@ -38,8 +84,10 @@
                 </li>
             {{/each}}
             </ul>
+            {{else}}
+            <p class="lead">No result for "{{query_str}}" in Books</p>
+            {{/if}}
         </div>
-        {{/if}}
 
         {{#if users}}
         <div class="jumbotron mt-3">
@@ -63,7 +111,10 @@
             </ul>
         </div>
         {{/if}}
-    {{/if}}
+    {{!-- {{/if}} --}}
 </div>
+{{/content}}
+{{#content "scripts" mode="append"}}
+<script src="/public/scripts/search.js"></script>
 {{/content}}
 {{/extend}}
