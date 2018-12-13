@@ -8,13 +8,14 @@ const config = require('config')
 const url = require('url')
 const bcrypt = require("bcrypt");
 const authenticate = require('../middlewares/authenticate')
+const xss = require('xss');
 
 router.post('/', reCaptcha(true), async (req, res, next) => {
-  let firstname = req.body.firstname,
-      lastname  = req.body.lastname,
-      username  = req.body.username,
-      email     = req.body.email,
-      password  = req.body.password
+  let firstname = xss(req.body.firstname),
+      lastname  = xss(req.body.lastname),
+      username  = xss(req.body.username),
+      email     = xss(req.body.email),
+      password  = xss(req.body.password)
   
   if (!firstname || !lastname || !username || !email || !password) {
     res.status(400).json({ success: false, msg: 'missing parameter(s)'})
@@ -94,7 +95,7 @@ router.post('/', reCaptcha(true), async (req, res, next) => {
 router.get("/:username/following", authenticate(), async (req, res) => {
   try {
     let User = await userModel()
-    let result = (await User.getBy({ username: req.params.username }, {
+    let result = (await User.getBy({ username: xss(req.params.username) }, {
       projection: ['following']
     }))
     if(result.length == 0) {
@@ -116,7 +117,7 @@ router.get("/:username/following", authenticate(), async (req, res) => {
 router.get("/:username/followers", authenticate(), async (req, res) => {
   try {
     let User = await userModel()
-    let result = (await User.getBy({ username: req.params.username }, {
+    let result = (await User.getBy({ username: xss(req.params.username) }, {
       projection: ['followers']
     }))
     if(result.length == 0) {
