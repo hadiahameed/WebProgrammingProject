@@ -7,6 +7,8 @@ const authenticate = require("../middlewares/authenticate")
 var multiparty = require('connect-multiparty'),
   multipartyMiddleware = multiparty({ uploadDir: './public/resources/' });
 
+const xss = require('xss');
+
 router.get("/:username", authenticate(), async(req,res) => {
     let User = await userModel();
     let user=null;
@@ -19,12 +21,12 @@ router.get("/:username", authenticate(), async(req,res) => {
     try
     {
         //user = await User.getById(req.user._id);
-        let users = await User.getBy({ username: req.params.username })
+        let users = await User.getBy({ username: xss(req.params.username) })
         if(users.length == 0) {
             return next(createError(404, 'User Not Found'));
         }
         user = users[0]
-        current_user = new User({ _id: req.user._id })
+        current_user = new User({ _id: xss(req.user._id) })
         
         followingUser = user.following.slice(-3);
         followingUser.forEach( async (fUser) => {
@@ -47,11 +49,11 @@ router.get("/:username", authenticate(), async(req,res) => {
     }
     res.render("user/userProfile",{
         "title"     : "You're viewing user profile page",
-        "firstName" : req.user.firstname,
+        "firstName" : xss(req.user.firstname),
         title: "Profile",
-        user: req.user,
+        user: xss(req.user),
         feed_user: user,
-        isMe: user._id == req.user._id,
+        isMe: user._id == xss(req.user._id),
         followingUserArray,
         readBooks,
         currentlyReadingBooks,
@@ -61,7 +63,7 @@ router.get("/:username", authenticate(), async(req,res) => {
 
 router.get('/:username', authenticate(), async (req, res) => {
     let User = await userModel();
-    let user = await User.getBy({ username: req.params.username});
+    let user = await User.getBy({ username: xss(req.params.username)});
 })
 
 router.patch("/:username", authenticate(true), multipartyMiddleware, async(req,res,next) => {
@@ -69,8 +71,8 @@ router.patch("/:username", authenticate(true), multipartyMiddleware, async(req,r
     let userUpdateProfilePicture={};
     try
     {
-        userId = req.user._id;
-        let userImage=req.files.avatar.path;
+        userId = xss(req.user._id);
+        let userImage=xss(req.files.avatar.path);
         userUpdateProfilePicture.image=userImage;
         let user = await User.getById(userId);
         if (user == null){
