@@ -3,6 +3,7 @@ var router = express.Router();
 
 const reviewModel = require('../model/review');
 const bookModel = require('../model/book');
+const xss = require('xss');
 
 /*router.get('/reviews', async (req, res, next) => {
     let Reviews = await reviewModel()
@@ -10,13 +11,13 @@ const bookModel = require('../model/book');
 })*/
 
 router.post('/', async (req, res, next) => {
-    let reviewBody = req.body.reviewText;
-    let bookId = req.body.bookId;
-    let rating = req.body["book-rating"];
-    let userId = req.user._id;
-    let userFirstName = req.user.firstname;
-    let userLastName = req.user.lastname;
-    let userUsername = req.user.username;
+    let reviewBody = xss(req.body.reviewText);
+    let bookId = xss(req.body.bookId);
+    let rating = xss(req.body["book-rating"]);
+    let userId = xss(req.user._id);
+    let userFirstName = xss(req.user.firstname);
+    let userLastName = xss(req.user.lastname);
+    let userUsername = xss(req.user.username);
     let userProfile = {
         userId,
         userFirstName,
@@ -51,7 +52,7 @@ router.post('/', async (req, res, next) => {
 })
 
 router.patch("/", async (req, res, next) => {
-    let reviewId = req.body.reviewId;
+    let reviewId = xss(req.body.reviewId);
 
     try {
         let Review = await reviewModel()
@@ -59,7 +60,7 @@ router.patch("/", async (req, res, next) => {
         let likes = review.props.likes.count;
         likes = parseInt(likes) + 1;
         review.props.likes.count = "" + likes;
-        review.props.likes.userId.push(req.user._id);
+        review.props.likes.userId.push(xss(req.user._id));
         review.updateAll();
         res.json({ success: true })
     } catch (e) {
