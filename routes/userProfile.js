@@ -49,7 +49,7 @@ router.get("/:username", authenticate(), async(req,res) => {
     }
     res.render("user/userProfile",{
         "title"     : "You're viewing user profile page",
-        "firstName" : xss(req.user.firstname),
+        "firstName" : req.user.firstname,
         title: "Profile",
         user: req.user,
         feed_user: user,

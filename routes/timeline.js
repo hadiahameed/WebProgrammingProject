@@ -19,7 +19,7 @@ router.get('/:username', async (req, res, next) => {
     let followed = await current_user.hasFollowed(user._id)
     
     res.render('newsfeed/newsfeed', {
-        user: xss(req.user),
+        user: req.user,
         feed_user: user,
         isMe: user._id == req.user._id,
         followed,
