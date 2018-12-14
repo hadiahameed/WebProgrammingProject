@@ -1,150 +1,154 @@
 {{#extend "loggedIn"}}
-    {{#content "content"}}
-        <div class="container mt-3">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="small-12 medium-2 large-2 columns">
-                        <div class="text-center avatar rounded-circle m-auto">
-                            <!-- User Profile Image -->
-                            {{#if feed_user.image}}
-                              <img class="profile-pic" src="/{{feed_user.image}}" alt="Card image cap">
-                            {{else}}
-                            <img class="profile-pic" src="https://placeimg.com/444/444" alt="Card image cap">
-                            {{/if}}
-                            <!-- Default Image -->
-                            <!-- <i class="fa fa-user fa-5x"></i> -->
-                        </div>
-                    </div>
-                    {{#if isMe}}
-                    <div class="p-image">
-                        <i class="fa fa-camera upload-button"></i>
-                            <input class="file-upload" type="file" accept="image/*"/>
-                    </div>
-                    {{/if}}
-                    <div class="pl-2 pt-2">
-                        <br>
-                        <h4 class="card-title text-left">{{feed_user.firstname}} {{feed_user.lastname}}</h4>
-                        <hr>
-                        <dl class="text-secondary">
-                            <dt> Username: </dt>
-                            <dd>{{feed_user.username}}</dd>
-                            <dt>Email: </dt>
-                            <dd>{{feed_user.email}}</dd>
-                        </dl> 
-                    </div>
-                    <div class="col-8">
-                        {{#if isMe}}
-                            <a class="btn btn-block btn-outline-primary" href="/" >Timeline</a>
-                        {{else}}
-                            <a class="btn btn-block btn-outline-primary" href="/timeline/{{feed_user.username}}" >Timeline</a>
-                        {{/if}}  
-                    </div> 
-                </div>
-                <div class="col-md-5 px-2 mt-7">
-                    {{#if isMe}}
-                        <h1>Welcome {{feed_user.firstname}}</h1>
+{{#content 'styles' mode='append'}}
+<link rel="stylesheet" href="/public/css/style.css">
+{{/content}}
+{{#content "content"}}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="small-12 medium-2 large-2 columns">
+                <div class="text-center avatar rounded-circle m-auto">
+                    <!-- User Profile Image -->
+                    {{#if feed_user.image}}
+                    <img class="profile-pic" src="/{{feed_user.image}}" alt="Card image cap">
                     {{else}}
-                        <h1>You Are Viewing {{feed_user.firstname}}'s Profile</h1>
+                    <img class="profile-pic" src="https://placeimg.com/444/444" alt="Card image cap">
                     {{/if}}
-                    <br>
-                    <div class="user-data-class">
-                        {{#if feed_user.bookshelves.length}}
-                        <br>
-                            <h5><a class="user-bookshelf" href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}}'s Bookshelves</a></h5>
-                            <hr>
-                            <ul class="my-bookshelf">
-                            {{#each feed_user.bookshelves}}
-                                <li>{{this.name}}({{this.books.length}})</li>
-                            {{/each}}
-                            </ul>
-                            <div class="user-books-details">
-                            <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} has finsihed reading</a></h5>
-                            <hr>
-                                <div class="row">
-                                    {{#if readBooks.length}}
-                                    {{#each readBooks as |book|}}
-                                        <div class="book col-3">
-                                            <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
-                                            <h6><a href="/books/{{this._id}}" class="bookTitle"> {{this.title}} </a></h6>
-                                        </div>
-                                    {{/each}}
-                                    {{/if}}
-                                </div>
-                            <br>
-                            <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} is currently reading</a></h5>
-                            <hr>
-                                <div class="row">
-                                    {{#if currentlyReadingBooks.length}}
-                                    {{#each currentlyReadingBooks as |book|}}
-                                        <div class="book col-3">
-                                            <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
-                                            <h6><a href="/books/{{this._id}}" class="bookTitle"> {{this.title}} </a></h6>
-                                        </div>
-                                    {{/each}}
-                                    {{/if}}
-                                </div>
-                            <br>
-                            <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} wants to read</a></h5>
-                            <hr>
-                                <div class="row">
-                                    {{#if wantToReadBooks.length}}
-                                    {{#each wantToReadBooks as |book|}}
-                                        <div class="book col-3">
-                                            <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
-                                            <h6><a href="/books/{{this._id}}" class="bookTitle"> {{this.title}} </a></h6>
-                                        </div>
-                                    {{/each}}
-                                    {{/if}}
-                                </div>
-                            <br>
-                            <h5>{{feed_user.firstname}}'s Latest Updates</h5>
-                            <hr>
-                                {{#if followingUserArray.length}}
-                                    <h6>{{feed_user.firstname}} Recently Followed </h6>
-                                    <ul>
-                                        {{#each followingUserArray}}
-                                            <li><a href="/timeline/{{this}}">{{this}}</a></li>
-                                        {{/each}}
-                                    </ul>                            
-                                {{/if}}
-
-                                {{#if followerUserArray.length}}
-                                    <h6>{{feed_user.firstname}} is Recently Followed by </h6>
-                                    <ul>
-                                        {{#each followerUserArray}}
-                                            <li><a href="/timeline/{{this}}">{{this}}</a></li>
-                                        {{/each}}
-                                    </ul>                            
-                                {{/if}}      
-                        </div>
-                      {{/if}}
-                    </div>
-                </div>
-                <div class="col-md-3 mt-2">
-                    {{#if isMe}}
-                    <button type="button" data-username="{{feed_user.username}}" class="btn btn-primary" id="addShelf">
-                    <i class="fas fa-plus"></i> Add bookshelf
-                    </button> 
-                    {{/if}}
-                    <br>
-                    <h5><a href="/bookshelves/{{feed_user.username}}">Books uploaded by {{feed_user.firstname}}</a></h5>
-                            {{#each feed_user.bookshelves}}    
-                                {{#each this.books}}
-                                <ul>
-                                    <li><a href="/books/{{this._id}}"><h5>{{this.title}}</h5></a></li>
-                                </ul>
-                                {{/each}}
-                            {{/each}} 
+                    <!-- Default Image -->
+                    <!-- <i class="fa fa-user fa-5x"></i> -->
                 </div>
             </div>
-
+            {{#if isMe}}
+            <div class="p-image">
+                <i class="fa fa-camera upload-button"></i>
+                <input class="file-upload" type="file" accept="image/*" />
+            </div>
+            {{/if}}
+            <div class="pl-2 pt-2">
+                <br>
+                <h4 class="card-title text-left">{{feed_user.firstname}} {{feed_user.lastname}}</h4>
+                <hr>
+                <dl class="text-secondary">
+                    <dt> Username: </dt>
+                    <dd>{{feed_user.username}}</dd>
+                    <dt>Email: </dt>
+                    <dd>{{feed_user.email}}</dd>
+                </dl>
+            </div>
+            <div class="col-8">
+                {{#if isMe}}
+                <a class="btn btn-block btn-outline-primary" href="/">Timeline</a>
+                {{else}}
+                <a class="btn btn-block btn-outline-primary" href="/timeline/{{feed_user.username}}">Timeline</a>
+                {{/if}}
+            </div>
         </div>
+        <div class="col-md-5 px-2 mt-7">
+            {{#if isMe}}
+            <h1>Welcome {{feed_user.firstname}}</h1>
+            {{else}}
+            <h1>You Are Viewing {{feed_user.firstname}}'s Profile</h1>
+            {{/if}}
+            <br>
+            <div class="user-data-class">
+                {{#if feed_user.bookshelves.length}}
+                <br>
+                <h5><a class="user-bookshelf" href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}}'s
+                        Bookshelves</a></h5>
+                <hr>
+                <ul class="my-bookshelf">
+                    {{#each feed_user.bookshelves}}
+                    <li>{{this.name}}({{this.books.length}})</li>
+                    {{/each}}
+                </ul>
+                <div class="user-books-details">
+                    <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} has finsihed reading</a></h5>
+                    <hr>
+                    <div class="row">
+                        {{#if readBooks.length}}
+                        {{#each readBooks as |book|}}
+                        <div class="book col-3">
+                            <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
+                            <h6><a href="/books/{{this._id}}" class="bookTitle"> {{this.title}} </a></h6>
+                        </div>
+                        {{/each}}
+                        {{/if}}
+                    </div>
+                    <br>
+                    <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} is currently reading</a></h5>
+                    <hr>
+                    <div class="row">
+                        {{#if currentlyReadingBooks.length}}
+                        {{#each currentlyReadingBooks as |book|}}
+                        <div class="book col-3">
+                            <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
+                            <h6><a href="/books/{{this._id}}" class="bookTitle"> {{this.title}} </a></h6>
+                        </div>
+                        {{/each}}
+                        {{/if}}
+                    </div>
+                    <br>
+                    <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} wants to read</a></h5>
+                    <hr>
+                    <div class="row">
+                        {{#if wantToReadBooks.length}}
+                        {{#each wantToReadBooks as |book|}}
+                        <div class="book col-3">
+                            <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
+                            <h6><a href="/books/{{this._id}}" class="bookTitle"> {{this.title}} </a></h6>
+                        </div>
+                        {{/each}}
+                        {{/if}}
+                    </div>
+                    <br>
+                    <h5>{{feed_user.firstname}}'s Latest Updates</h5>
+                    <hr>
+                    {{#if followingUserArray.length}}
+                    <h6>{{feed_user.firstname}} Recently Followed </h6>
+                    <ul>
+                        {{#each followingUserArray}}
+                        <li><a href="/timeline/{{this}}">{{this}}</a></li>
+                        {{/each}}
+                    </ul>
+                    {{/if}}
+
+                    {{#if followerUserArray.length}}
+                    <h6>{{feed_user.firstname}} is Recently Followed by </h6>
+                    <ul>
+                        {{#each followerUserArray}}
+                        <li><a href="/timeline/{{this}}">{{this}}</a></li>
+                        {{/each}}
+                    </ul>
+                    {{/if}}
+                </div>
+                {{/if}}
+            </div>
+        </div>
+        <div class="col-md-3 mt-2">
+            {{#if isMe}}
+            <a class="btn btn-block btn-outline-primary" data-username="{{feed_user.username}}" id="addShelf" >Add bookshelf</a>
+            {{/if}}
+
+            <h5><a href="/bookshelves/{{feed_user.username}}">Books uploaded by {{feed_user.firstname}}</a></h5>
+            {{#each feed_user.bookshelves}}
+            {{#each this.books}}
+            <ul>
+                <li><a href="/books/{{this._id}}">
+                        <h5>{{this.title}}</h5>
+                    </a></li>
+            </ul>
+            {{/each}}
+            {{/each}}
+        </div>
+    </div>
+
+</div>
 {{/content}}
 {{#content "scripts" mode="append"}}
-  <script>
+<script>
     var username = "{{feed_user.username}}"
-  </script>
-  <script src="/public/scripts/bookshelves.js"></script>
-  <script src="/public/scripts/updateProfilePicture.js"></script>
+</script>
+<script src="/public/scripts/bookshelves.js"></script>
+<script src="/public/scripts/updateProfilePicture.js"></script>
 {{/content}}
 {{/extend}}
