@@ -49,14 +49,15 @@ $(document).ready(function () {
     });
 
     $('#getStarted').click(async function () {
-       
         let valid = $('#infoModal form').validate().form()
         let captcha = $('.g-recaptcha textarea').val()
 
         if(valid == false) {
             return
         }
+
         $('#getStarted').prop('disabled', true);
+        
         if(captcha.length == 0) {
             $.alert('Are you a robot?')
             return
