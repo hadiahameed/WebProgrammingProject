@@ -147,8 +147,6 @@ router.get("/:id", async (req, res) => {
     }
     var avg = sum / elmt.length;
     avg = Math.round(avg * 10) / 10;
-    console.log(BookObject.props)
-    console.log(BookObject.props.title)
     res.render("books/book", {
       _id: BookObject.props._id,
       bookTitle: BookObject.props.title,
@@ -237,9 +235,7 @@ router.post('/', multipartyMiddleware, async (req, res, next) => {
     }
 
     let image = xss(req.files.image.path);
-    console.log(req.body.title)
     let title = xss(req.body.title);
-    console.log(title)
     let author = xss(req.body.author);
     //let reviewBody = req.body.review;
     // let rating = req.body["book-rating"];
