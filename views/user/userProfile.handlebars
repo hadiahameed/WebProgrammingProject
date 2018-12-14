@@ -88,75 +88,14 @@
                         {{/if}}
                     </div>
                     <br>
-                    <div class="user-data-class">
-                        {{#if feed_user.bookshelves.length}}
-                        <br>
-                            <h5><a class="user-bookshelf" href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}}'s Bookshelves</a></h5>
-                            <hr>
-                            <ul class="my-bookshelf">
-                            {{#each feed_user.bookshelves}}
-                                <li>{{this.name}}({{this.books.length}})</li>
-                            {{/each}}
-                            </ul>
-                            <div class="user-books-details">
-                            <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} has finsihed reading</a></h5>
-                            <hr>
-                                <div class="row">
-                                    {{#if readBooks.length}}
-                                    {{#each readBooks as |book|}}
-                                        <div class="book col-3">
-                                            <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
-                                            <h6><a href="/books/{{this._id}}" class="bookTitle"> {{this.title}} </a></h6>
-                                        </div>
-                                    {{/each}}
-                                    {{/if}}
-                                </div>
-                            <br>
-                            <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} is currently reading</a></h5>
-                            <hr>
-                                <div class="row">
-                                    {{#if currentlyReadingBooks.length}}
-                                    {{#each currentlyReadingBooks as |book|}}
-                                        <div class="book col-3">
-                                            <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
-                                            <h6><a href="/books/{{this._id}}" class="bookTitle"> {{this.title}} </a></h6>
-                                        </div>
-                                    {{/each}}
-                                    {{/if}}
-                                </div>
-                            <br>
-                            <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} wants to read</a></h5>
-                            <hr>
-                                <div class="row">
-                                    {{#if wantToReadBooks.length}}
-                                    {{#each wantToReadBooks as |book|}}
-                                        <div class="book col-3">
-                                            <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
-                                            <h6><a href="/books/{{this._id}}" class="bookTitle"> {{this.title}} </a></h6>
-                                        </div>
-                                    {{/each}}
-                                    {{/if}}
-                                </div>
-                            <br>
-                            <h5>{{feed_user.firstname}}'s Latest Updates</h5>
-                            <hr>
-                                {{#if followingUserArray.length}}
-                                    <h6>{{feed_user.firstname}} Recently Followed </h6>
-                                    <ul>
-                                        {{#each followingUserArray}}
-                                            <li><a href="/timeline/{{this}}">{{this}}</a></li>
-                                        {{/each}}
-                                    </ul>                            
-                                {{/if}}
-
-                                {{#if followerUserArray.length}}
-                                    <h6>{{feed_user.firstname}} is Recently Followed By </h6>
-                                    <ul>
-                                        {{#each followerUserArray}}
-                                            <li><a href="/timeline/{{this}}">{{this}}</a></li>
-                                        {{/each}}
-                                    </ul>                            
-                                {{/if}}      
+                    <h5><a href="/bookshelves/{{feed_user.username}}">{{feed_user.firstname}} wants to read</a></h5>
+                    <hr>
+                    <div class="row">
+                        {{#if wantToReadBooks.length}}
+                        {{#each wantToReadBooks as |book|}}
+                        <div class="book col-3">
+                            <a href="/books/{{this._id}}"><img class="card-img-top" src="{{image}}" alt="Card image cap"></a>
+                            <h6><a href="/books/{{this._id}}" class="bookTitle"> {{this.title}} </a></h6>
                         </div>
                         {{/each}}
                         {{/if}}
