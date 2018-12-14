@@ -102,7 +102,6 @@ router.get('/:username/:bookshelf', async (req, res, next) => {
 
     user = users[0]
 
-    console.log(user)
 
     if(!user.bookshelves) {
         return next(new Error('Bookshelf not Found'))

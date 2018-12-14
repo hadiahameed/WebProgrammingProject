@@ -4,7 +4,6 @@ $(document).ready(function () {
         //window.location.href = '/books/new'
         let q = new URLSearchParams()
         let bookshelf = $(this).parent().data( "options" );
-        console.log($(this).parent().data( "options" ))
         q.append('bookshelf', bookshelf)
         window.location.href=`/books/new?${q.toString()}`
     })
@@ -16,7 +15,6 @@ $(document).ready(function () {
 
     $(".btnExc").click(async function () {
         try {
-            console.log($(this).parent().data( "options" ))
             let response = await axios.delete('/bookshelves', {
                 data: { bookshelf: $(this).parent().data( "options" ) }
             });
