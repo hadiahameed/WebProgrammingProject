@@ -15,6 +15,7 @@ router.get("/:username", authenticate(), async(req,res) => {
     let current_user =null;
     let followingUser;
     let followingUserArray=[];
+    let followerUserArray=[];
     let readBooks;
     let currentlyReadingBooks;
     let wantToReadBooks;
@@ -26,15 +27,24 @@ router.get("/:username", authenticate(), async(req,res) => {
             return next(createError(404, 'User Not Found'));
         }
         user = users[0]
-        current_user = new User({ _id: xss(req.user._id) })
+        //current_user = new User({ _id: xss(req.user._id) })
         
         followingUser = user.following.slice(-3);
         followingUser.forEach( async (fUser) => {
             let userInfo = await User.getById(fUser);
-            if(users.length == 0) {
+            if(userInfo.length == 0) {
                 return next(createError(404, 'User Not Found'));
             }
             followingUserArray.push(userInfo.props.username);
+        })
+
+        followerUser = user.followers.slice(-3);
+        followerUser.forEach( async (fUser) => {
+            let nuserInfo = await User.getById(fUser);
+            if(nuserInfo.length == 0) {
+                return next(createError(404, 'User Not Found'));
+            }
+            followerUserArray.push(nuserInfo.props.username);
         })
         
         //Fetch the recently added four books to display
@@ -54,6 +64,7 @@ router.get("/:username", authenticate(), async(req,res) => {
         feed_user: user,
         isMe: user._id == req.user._id,
         followingUserArray,
+        followerUserArray,
         readBooks,
         currentlyReadingBooks,
         wantToReadBooks 
