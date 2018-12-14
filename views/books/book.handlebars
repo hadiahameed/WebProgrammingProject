@@ -8,8 +8,10 @@
                 new book</a></button> --}}
         <div class="bookInfo">
             <div class="bookText">
-                <br>
-                <br>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add
+                        Book
+                        to
+                        bookshelf</button>
                 <h1 class="bookTitle" id={{_id}}> {{bookTitle}} </h1>
                 <h5 id="author"> by {{author}} </h5>
                 {{#if rating}}
@@ -84,12 +86,9 @@
                 <div class="block">
                     <img class="bookImage" src="{{image}}" alt="cover of this book">
                 </div>
-                <div class="block">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add
-                        Book
-                        to
-                        bookshelf</button>
-                </div>
+                {{!-- <div class="block">
+                    
+                </div> --}}
             </div>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
