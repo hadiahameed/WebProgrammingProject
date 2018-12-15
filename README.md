@@ -21,7 +21,6 @@ The main parts of the application are:
 
 1. Unzip the archived codebase;
 1. Run `npm install`  to install required packages;
-2. Unzip the DB `dump.zip`;
 3. Run `mongorestore --db literaryArchives dump/literaryArchives` to import data into DB;
 4. Run `npm start`;
 5. Access `http://localhost:3000`
