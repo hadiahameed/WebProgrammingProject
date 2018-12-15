@@ -5,6 +5,8 @@ Welcome to the Final Project of Group 1!
 Our project is called [The Literary Archives](http://LiteraryArchives.club). It is a website where booklovers can find books, write reviews and add books to their bookshelves. 
 
 Website: http://LiteraryArchives.club
+Username: booklover1
+Password: bookworm
 
 The main parts of the application are:
 - Querying the system for books and filtering based on genre/tags
